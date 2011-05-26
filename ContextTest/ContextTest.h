@@ -16,6 +16,9 @@ public:
 	ContextTest();
 	virtual ~ContextTest();
 
+	virtual void onIdle(const GameTime* gameTime);
+	virtual void onResize(int w, int h);
+	
 private:
 
 };
