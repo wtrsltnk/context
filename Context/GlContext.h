@@ -9,7 +9,8 @@
 #define	GLCONTEXT_H
 
 #include "UserInput.h"
-#include "GameTime.h"
+
+class GameTime;
 
 class GlContext
 {

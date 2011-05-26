@@ -6,6 +6,7 @@
  */
 
 #include "GlContext.h"
+#include "GameTime.h"
 #include <iostream>
 
 extern Mouse::Button sButtonmap[];
@@ -216,14 +217,20 @@ public:
 				MouseState::currentState().setMousePositionY(event.xmotion.y);
 				this->mParent->onMouseMove(event.xmotion.x, event.xmotion.y);
 			}
+			else if (event.type == ConfigureNotify)
+			{
+				this->mWidth = event.xconfigure.width;
+				this->mHeight = event.xconfigure.height;
+				this->mPositionX = event.xconfigure.x;
+				this->mPositionY = event.xconfigure.y;
+				this->mParent->onResize(event.xconfigure.width, event.xconfigure.height);
+			}
 			else if (event.type == DestroyNotify)
 				this->mRunning = false;
 			else if (event.type == FocusIn)
 				this->mActive = true;
 			else if (event.type == FocusOut)
 				this->mActive = false;
-			else if (event.type == ConfigureNotify)
-				this->mParent->onResize(event.xconfigure.width, event.xconfigure.height);
 			else if (event.type == ClientMessage)
 				if (event.xclient.data.l[0] == this->wmDeleteMessage)
 					this->mRunning = false;
@@ -246,13 +253,13 @@ public:
 
 		struct timespec now;
 
-		if (!init)
+		if (init == false)
 			clock_gettime(CLOCK_REALTIME, &initial);
 
 		clock_gettime(CLOCK_REALTIME, &now);
 		measuredTime = (float)(now.tv_sec-initial.tv_sec)+(float)now.tv_nsec/1000000000.0f;
 
-		if (!init)
+		if (init == false)
 		{
 			lastTime = measuredTime;
 			currentTime = measuredTime;
@@ -265,7 +272,7 @@ public:
 		}
 		gameTime = GameTime(currentTime, currentTime - lastTime);
 
-		return &gameTime;//(currentTime - lastTime) * 10.0f;
+		return &gameTime;
 	}
 };
 

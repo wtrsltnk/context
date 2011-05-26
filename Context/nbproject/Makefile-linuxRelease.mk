@@ -35,6 +35,11 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/UserInput.o \
+	${OBJECTDIR}/Camera.o \
+	${OBJECTDIR}/Shader.o \
+	${OBJECTDIR}/Matrix4x4.o \
+	${OBJECTDIR}/Vector3.o \
+	${OBJECTDIR}/Quaternion.o \
 	${OBJECTDIR}/GLee.o \
 	${OBJECTDIR}/GlContext.o
 
@@ -67,6 +72,31 @@ ${OBJECTDIR}/UserInput.o: UserInput.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/UserInput.o UserInput.cpp
+
+${OBJECTDIR}/Camera.o: Camera.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Camera.o Camera.cpp
+
+${OBJECTDIR}/Shader.o: Shader.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Shader.o Shader.cpp
+
+${OBJECTDIR}/Matrix4x4.o: Matrix4x4.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Matrix4x4.o Matrix4x4.cpp
+
+${OBJECTDIR}/Vector3.o: Vector3.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Vector3.o Vector3.cpp
+
+${OBJECTDIR}/Quaternion.o: Quaternion.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Quaternion.o Quaternion.cpp
 
 ${OBJECTDIR}/GLee.o: GLee.c 
 	${MKDIR} -p ${OBJECTDIR}

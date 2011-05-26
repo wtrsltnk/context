@@ -4,17 +4,27 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>Camera.h</itemPath>
       <itemPath>GLee.h</itemPath>
       <itemPath>GameTime.h</itemPath>
       <itemPath>GlContext.h</itemPath>
+      <itemPath>Matrix4x4.h</itemPath>
+      <itemPath>Quaternion.h</itemPath>
+      <itemPath>Shader.h</itemPath>
       <itemPath>UserInput.h</itemPath>
+      <itemPath>Vector3.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>Camera.cpp</itemPath>
       <itemPath>GLee.c</itemPath>
       <itemPath>GlContext.cpp</itemPath>
+      <itemPath>Matrix4x4.cpp</itemPath>
+      <itemPath>Quaternion.cpp</itemPath>
+      <itemPath>Shader.cpp</itemPath>
       <itemPath>UserInput.cpp</itemPath>
+      <itemPath>Vector3.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
