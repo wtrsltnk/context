@@ -10,6 +10,8 @@
 
 #include <GlContext.h>
 #include <ProjectionMatrix.h>
+#include <ModelviewMatrix.h>
+#include <DefaultShader.h>
 
 class ContextTest : public GlContext
 {
@@ -17,11 +19,15 @@ public:
 	ContextTest();
 	virtual ~ContextTest();
 
+	virtual bool onInitializeGl();
 	virtual void onIdle(const GameTime* gameTime);
 	virtual void onResize(int w, int h);
+	virtual void onKeyDown(Key::Code key);
 	
 private:
 	ProjectionMatrix mProjection;
+	ModelviewMatrix mModelview;
+	DefaultShader* mShader;
 
 };
 
