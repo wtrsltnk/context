@@ -46,6 +46,15 @@ const Vector3 Matrix4x4::upVector() const
     return Vector3(this->m[0][1], this->m[1][1], this->m[2][1]);
 }
 
+Matrix4x4& Matrix4x4::operator = (const Matrix4x4& other)
+{
+	for (int i = 0; i < 4; i++)
+		for (int j = 0; j < 4; j++)
+			this->m[i][j] = other.m[i][j];
+	
+	return (*this);
+}
+
 Matrix4x4 Matrix4x4::operator * (const Matrix4x4& second)
 {
 	Matrix4x4 out;

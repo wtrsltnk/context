@@ -40,6 +40,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Shader.o \
 	${OBJECTDIR}/Matrix4x4.o \
 	${OBJECTDIR}/ModelviewMatrix.o \
+	${OBJECTDIR}/DefaultShader.o \
 	${OBJECTDIR}/Vector3.o \
 	${OBJECTDIR}/Quaternion.o \
 	${OBJECTDIR}/GLee.o \
@@ -99,6 +100,11 @@ ${OBJECTDIR}/ModelviewMatrix.o: ModelviewMatrix.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ModelviewMatrix.o ModelviewMatrix.cpp
+
+${OBJECTDIR}/DefaultShader.o: DefaultShader.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/DefaultShader.o DefaultShader.cpp
 
 ${OBJECTDIR}/Vector3.o: Vector3.cpp 
 	${MKDIR} -p ${OBJECTDIR}

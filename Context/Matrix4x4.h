@@ -15,6 +15,7 @@ public:
 	const Vector3 leftVector() const;
 	const Vector3 upVector() const;
 
+	Matrix4x4& operator = (const Matrix4x4& other);
 	Matrix4x4 operator * (const Matrix4x4& other);
 	
 	void loadIdentity();
@@ -28,7 +29,6 @@ public:
 	static Matrix4x4 rotateMatrixZ(float angle);
 	static Matrix4x4 translateMatrix(float x, float y, float z);
 
-protected:
 	float m[4][4];
 
 };

@@ -15,7 +15,7 @@ Shader::Shader()
 
 Shader::~Shader()
 {
-	if (GLEE_VERSION_2_1)
+	if (GLEE_VERSION_2_0)
 	{
 		if (this->mShaderCount > 0)
 		{
@@ -31,9 +31,27 @@ Shader::~Shader()
 	}
 }
 
+void Shader::link()
+{
+	if (GLEE_VERSION_2_0)
+	{
+		this->mProgram = glCreateProgram();
+		
+		for (int i = 0; i < this->mShaderCount; i++)
+			glAttachShader(this->mProgram, this->mShaders[i]);
+
+		glLinkProgram(this->mProgram);
+		
+		this->onLinked();
+	}
+}
+
 void Shader::use()
 {
-	if (GLEE_VERSION_2_1)
+	if (this->mProgram == 0)
+		this->link();
+	
+	if (GLEE_VERSION_2_0)
 	{
 		glUseProgram(this->mProgram);
 	}

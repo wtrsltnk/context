@@ -14,7 +14,11 @@ public:
 	Shader();
 	virtual ~Shader();
 
+	void link();
 	void use();
+	
+protected:
+	virtual void onLinked() { }
 	
 protected:
 	unsigned int mProgram;

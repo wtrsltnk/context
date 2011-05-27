@@ -14,10 +14,15 @@ class ModelviewMatrix : public Matrix4x4
 {
 public:
 	ModelviewMatrix();
+	ModelviewMatrix(const Matrix4x4& matrix);
 	virtual ~ModelviewMatrix();
 
-private:
-
+	void rotate(float x, float y, float z);
+	void move(float x, float y, float z);
+	void moveForward(float amount);
+	void moveLeft(float amount);
+	void moveUp(float amount);
+	
 };
 
 #endif	/* MODELVIEWMATRIX_H */
