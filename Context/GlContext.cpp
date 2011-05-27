@@ -552,6 +552,782 @@ Key::Code sKeymap[] =
 
 #endif	/* PLATFORM_IS_LINUX */
 
+#ifdef PLATFORM_IS_WIN32
+#include <windows.h>
+#include <GLee.h>
+#include <GL/glext.h>
+#include <GL/wglext.h>
+
+class GlContext::Impl
+{
+public:
+	Impl(GlContext* parent)
+		: mParent(parent), mRunning(true), mActive(true), mPositionX(0), mPositionY(0), mWidth(800), mHeight(600), mBits(0),mFullscreen(false),
+				hDC(0), hRC(0), hWnd(0), dwExStyle(WS_EX_APPWINDOW | WS_EX_WINDOWEDGE), dwStyle(WS_OVERLAPPEDWINDOW)
+	{ }
+	virtual ~Impl() { }
+	
+	GlContext* mParent;
+	bool mRunning;
+	bool mActive;
+	int mPositionX;
+	int mPositionY;
+	int mWidth;
+	int mHeight;
+	int mBits;
+	bool mFullscreen;
+	
+	HDC hDC;
+	HGLRC hRC;
+	HWND hWnd;
+	DWORD dwExStyle;
+	DWORD dwStyle;
+	
+	bool create(int major, int minor)
+	{
+		RECT WindowRect = { 0, 0, (long)this->mWidth, (long)this->mHeight };
+
+		if (this->registerClass() == false)
+		{
+			MessageBox(NULL,"Failed To Register The Window Class.","ERROR",MB_OK|MB_ICONEXCLAMATION);
+			return false;
+		}
+
+		if (this->mFullscreen)
+		{
+			if (this->changeScreenResolution(this->mWidth, this->mHeight, this->mBits) == false)
+			{
+				MessageBox(NULL, "Mode Switch Failed.\nRunning In Windowed Mode.", "ERROR", MB_OK | MB_ICONEXCLAMATION);
+				this->mFullscreen = false;
+				adjustWindowRect(WindowRect);
+			}
+			else
+			{
+				ShowCursor(false);
+				this->dwStyle = WS_POPUP;
+				this->dwExStyle |= WS_EX_TOPMOST;
+			}
+		}
+		else
+		{
+			adjustWindowRect(WindowRect);
+		}
+
+		this->hWnd = CreateWindowEx(this->dwExStyle, "OpenGL", "OpenGL", this->dwStyle | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
+									CW_USEDEFAULT, CW_USEDEFAULT,
+									WindowRect.right-WindowRect.left, WindowRect.bottom-WindowRect.top,
+									NULL, NULL,
+									GetModuleHandle(NULL), (VOID*)this);
+		
+		if (this->hWnd == false)
+		{
+			this->destroy();
+			MessageBox(NULL,"Window Creation Error.","ERROR",MB_OK|MB_ICONEXCLAMATION);
+			return false;
+		}
+
+		if (!(this->hDC = GetDC(this->hWnd)))
+		{
+			this->destroy();
+			MessageBox(NULL,"Can't Create A GL Device Context.","ERROR",MB_OK|MB_ICONEXCLAMATION);
+			return false;
+		}
+
+		if (this->choosePixelFormat() == false)
+		{
+			this->destroy();
+			MessageBox(NULL,"Can't Choose A Good Pixel Format.","ERROR",MB_OK|MB_ICONEXCLAMATION);
+			return false;
+		}
+
+		if (GLEE_WGL_ARB_create_context)
+		{
+			this->createOpenGL3xContext();
+		}
+		else
+		{
+			if (this->createOpenGL2xContext() == false)
+				return false;
+		}
+
+		ShowWindow(this->hWnd, SW_SHOW);
+		SetForegroundWindow(this->hWnd);
+		SetFocus(this->hWnd);
+
+		if (this->mParent->onInitializeGl() == false)
+		{
+			this->destroy();
+			return false;
+		}
+		return true;
+	}
+	
+	void destroy()
+	{
+		if (this->hRC)
+		{
+			if (!wglMakeCurrent(NULL, NULL))
+			{
+				MessageBox(NULL,"Release Of DC And RC Failed.","SHUTDOWN ERROR",MB_OK | MB_ICONINFORMATION);
+			}
+
+			if (!wglDeleteContext(this->hRC))
+			{
+				MessageBox(NULL,"Release Rendering Context Failed.","SHUTDOWN ERROR",MB_OK | MB_ICONINFORMATION);
+			}
+			this->hRC = NULL;
+		}
+
+		if (this->hDC && !ReleaseDC(this->hWnd, this->hDC))
+		{
+			MessageBox(NULL,"Release Device Context Failed.","SHUTDOWN ERROR",MB_OK | MB_ICONINFORMATION);
+			this->hDC = NULL;
+		}
+
+		if (this->hWnd && !DestroyWindow(this->hWnd))
+		{
+			MessageBox(NULL,"Could Not Release hWnd.","SHUTDOWN ERROR",MB_OK | MB_ICONINFORMATION);
+			this->hWnd = NULL;
+		}
+
+		if (!UnregisterClass("OpenGL", GetModuleHandle(0)))
+		{
+			MessageBox(NULL,"Could Not Unregister Class.","SHUTDOWN ERROR",MB_OK | MB_ICONINFORMATION);
+		}
+	}
+	
+	void handleEvents()
+	{
+		MSG msg;
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+		{
+			if (msg.message == WM_QUIT)
+			{
+				this->mRunning = false;
+			}
+			else
+			{
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+			}
+		}
+		if (this->mActive)
+		{
+			this->mParent->onIdle(this->getElapsedTime());
+			SwapBuffers(this->hDC);
+		}
+	}
+	
+	GameTime* getElapsedTime()
+	{
+		static GameTime gameTime(0, 0);
+		static bool init = false;
+		static float lastTime;
+		static float currentTime;
+
+		static LONGLONG Frequency = 0;
+		LONGLONG Current;
+
+		float time;
+
+		if (Frequency == 0)
+		{
+			QueryPerformanceFrequency((LARGE_INTEGER*)&Frequency);
+		}
+
+		QueryPerformanceCounter((LARGE_INTEGER*)&Current);
+
+		time = (float)Current / (float)Frequency;
+
+		if (!init)
+		{
+			lastTime = time;
+
+			currentTime = time;
+
+			init = true;
+		}
+		else
+		{
+			lastTime = currentTime;
+
+			currentTime = time;
+		}
+
+		gameTime = GameTime(currentTime, currentTime - lastTime);
+
+		return &gameTime;
+	}
+
+	bool registerClass()
+	{
+		WNDCLASS wc;
+
+		if (GetClassInfo(::GetModuleHandle(NULL), "OpenGL", &wc) == 0)
+		{
+			wc.style			= CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+			wc.lpfnWndProc		= (WNDPROC) GlContext::Impl::staticProc;
+			wc.cbClsExtra		= 0;
+			wc.cbWndExtra		= 0;
+			wc.hInstance		= ::GetModuleHandle(NULL);
+			wc.hIcon			= LoadIcon(NULL, IDI_WINLOGO);
+			wc.hCursor			= LoadCursor(NULL, IDC_ARROW);
+			wc.hbrBackground	= NULL;
+			wc.lpszMenuName		= NULL;
+			wc.lpszClassName	= "OpenGL";
+
+			if (!::RegisterClass(&wc))
+				return false;
+		}
+		return true;
+	}
+
+	bool choosePixelFormat()
+	{
+		GLuint PixelFormat;
+		
+		static	PIXELFORMATDESCRIPTOR pfd=				// pfd Tells Windows How We Want Things To Be
+		{
+			sizeof(PIXELFORMATDESCRIPTOR),				// Size Of This Pixel Format Descriptor
+			1,											// Version Number
+			PFD_DRAW_TO_WINDOW |						// Format Must Support Window
+			PFD_SUPPORT_OPENGL |						// Format Must Support OpenGL
+			PFD_DOUBLEBUFFER,							// Must Support Double Buffering
+			PFD_TYPE_RGBA,								// Request An RGBA Format
+			this->mBits,								// Select Our Color Depth
+			0, 0, 0, 0, 0, 0,							// Color Bits Ignored
+			0,											// No Alpha Buffer
+			0,											// Shift Bit Ignored
+			0,											// No Accumulation Buffer
+			0, 0, 0, 0,									// Accumulation Bits Ignored
+			16,											// 16Bit Z-Buffer (Depth Buffer)
+			0,											// No Stencil Buffer
+			0,											// No Auxiliary Buffer
+			PFD_MAIN_PLANE,								// Main Drawing Layer
+			0,											// Reserved
+			0, 0, 0										// Layer Masks Ignored
+		};
+
+		if (!(PixelFormat=ChoosePixelFormat(this->hDC, &pfd)))
+		{
+			return false;
+		}
+
+		if(!SetPixelFormat(this->hDC,PixelFormat,&pfd))
+		{
+			return false;
+		}
+		return true;
+	}
+
+	bool createOpenGL3xContext()
+	{
+		int attribList[] =
+		{
+			WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
+			WGL_CONTEXT_MINOR_VERSION_ARB, 0,
+			WGL_CONTEXT_FLAGS_ARB, WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB,
+			0, 0
+		};
+
+		HGLRC hContext = 0;
+		HGLRC hCurrentContext = wglGetCurrentContext();
+
+		if (!hCurrentContext)
+		{
+			if (!(hCurrentContext = wglCreateContext(hDC)))
+				return false;
+
+			if (!wglMakeCurrent(hDC, hCurrentContext))
+			{
+				wglDeleteContext(hCurrentContext);
+				return false;
+			}
+
+//			PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB");
+
+			if (wglCreateContextAttribsARB)
+				hContext = wglCreateContextAttribsARB(hDC, 0, attribList);
+
+			wglMakeCurrent(hDC, 0);
+			wglDeleteContext(hCurrentContext);
+		}
+		else
+		{
+			if (!wglMakeCurrent(hDC, hCurrentContext))
+				return false;
+
+//			PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB");
+
+			if (wglCreateContextAttribsARB)
+				hContext = wglCreateContextAttribsARB(hDC, 0, attribList);
+		}
+		return true;
+	}
+
+	bool createOpenGL2xContext()
+	{
+		this->hRC = wglCreateContext(this->hDC);
+		if (this->hRC == NULL)
+			return false;
+
+		return wglMakeCurrent(this->hDC, this->hRC);
+	}
+
+	bool changeScreenResolution(int width, int height, int bitsPerPixel)
+	{
+		DEVMODE dmScreenSettings;
+		ZeroMemory (&dmScreenSettings, sizeof (DEVMODE));
+
+		dmScreenSettings.dmSize = sizeof (DEVMODE);
+		dmScreenSettings.dmPelsWidth = width;
+		dmScreenSettings.dmPelsHeight = height;
+		dmScreenSettings.dmBitsPerPel = bitsPerPixel;
+		dmScreenSettings.dmFields = DM_PELSWIDTH | DM_PELSHEIGHT | DM_BITSPERPEL;
+		
+		if (ChangeDisplaySettings (&dmScreenSettings, CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
+			return false;
+		
+		return true;
+	}
+
+	void adjustWindowRect(RECT& rect)
+	{
+		rect.left = (long)this->mPositionX;
+		rect.top = (long)this->mPositionY;
+		rect.right += (long)this->mPositionX;
+		rect.bottom += (long)this->mPositionY;
+		AdjustWindowRectEx(&rect, this->dwStyle, FALSE, this->dwExStyle);
+	}
+	
+	LRESULT CALLBACK objectProc(Impl* gl, UINT uMsg, WPARAM wParam, LPARAM lParam)
+	{
+		Mouse::Button button;
+		
+		switch (uMsg)
+		{
+			case WM_ACTIVATE:
+			{
+				if (!HIWORD(wParam))
+				{
+					gl->mActive = true;
+				}
+				else
+				{
+					gl->mActive = false;
+				}
+				return 0;
+			}
+
+			case WM_SYSCOMMAND:
+			{
+				switch (wParam)
+				{
+					case SC_SCREENSAVE:					// Screensaver Trying To Start?
+					case SC_MONITORPOWER:				// Monitor Trying To Enter Powersave?
+						return 0;
+				}
+				break;
+			}
+
+			case WM_CLOSE:
+			{
+				gl->mParent->onDestroyGl();
+				gl->mRunning = false;
+				break;
+			}
+
+			case WM_KEYDOWN:
+			{
+				KeyboardState::currentState().setPressed(sKeymap[wParam], true);
+				gl->mParent->onKeyDown(sKeymap[wParam]);
+				return 0;
+			}
+
+			case WM_KEYUP:
+			{
+				KeyboardState::currentState().setPressed(sKeymap[wParam], false);
+				gl->mParent->onKeyUp(sKeymap[wParam]);
+				return 0;
+			}
+
+			case WM_LBUTTONDOWN:
+			{
+				button = Mouse::Left;
+				MouseState::currentState().setButtonPressed(button, true);
+				gl->mParent->onMouseButtonDown(button);
+				return 0;
+			}
+
+			case WM_LBUTTONUP:
+			{
+				button = Mouse::Left;
+				MouseState::currentState().setButtonPressed(button, false);
+				gl->mParent->onMouseButtonUp(button);
+				return 0;
+			}
+
+			case WM_MBUTTONDOWN:
+			{
+				button = Mouse::Middle;
+				MouseState::currentState().setButtonPressed(button, true);
+				gl->mParent->onMouseButtonDown(button);
+				return 0;
+			}
+
+			case WM_MBUTTONUP:
+			{
+				button = Mouse::Middle;
+				MouseState::currentState().setButtonPressed(button, false);
+				gl->mParent->onMouseButtonUp(button);
+				return 0;
+			}
+
+			case WM_RBUTTONDOWN:
+			{
+				button = Mouse::Right;
+				MouseState::currentState().setButtonPressed(button, true);
+				gl->mParent->onMouseButtonDown(button);
+				return 0;
+			}
+
+			case WM_RBUTTONUP:
+			{
+				button = Mouse::Right;
+				MouseState::currentState().setButtonPressed(button, false);
+				gl->mParent->onMouseButtonUp(button);
+				return 0;
+			}
+
+			case WM_MOUSEMOVE:
+			{
+				MouseState::currentState().setMousePositionX(LOWORD(lParam));
+				MouseState::currentState().setMousePositionY(HIWORD(lParam));
+				gl->mParent->onMouseMove(LOWORD(lParam), HIWORD(lParam));
+				return 0;
+			}
+
+			case WM_MOUSEWHEEL:
+			{
+//				gl->onMouseWheel(GET_WHEEL_DELTA_WPARAM(wParam));
+				return 0;
+			}
+
+			case WM_SIZE:
+			{
+				gl->mParent->onResize(LOWORD(lParam),HIWORD(lParam));
+				return 0;
+			}
+		}
+		return DefWindowProc(this->hWnd, uMsg, wParam, lParam);
+	}
+
+	static LRESULT CALLBACK staticProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+	{
+		Impl* gl = NULL;
+
+		if (uMsg == WM_NCCREATE)
+		{
+			gl = reinterpret_cast <Impl*> (((LPCREATESTRUCT)lParam)->lpCreateParams);
+
+			if (gl != NULL)
+			{
+				gl->hWnd = hWnd;
+
+				::SetWindowLong(hWnd, GWL_USERDATA, reinterpret_cast <long> (gl));
+
+				return gl->objectProc(gl, uMsg, wParam, lParam);
+			}
+		}
+		else
+		{
+			gl = reinterpret_cast <Impl*>(::GetWindowLong(hWnd, GWL_USERDATA));
+
+			if (gl != NULL)
+			{
+				return gl->objectProc(gl, uMsg, wParam, lParam);
+			}
+		}
+
+		return DefWindowProc(hWnd, uMsg, wParam, lParam);
+	}
+};
+
+Mouse::Button sButtonmap[]  =
+{
+/*   0 */	Mouse::Left,
+/*   1 */	Mouse::Middle,
+/*   2 */	Mouse::Right,
+/*   3 */	Mouse::XButton1,
+/*   4 */	Mouse::XButton2,
+/*   5 */	Mouse::Unknown,
+/*   6 */	Mouse::Unknown,
+/*   7 */	Mouse::Unknown,
+/*   8 */	Mouse::Unknown
+};
+
+Key::Code sKeymap[] =
+{
+/*   0 */	Key::Unknown,
+/*   1 */	Key::Unknown,
+/*   2 */	Key::Unknown,
+/*   3 */	Key::Unknown,
+/*   4 */	Key::Unknown,
+/*   5 */	Key::Unknown,
+/*   6 */	Key::Unknown,
+/*   7 */	Key::Unknown,
+/*   8 */	Key::Back,
+/*   9 */	Key::Tab,
+/*  10 */	Key::Unknown,
+/*  11 */	Key::Unknown,
+/*  12 */	Key::Unknown,
+/*  13 */	Key::Return,
+/*  14 */	Key::Unknown,
+/*  15 */	Key::Unknown,
+/*  16 */	Key::LShift,
+/*  17 */	Key::LControl,
+/*  18 */	Key::Unknown,
+/*  19 */	Key::Pause,
+/*  20 */	Key::Capslock,
+/*  21 */	Key::Unknown,
+/*  22 */	Key::Unknown,
+/*  23 */	Key::Unknown,
+/*  24 */	Key::Unknown,
+/*  25 */	Key::Unknown,
+/*  26 */	Key::Unknown,
+/*  27 */	Key::Escape,
+/*  28 */	Key::Unknown,
+/*  29 */	Key::Unknown,
+/*  30 */	Key::Unknown,
+/*  31 */	Key::Unknown,
+/*  32 */	Key::Space,
+/*  33 */	Key::PageUp,
+/*  34 */	Key::PageDown,
+/*  35 */	Key::End,
+/*  36 */	Key::Home,
+/*  37 */	Key::Left,
+/*  38 */	Key::Up,
+/*  39 */	Key::Right,
+/*  40 */	Key::Down,
+/*  41 */	Key::Unknown,
+/*  42 */	Key::Unknown,
+/*  43 */	Key::Unknown,
+/*  44 */	Key::Unknown,
+/*  45 */	Key::Insert,
+/*  46 */	Key::Delete,
+/*  47 */	Key::Unknown,
+/*  48 */	Key::Num0,
+/*  49 */	Key::Num1,
+/*  50 */	Key::Num2,
+/*  51 */	Key::Num3,
+/*  52 */	Key::Num4,
+/*  53 */	Key::Num5,
+/*  54 */	Key::Num6,
+/*  55 */	Key::Num7,
+/*  56 */	Key::Num8,
+/*  57 */	Key::Num9,
+/*  58 */	Key::Unknown,
+/*  59 */	Key::Unknown,
+/*  60 */	Key::Unknown,
+/*  61 */	Key::Unknown,
+/*  62 */	Key::Unknown,
+/*  63 */	Key::Unknown,
+/*  64 */	Key::Unknown,
+/*  65 */	Key::A,
+/*  66 */	Key::B,
+/*  67 */	Key::C,
+/*  68 */	Key::D,
+/*  69 */	Key::E,
+/*  70 */	Key::F,
+/*  71 */	Key::G,
+/*  72 */	Key::H,
+/*  73 */	Key::I,
+/*  74 */	Key::J,
+/*  75 */	Key::K,
+/*  76 */	Key::L,
+/*  77 */	Key::M,
+/*  78 */	Key::N,
+/*  79 */	Key::O,
+/*  80 */	Key::P,
+/*  81 */	Key::Q,
+/*  82 */	Key::R,
+/*  83 */	Key::S,
+/*  84 */	Key::T,
+/*  85 */	Key::U,
+/*  86 */	Key::V,
+/*  87 */	Key::W,
+/*  88 */	Key::X,
+/*  89 */	Key::Y,
+/*  90 */	Key::Z,
+/*  91 */	Key::LSystem,
+/*  92 */	Key::Unknown,
+/*  93 */	Key::Unknown,
+/*  94 */	Key::Unknown,
+/*  95 */	Key::Unknown,
+/*  96 */	Key::Unknown,
+/*  97 */	Key::Unknown,
+/*  98 */	Key::Unknown,
+/*  99 */	Key::Unknown,
+/* 100 */	Key::Unknown,
+/* 101 */	Key::Unknown,
+/* 102 */	Key::Unknown,
+/* 103 */	Key::Unknown,
+/* 104 */	Key::Unknown,
+/* 105 */	Key::Unknown,
+/* 106 */	Key::Unknown,
+/* 107 */	Key::Unknown,
+/* 108 */	Key::Unknown,
+/* 109 */	Key::Unknown,
+/* 110 */	Key::Unknown,
+/* 111 */	Key::Unknown,
+/* 112 */	Key::F1,
+/* 113 */	Key::F2,
+/* 114 */	Key::F3,
+/* 115 */	Key::F4,
+/* 116 */	Key::F5,
+/* 117 */	Key::F6,
+/* 118 */	Key::F7,
+/* 119 */	Key::F8,
+/* 120 */	Key::F9,
+/* 121 */	Key::F10,
+/* 122 */	Key::F11,
+/* 123 */	Key::F12,
+/* 124 */	Key::Unknown,
+/* 125 */	Key::Unknown,
+/* 126 */	Key::Unknown,
+/* 127 */	Key::Unknown,
+/* 128 */	Key::Unknown,
+/* 129 */	Key::Unknown,
+/* 130 */	Key::Unknown,
+/* 131 */	Key::Unknown,
+/* 132 */	Key::Unknown,
+/* 133 */	Key::Unknown,
+/* 134 */	Key::Unknown,
+/* 135 */	Key::Unknown,
+/* 136 */	Key::Unknown,
+/* 137 */	Key::Unknown,
+/* 138 */	Key::Unknown,
+/* 139 */	Key::Unknown,
+/* 140 */	Key::Unknown,
+/* 141 */	Key::Unknown,
+/* 142 */	Key::Unknown,
+/* 143 */	Key::Unknown,
+/* 144 */	Key::Unknown,
+/* 145 */	Key::Scrollock,
+/* 146 */	Key::Unknown,
+/* 147 */	Key::Unknown,
+/* 148 */	Key::Unknown,
+/* 149 */	Key::Unknown,
+/* 150 */	Key::Unknown,
+/* 151 */	Key::Unknown,
+/* 152 */	Key::Unknown,
+/* 153 */	Key::Unknown,
+/* 154 */	Key::Unknown,
+/* 155 */	Key::Unknown,
+/* 156 */	Key::Unknown,
+/* 157 */	Key::Unknown,
+/* 158 */	Key::Unknown,
+/* 159 */	Key::Unknown,
+/* 160 */	Key::Unknown,
+/* 161 */	Key::Unknown,
+/* 162 */	Key::Unknown,
+/* 163 */	Key::Unknown,
+/* 164 */	Key::Unknown,
+/* 165 */	Key::Unknown,
+/* 166 */	Key::Unknown,
+/* 167 */	Key::Unknown,
+/* 168 */	Key::Unknown,
+/* 169 */	Key::Unknown,
+/* 170 */	Key::Unknown,
+/* 171 */	Key::Unknown,
+/* 172 */	Key::Unknown,
+/* 173 */	Key::Unknown,
+/* 174 */	Key::Unknown,
+/* 175 */	Key::Unknown,
+/* 176 */	Key::Unknown,
+/* 177 */	Key::Unknown,
+/* 178 */	Key::Unknown,
+/* 179 */	Key::Unknown,
+/* 180 */	Key::Unknown,
+/* 181 */	Key::Unknown,
+/* 182 */	Key::Unknown,
+/* 183 */	Key::Unknown,
+/* 184 */	Key::Unknown,
+/* 185 */	Key::Unknown,
+/* 186 */	Key::SemiColon,
+/* 187 */	Key::Equal,
+/* 188 */	Key::Comma,
+/* 189 */	Key::Subtract,
+/* 190 */	Key::Period,
+/* 191 */	Key::Slash,
+/* 192 */	Key::Tilde,
+/* 193 */	Key::Unknown,
+/* 194 */	Key::Unknown,
+/* 195 */	Key::Unknown,
+/* 196 */	Key::Unknown,
+/* 197 */	Key::Unknown,
+/* 198 */	Key::Unknown,
+/* 199 */	Key::Unknown,
+/* 200 */	Key::Unknown,
+/* 201 */	Key::Unknown,
+/* 202 */	Key::Unknown,
+/* 203 */	Key::Unknown,
+/* 204 */	Key::Unknown,
+/* 205 */	Key::Unknown,
+/* 206 */	Key::Unknown,
+/* 207 */	Key::Unknown,
+/* 208 */	Key::Unknown,
+/* 209 */	Key::Unknown,
+/* 210 */	Key::Unknown,
+/* 211 */	Key::Unknown,
+/* 212 */	Key::Unknown,
+/* 213 */	Key::Unknown,
+/* 214 */	Key::Unknown,
+/* 215 */	Key::Unknown,
+/* 216 */	Key::Unknown,
+/* 217 */	Key::Unknown,
+/* 218 */	Key::Unknown,
+/* 219 */	Key::LBracket,
+/* 220 */	Key::BackSlash,
+/* 221 */	Key::RBracket,
+/* 222 */	Key::Quote,
+/* 223 */	Key::Unknown,
+/* 224 */	Key::Unknown,
+/* 225 */	Key::Unknown,
+/* 226 */	Key::Unknown,
+/* 227 */	Key::Unknown,
+/* 228 */	Key::Unknown,
+/* 229 */	Key::Unknown,
+/* 230 */	Key::Unknown,
+/* 231 */	Key::Unknown,
+/* 232 */	Key::Unknown,
+/* 233 */	Key::Unknown,
+/* 234 */	Key::Unknown,
+/* 235 */	Key::Unknown,
+/* 236 */	Key::Unknown,
+/* 237 */	Key::Unknown,
+/* 238 */	Key::Unknown,
+/* 239 */	Key::Unknown,
+/* 240 */	Key::Unknown,
+/* 241 */	Key::Unknown,
+/* 242 */	Key::Unknown,
+/* 243 */	Key::Unknown,
+/* 244 */	Key::Unknown,
+/* 245 */	Key::Unknown,
+/* 246 */	Key::Unknown,
+/* 247 */	Key::Unknown,
+/* 248 */	Key::Unknown,
+/* 249 */	Key::Unknown,
+/* 250 */	Key::Unknown,
+/* 251 */	Key::Unknown,
+/* 252 */	Key::Unknown,
+/* 253 */	Key::Unknown,
+/* 254 */	Key::Unknown,
+/* 255 */	Key::Unknown
+};
+
+#endif /* PLATFORM_IS_WIN32 */
+
 GlContext::GlContext()
 	: pimpl(new Impl(this))
 {

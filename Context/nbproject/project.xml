@@ -21,6 +21,14 @@
                     <name>linuxRelease</name>
                     <type>2</type>
                 </confElem>
+                <confElem>
+                    <name>win32Debug</name>
+                    <type>2</type>
+                </confElem>
+                <confElem>
+                    <name>win32Release</name>
+                    <type>2</type>
+                </confElem>
             </confList>
         </data>
     </configuration>
