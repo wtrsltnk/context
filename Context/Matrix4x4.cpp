@@ -120,6 +120,16 @@ Matrix4x4 Matrix4x4::translateMatrix(float x, float y, float z)
 	return out;
 }
 
+void Matrix4x4::loadIdentity()
+{
+	for (int i = 0; i < 4; i++)
+		for (int j = 0; j < 4; j++)
+			if (i == j)
+				this->m[i][j] = 1.0f;
+			else
+				this->m[i][j] = 0.0f;
+}
+
 void Matrix4x4::glMultiply() const
 {
 	glMultMatrixf(&this->m[0][0]);

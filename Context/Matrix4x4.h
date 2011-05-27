@@ -17,6 +17,8 @@ public:
 
 	Matrix4x4 operator * (const Matrix4x4& other);
 	
+	void loadIdentity();
+	
 	void glMultiply() const;
 	void print() const;
 
@@ -26,7 +28,7 @@ public:
 	static Matrix4x4 rotateMatrixZ(float angle);
 	static Matrix4x4 translateMatrix(float x, float y, float z);
 
-private:
+protected:
 	float m[4][4];
 
 };

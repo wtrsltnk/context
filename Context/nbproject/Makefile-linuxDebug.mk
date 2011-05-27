@@ -34,10 +34,12 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/ProjectionMatrix.o \
 	${OBJECTDIR}/UserInput.o \
 	${OBJECTDIR}/Camera.o \
 	${OBJECTDIR}/Shader.o \
 	${OBJECTDIR}/Matrix4x4.o \
+	${OBJECTDIR}/ModelviewMatrix.o \
 	${OBJECTDIR}/Vector3.o \
 	${OBJECTDIR}/Quaternion.o \
 	${OBJECTDIR}/GLee.o \
@@ -68,6 +70,11 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libContext.so: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libContext.so -fPIC ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
+${OBJECTDIR}/ProjectionMatrix.o: ProjectionMatrix.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ProjectionMatrix.o ProjectionMatrix.cpp
+
 ${OBJECTDIR}/UserInput.o: UserInput.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
@@ -87,6 +94,11 @@ ${OBJECTDIR}/Matrix4x4.o: Matrix4x4.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Matrix4x4.o Matrix4x4.cpp
+
+${OBJECTDIR}/ModelviewMatrix.o: ModelviewMatrix.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ModelviewMatrix.o ModelviewMatrix.cpp
 
 ${OBJECTDIR}/Vector3.o: Vector3.cpp 
 	${MKDIR} -p ${OBJECTDIR}

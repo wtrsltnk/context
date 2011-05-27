@@ -9,6 +9,8 @@
       <itemPath>GameTime.h</itemPath>
       <itemPath>GlContext.h</itemPath>
       <itemPath>Matrix4x4.h</itemPath>
+      <itemPath>ModelviewMatrix.h</itemPath>
+      <itemPath>ProjectionMatrix.h</itemPath>
       <itemPath>Quaternion.h</itemPath>
       <itemPath>Shader.h</itemPath>
       <itemPath>UserInput.h</itemPath>
@@ -21,6 +23,8 @@
       <itemPath>GLee.c</itemPath>
       <itemPath>GlContext.cpp</itemPath>
       <itemPath>Matrix4x4.cpp</itemPath>
+      <itemPath>ModelviewMatrix.cpp</itemPath>
+      <itemPath>ProjectionMatrix.cpp</itemPath>
       <itemPath>Quaternion.cpp</itemPath>
       <itemPath>Shader.cpp</itemPath>
       <itemPath>UserInput.cpp</itemPath>

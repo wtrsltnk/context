@@ -1,6 +1,6 @@
 #include "Quaternion.h"
-#include <stdio.h>
 #include <math.h>
+#include <iostream>
 
 Quaternion::Quaternion()
 {
@@ -272,5 +272,5 @@ float* Quaternion::toMatrix(float m[4][4])
 
 void Quaternion::print() const
 {
-	std::cout << "q=(" << this->mQuat[0] << " " << this->mQuat[1] << " " << this->mQuat[2] << << " " << this->mQuat[4] << ")" << std::endl;
+	std::cout << "q=(" << this->mQuat[0] << " " << this->mQuat[1] << " " << this->mQuat[2] << " " << this->mQuat[4] << ")" << std::endl;
 }
