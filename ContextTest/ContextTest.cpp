@@ -7,14 +7,16 @@
 
 #include "ContextTest.h"
 #include <GLee.h>
-#include <GL/glu.h>
 
 ContextTest::ContextTest()
+	: mShader(0)
 {
 }
 
 ContextTest::~ContextTest()
 {
+	if (this->mShader != 0)
+		delete this->mShader;
 }
 
 bool ContextTest::onInitializeGl()
@@ -26,20 +28,21 @@ bool ContextTest::onInitializeGl()
 
 void ContextTest::onIdle(const GameTime* gameTime)
 {
+	GLfloat vertices[] ={
+		0.0f, 0.0f, -10.0f,
+		0.0f, 5.0f, -10.0f,
+		5.0f, 5.0f, -10.0f
+	};
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-//	glLoadIdentity();
-//	this->mModelview.glMultiply();
 	
 	this->mShader->use();
 	this->mShader->setProjectionMatrix(this->mProjection);
 	this->mShader->setModelviewMatrix(this->mModelview);
 	
-	glBegin(GL_TRIANGLES);
-	glVertex3f(0.0f, 0.0f, -10.0f);
-	glVertex3f(0.0f, 5.0f, -10.0f);
-	glVertex3f(5.0f, 5.0f, -10.0f);
-	glEnd();
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, sizeof(GL_FLOAT) * 3, &vertices);
+
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
 void ContextTest::onResize(int w, int h)
@@ -48,14 +51,6 @@ void ContextTest::onResize(int w, int h)
 	float aspect = 1.0f * (float(w)/float(h));
 
 	this->mProjection.setPerspective(90, aspect, 1, 3000.0f);
-	
-	glMatrixMode(GL_PROJECTION);
-//	glLoadIdentity();
-	
-//	this->mProjection.glMultiply();
-
-	glMatrixMode(GL_MODELVIEW);
-//	glLoadIdentity();
 }
 
 void ContextTest::onKeyDown(Key::Code key)
