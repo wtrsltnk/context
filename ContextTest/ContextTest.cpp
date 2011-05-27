@@ -9,21 +9,6 @@
 #include <GLee.h>
 #include <GL/glu.h>
 
-char vertexShader[] = 
-"mat4 projection_matrix;" \
-"mat4 modelview_matrix;" \
-"in vec3 vertex;" \
-"void main()" \
-"{" \
-"	gl_Position = vec4(vertex, 1.0);" \
-"}";
-
-char fragmentShader[] = 
-"void main()" \
-"{" \
-"	gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);" \
-"}";
-
 ContextTest::ContextTest()
 {
 }
@@ -34,7 +19,7 @@ ContextTest::~ContextTest()
 
 bool ContextTest::onInitializeGl()
 {
-	this->mShader = new DefaultShader(vertexShader, fragmentShader);
+	this->mShader = new DefaultShader();
 	
 	return true;
 }
@@ -43,8 +28,8 @@ void ContextTest::onIdle(const GameTime* gameTime)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	glLoadIdentity();
-	this->mModelview.glMultiply();
+//	glLoadIdentity();
+//	this->mModelview.glMultiply();
 	
 	this->mShader->use();
 	this->mShader->setProjectionMatrix(this->mProjection);
@@ -65,12 +50,12 @@ void ContextTest::onResize(int w, int h)
 	this->mProjection.setPerspective(90, aspect, 1, 3000.0f);
 	
 	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
+//	glLoadIdentity();
 	
-	this->mProjection.glMultiply();
+//	this->mProjection.glMultiply();
 
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+//	glLoadIdentity();
 }
 
 void ContextTest::onKeyDown(Key::Code key)
