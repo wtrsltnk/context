@@ -17,10 +17,16 @@ public:
 	void link();
 	void use();
 	
+public:
+	static unsigned int compileVertexShader(const char* shader);
+	static unsigned int compileFragmentShader(const char* shader);
+	static void printProgramInfoLog(unsigned int obj);
+	static void printShaderInfoLog(unsigned int obj);
+
 protected:
 	virtual void onLinked() { }
 	
-protected:
+public:
 	unsigned int mProgram;
 	int mShaderCount;
 	unsigned int* mShaders;

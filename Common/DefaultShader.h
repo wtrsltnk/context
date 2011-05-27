@@ -15,6 +15,7 @@
 class DefaultShader : public Shader
 {
 public:
+	DefaultShader();
 	DefaultShader(const char* vertexShader, const char* fragmentShader);
 	virtual ~DefaultShader();
 
