@@ -35,6 +35,7 @@
         <ccTool>
           <incDir>
             <pElem>../Context</pElem>
+            <pElem>../Common</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -49,6 +50,18 @@
                             BC="${MAKE}  -f Makefile CONF=linuxDebug"
                             CC="${MAKE}  -f Makefile CONF=linuxDebug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libContext.so">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Common"
+                            CT="2"
+                            CN="linuxDebug"
+                            AC="true"
+                            BL="true"
+                            WD="../Common"
+                            BC="${MAKE}  -f Makefile CONF=linuxDebug"
+                            CC="${MAKE}  -f Makefile CONF=linuxDebug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libCommon.so">
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
@@ -68,6 +81,7 @@
           <developmentMode>5</developmentMode>
           <incDir>
             <pElem>../Context</pElem>
+            <pElem>../Common</pElem>
           </incDir>
         </ccTool>
         <fortranCompilerTool>
@@ -88,6 +102,18 @@
                             BC="${MAKE}  -f Makefile CONF=linuxRelease"
                             CC="${MAKE}  -f Makefile CONF=linuxRelease clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libContext.so">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Common"
+                            CT="2"
+                            CN="linuxRelease"
+                            AC="false"
+                            BL="true"
+                            WD="../Common"
+                            BC="${MAKE}  -f Makefile CONF=linuxRelease"
+                            CC="${MAKE}  -f Makefile CONF=linuxRelease clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libCommon.so">
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>

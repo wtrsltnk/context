@@ -52,13 +52,15 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath ../Context/dist/linuxRelease/GNU-Linux-x86 -L../Context/dist/linuxRelease/GNU-Linux-x86 -lContext
+LDLIBSOPTIONS=-Wl,-rpath ../Context/dist/linuxRelease/GNU-Linux-x86 -L../Context/dist/linuxRelease/GNU-Linux-x86 -lContext -Wl,-rpath ../Common/dist/linuxRelease/GNU-Linux-x86 -L../Common/dist/linuxRelease/GNU-Linux-x86 -lCommon
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/contexttest
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/contexttest: ../Context/dist/linuxRelease/GNU-Linux-x86/libContext.so
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/contexttest: ../Common/dist/linuxRelease/GNU-Linux-x86/libCommon.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/contexttest: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -67,16 +69,17 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/contexttest: ${OBJECTFILES}
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I../Context -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -O2 -I../Context -I../Common -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 ${OBJECTDIR}/ContextTest.o: ContextTest.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I../Context -MMD -MP -MF $@.d -o ${OBJECTDIR}/ContextTest.o ContextTest.cpp
+	$(COMPILE.cc) -O2 -I../Context -I../Common -MMD -MP -MF $@.d -o ${OBJECTDIR}/ContextTest.o ContextTest.cpp
 
 # Subprojects
 .build-subprojects:
 	cd ../Context && ${MAKE}  -f Makefile CONF=linuxRelease
+	cd ../Common && ${MAKE}  -f Makefile CONF=linuxRelease
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -86,6 +89,7 @@ ${OBJECTDIR}/ContextTest.o: ContextTest.cpp
 # Subprojects
 .clean-subprojects:
 	cd ../Context && ${MAKE}  -f Makefile CONF=linuxRelease clean
+	cd ../Common && ${MAKE}  -f Makefile CONF=linuxRelease clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
