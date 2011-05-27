@@ -23,7 +23,7 @@ extern Key::Code sKeymap[];
 #ifdef PLATFORM_IS_LINUX
 #include <X11/Xlib.h>
 #include <X11/extensions/xf86vmode.h>
-#include "GLee.h"
+#include <GLee.h>
 
 #define GLX_CONTEXT_MAJOR_VERSION_ARB       0x2091
 #define GLX_CONTEXT_MINOR_VERSION_ARB       0x2092

@@ -4,33 +4,15 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>Camera.h</itemPath>
-      <itemPath>DefaultShader.h</itemPath>
-      <itemPath>GLee.h</itemPath>
       <itemPath>GameTime.h</itemPath>
       <itemPath>GlContext.h</itemPath>
-      <itemPath>Matrix4x4.h</itemPath>
-      <itemPath>ModelviewMatrix.h</itemPath>
-      <itemPath>ProjectionMatrix.h</itemPath>
-      <itemPath>Quaternion.h</itemPath>
-      <itemPath>Shader.h</itemPath>
       <itemPath>UserInput.h</itemPath>
-      <itemPath>Vector3.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>Camera.cpp</itemPath>
-      <itemPath>DefaultShader.cpp</itemPath>
-      <itemPath>GLee.c</itemPath>
       <itemPath>GlContext.cpp</itemPath>
-      <itemPath>Matrix4x4.cpp</itemPath>
-      <itemPath>ModelviewMatrix.cpp</itemPath>
-      <itemPath>ProjectionMatrix.cpp</itemPath>
-      <itemPath>Quaternion.cpp</itemPath>
-      <itemPath>Shader.cpp</itemPath>
       <itemPath>UserInput.cpp</itemPath>
-      <itemPath>Vector3.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -52,12 +34,26 @@
         <compilerSet>default</compilerSet>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../Common</pElem>
+          </incDir>
+        </ccTool>
         <linkerTool>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Common"
+                            CT="2"
+                            CN="linuxDebug"
+                            AC="true"
+                            BL="true"
+                            WD="../Common"
+                            BC="${MAKE}  -f Makefile CONF=linuxDebug"
+                            CC="${MAKE}  -f Makefile CONF=linuxDebug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libCommon.so">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibLibItem>Xxf86vm</linkerLibLibItem>
-            <linkerLibLibItem>GL</linkerLibLibItem>
-            <linkerLibLibItem>GLU</linkerLibLibItem>
-            <linkerLibLibItem>rt</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
@@ -73,6 +69,9 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../Common</pElem>
+          </incDir>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -82,10 +81,19 @@
         </asmTool>
         <linkerTool>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Common"
+                            CT="2"
+                            CN="linuxRelease"
+                            AC="false"
+                            BL="true"
+                            WD="../Common"
+                            BC="${MAKE}  -f Makefile CONF=linuxRelease"
+                            CC="${MAKE}  -f Makefile CONF=linuxRelease clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libCommon.so">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibLibItem>Xxf86vm</linkerLibLibItem>
-            <linkerLibLibItem>GL</linkerLibLibItem>
-            <linkerLibLibItem>GLU</linkerLibLibItem>
-            <linkerLibLibItem>rt</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

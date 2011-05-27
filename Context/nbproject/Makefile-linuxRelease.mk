@@ -34,16 +34,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/ProjectionMatrix.o \
 	${OBJECTDIR}/UserInput.o \
-	${OBJECTDIR}/Camera.o \
-	${OBJECTDIR}/Shader.o \
-	${OBJECTDIR}/Matrix4x4.o \
-	${OBJECTDIR}/ModelviewMatrix.o \
-	${OBJECTDIR}/DefaultShader.o \
-	${OBJECTDIR}/Vector3.o \
-	${OBJECTDIR}/Quaternion.o \
-	${OBJECTDIR}/GLee.o \
 	${OBJECTDIR}/GlContext.o
 
 
@@ -61,73 +52,31 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lXxf86vm -lGL -lGLU -lrt
+LDLIBSOPTIONS=-Wl,-rpath ../Common/dist/linuxRelease/GNU-Linux-x86 -L../Common/dist/linuxRelease/GNU-Linux-x86 -lCommon -lXxf86vm
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libContext.so
 
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libContext.so: ../Common/dist/linuxRelease/GNU-Linux-x86/libCommon.so
+
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libContext.so: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libContext.so -fPIC ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/ProjectionMatrix.o: ProjectionMatrix.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ProjectionMatrix.o ProjectionMatrix.cpp
-
 ${OBJECTDIR}/UserInput.o: UserInput.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/UserInput.o UserInput.cpp
-
-${OBJECTDIR}/Camera.o: Camera.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Camera.o Camera.cpp
-
-${OBJECTDIR}/Shader.o: Shader.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Shader.o Shader.cpp
-
-${OBJECTDIR}/Matrix4x4.o: Matrix4x4.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Matrix4x4.o Matrix4x4.cpp
-
-${OBJECTDIR}/ModelviewMatrix.o: ModelviewMatrix.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ModelviewMatrix.o ModelviewMatrix.cpp
-
-${OBJECTDIR}/DefaultShader.o: DefaultShader.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/DefaultShader.o DefaultShader.cpp
-
-${OBJECTDIR}/Vector3.o: Vector3.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Vector3.o Vector3.cpp
-
-${OBJECTDIR}/Quaternion.o: Quaternion.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Quaternion.o Quaternion.cpp
-
-${OBJECTDIR}/GLee.o: GLee.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/GLee.o GLee.c
+	$(COMPILE.cc) -O2 -I../Common -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/UserInput.o UserInput.cpp
 
 ${OBJECTDIR}/GlContext.o: GlContext.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/GlContext.o GlContext.cpp
+	$(COMPILE.cc) -O2 -I../Common -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/GlContext.o GlContext.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../Common && ${MAKE}  -f Makefile CONF=linuxRelease
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -136,6 +85,7 @@ ${OBJECTDIR}/GlContext.o: GlContext.cpp
 
 # Subprojects
 .clean-subprojects:
+	cd ../Common && ${MAKE}  -f Makefile CONF=linuxRelease clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
