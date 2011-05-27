@@ -33,10 +33,12 @@ void ContextTest::onResize(int w, int h)
 	if (h == 0) h = 1;
 	float aspect = 1.0f * (float(w)/float(h));
 
+	this->mProjection.setPerspective(90, aspect, 1, 3000.0f);
+	
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	
-	gluPerspective(90.0f, aspect, 1.0f, 3000.0f);
+	this->mProjection.glMultiply();
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

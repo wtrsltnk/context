@@ -9,6 +9,7 @@
 #define	CONTEXTTEST_H
 
 #include <GlContext.h>
+#include <ProjectionMatrix.h>
 
 class ContextTest : public GlContext
 {
@@ -20,6 +21,7 @@ public:
 	virtual void onResize(int w, int h);
 	
 private:
+	ProjectionMatrix mProjection;
 
 };
 
