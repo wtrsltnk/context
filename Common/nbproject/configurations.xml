@@ -8,6 +8,7 @@
       <itemPath>DefaultShader.h</itemPath>
       <itemPath>GLee.h</itemPath>
       <itemPath>Matrix4x4.h</itemPath>
+      <itemPath>Mesh.h</itemPath>
       <itemPath>ModelviewMatrix.h</itemPath>
       <itemPath>ProjectionMatrix.h</itemPath>
       <itemPath>Quaternion.h</itemPath>
@@ -21,6 +22,7 @@
       <itemPath>DefaultShader.cpp</itemPath>
       <itemPath>GLee.c</itemPath>
       <itemPath>Matrix4x4.cpp</itemPath>
+      <itemPath>Mesh.cpp</itemPath>
       <itemPath>ModelviewMatrix.cpp</itemPath>
       <itemPath>ProjectionMatrix.cpp</itemPath>
       <itemPath>Quaternion.cpp</itemPath>
@@ -50,7 +52,7 @@
         <linkerTool>
           <linkerLibItems>
             <linkerLibLibItem>GL</linkerLibLibItem>
-            <linkerLibLibItem>opengl32</linkerLibLibItem>
+            <linkerLibLibItem>rt</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

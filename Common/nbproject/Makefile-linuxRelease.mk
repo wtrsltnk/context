@@ -41,6 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/ModelviewMatrix.o \
 	${OBJECTDIR}/Vector3.o \
 	${OBJECTDIR}/DefaultShader.o \
+	${OBJECTDIR}/Mesh.o \
 	${OBJECTDIR}/Quaternion.o \
 	${OBJECTDIR}/GLee.o
 
@@ -59,7 +60,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lGL -lrt
+LDLIBSOPTIONS=-lopengl32 -lrt
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -103,6 +104,11 @@ ${OBJECTDIR}/DefaultShader.o: DefaultShader.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/DefaultShader.o DefaultShader.cpp
+
+${OBJECTDIR}/Mesh.o: Mesh.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Mesh.o Mesh.cpp
 
 ${OBJECTDIR}/Quaternion.o: Quaternion.cpp 
 	${MKDIR} -p ${OBJECTDIR}

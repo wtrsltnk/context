@@ -9,7 +9,7 @@
 #include "GLee.h"
 #include <iostream>
 
-const char vertexShader[] = 
+const char vertexShaderSimple[] = 
 "uniform mat4 projection_matrix;" \
 "uniform mat4 modelview_matrix;" \
 "void main()" \
@@ -17,7 +17,7 @@ const char vertexShader[] =
 "	gl_Position = projection_matrix * modelview_matrix * gl_Vertex;" \
 "}";
 
-const char fragmentShader[] = 
+const char fragmentShaderSimple[] = 
 "void main()" \
 "{" \
 "	gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);" \
@@ -29,8 +29,8 @@ DefaultShader::DefaultShader()
 	{
 		this->mShaderCount = 2;
 		this->mShaders = new unsigned  int[2];
-		this->mShaders[0] = Shader::compileVertexShader(vertexShader);
-		this->mShaders[1] = Shader::compileFragmentShader(fragmentShader);
+		this->mShaders[0] = Shader::compileVertexShader(vertexShaderSimple);
+		this->mShaders[1] = Shader::compileFragmentShader(fragmentShaderSimple);
 	}
 }
 
