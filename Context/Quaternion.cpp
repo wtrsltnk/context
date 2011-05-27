@@ -59,75 +59,6 @@ Quaternion::~Quaternion()
 {
 }
 
-float* Quaternion::copyTo(float q[4]) const
-{
-    q[0] = this->mQuat[0];
-    q[1] = this->mQuat[1];
-    q[2] = this->mQuat[2];
-    q[2] = this->mQuat[2];
-
-    return q;
-}
-
-const char* Quaternion::toString(char string[]) const
-{
-    sprintf(string, " s=%f, v=(%f %f %f)", this->mQuat[0], this->mQuat[1], this->mQuat[2], this->mQuat[3]);
-    return string;
-}
-
-float* Quaternion::toMatrix(float m[4][4])
-{
-	float xy = this->mQuat[1] * this->mQuat[2];
-	float xz = this->mQuat[1] * this->mQuat[3];
-	float yz = this->mQuat[2] * this->mQuat[3];
-	float sx = this->mQuat[0] * this->mQuat[1];
-	float sy = this->mQuat[0] * this->mQuat[2];
-	float sz = this->mQuat[0] * this->mQuat[3];
-	float xsquared = this->mQuat[1] * this->mQuat[1];
-	float ysquared = this->mQuat[2] * this->mQuat[2];
-	float zsquared = this->mQuat[3] * this->mQuat[3];
-
-	m[0][0] = 1 - 2 * (ysquared + zsquared);
-	m[0][1] = (2 * xy) - (2 * sz);
-	m[0][2] = (2 * sy) + (2 * xz);
-
-	m[1][0] = (2 * xy) + (2 * sz);
-	m[1][1] = 1 - 2 * (xsquared + zsquared);
-	m[1][2] = -(2 * sx) + (2 * yz);
-
-	m[2][0] = -(2 * sy) + (2 * xz);
-	m[2][1] = (2 * sx) + (2 * yz);
-	m[2][2] = 1 - 2 * (xsquared + ysquared);
-
-	return &m[0][0];
-}
-
-const Quaternion& Quaternion::operator = (const Quaternion& q)
-{
-	for (int i = 0; i < 4; i++)
-		this->mQuat[i] = q.mQuat[i];
-
-	return (*this);
-}
-
-Quaternion Quaternion::fromAngleAxis(float angle, const Vector3& axis)
-{
-	float sinAngle = sin(angle / 2);
-	
-	return Quaternion(cos(angle / 2), axis.x() * sinAngle, axis.y() * sinAngle, axis.z() * sinAngle);
-}
-
-Quaternion Quaternion::fromMatrix(float m[4][4])
-{
-	float s = 0.5 * sqrt(m[0][0] + m[1][1] + m[2][2] + 1);
-	
-	return Quaternion(s,
-				(1 / (4 * s)) * (m[2][1] - m[1][2]),
-				(1 / (4 * s)) * (m[0][2] - m[2][0]),
-				(1 / (4 * s)) * (m[1][0] - m[0][1])
-			);
-}
-
 Vector3 Quaternion::rotatePoint(float point[3])
 {
 	Quaternion inv = this->inverse();
@@ -268,10 +199,78 @@ Quaternion Quaternion::slerp(const Quaternion& q, float t)
   return out;
 }
 
+const Quaternion& Quaternion::operator = (const Quaternion& q)
+{
+	for (int i = 0; i < 4; i++)
+		this->mQuat[i] = q.mQuat[i];
+
+	return (*this);
+}
+
+Quaternion Quaternion::fromAngleAxis(float angle, const Vector3& axis)
+{
+	float sinAngle = sin(angle / 2);
+	
+	return Quaternion(cos(angle / 2), axis.x() * sinAngle, axis.y() * sinAngle, axis.z() * sinAngle);
+}
+
+Quaternion Quaternion::fromMatrix(float m[4][4])
+{
+	float s = 0.5 * sqrt(m[0][0] + m[1][1] + m[2][2] + 1);
+	
+	return Quaternion(s,
+				(1 / (4 * s)) * (m[2][1] - m[1][2]),
+				(1 / (4 * s)) * (m[0][2] - m[2][0]),
+				(1 / (4 * s)) * (m[1][0] - m[0][1])
+			);
+}
+
 float Quaternion::operator [] (int index) const
 {
 	if (index >= 0 && index < 4)
 		return this->mQuat[index];
 
 	return 0.0f;
+}
+
+float* Quaternion::copyTo(float q[4]) const
+{
+    q[0] = this->mQuat[0];
+    q[1] = this->mQuat[1];
+    q[2] = this->mQuat[2];
+    q[2] = this->mQuat[2];
+
+    return q;
+}
+
+float* Quaternion::toMatrix(float m[4][4])
+{
+	float xy = this->mQuat[1] * this->mQuat[2];
+	float xz = this->mQuat[1] * this->mQuat[3];
+	float yz = this->mQuat[2] * this->mQuat[3];
+	float sx = this->mQuat[0] * this->mQuat[1];
+	float sy = this->mQuat[0] * this->mQuat[2];
+	float sz = this->mQuat[0] * this->mQuat[3];
+	float xsquared = this->mQuat[1] * this->mQuat[1];
+	float ysquared = this->mQuat[2] * this->mQuat[2];
+	float zsquared = this->mQuat[3] * this->mQuat[3];
+
+	m[0][0] = 1 - 2 * (ysquared + zsquared);
+	m[0][1] = (2 * xy) - (2 * sz);
+	m[0][2] = (2 * sy) + (2 * xz);
+
+	m[1][0] = (2 * xy) + (2 * sz);
+	m[1][1] = 1 - 2 * (xsquared + zsquared);
+	m[1][2] = -(2 * sx) + (2 * yz);
+
+	m[2][0] = -(2 * sy) + (2 * xz);
+	m[2][1] = (2 * sx) + (2 * yz);
+	m[2][2] = 1 - 2 * (xsquared + ysquared);
+
+	return &m[0][0];
+}
+
+void Quaternion::print() const
+{
+	std::cout << "q=(" << this->mQuat[0] << " " << this->mQuat[1] << " " << this->mQuat[2] << << " " << this->mQuat[4] << ")" << std::endl;
 }

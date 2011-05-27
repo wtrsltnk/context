@@ -1,6 +1,6 @@
 #include "Vector3.h"
 #include <math.h>
-#include <stdio.h>
+#include <iostream>
 
 Vector3::Vector3()
 {
@@ -126,34 +126,6 @@ const Vector3& Vector3::operator *= (const Vector3& v)
     return (*this);
 }
 
-Vector3 Vector3::operator + (const Vector3& v) const
-{
-    return Vector3(this->mVector[0] + v.mVector[0], this->mVector[1] + v.mVector[1], this->mVector[2] + v.mVector[2]);
-}
-
-const Vector3& Vector3::operator += (const Vector3& v)
-{
-    this->mVector[0] += v.mVector[0];
-    this->mVector[1] += v.mVector[1];
-    this->mVector[2] += v.mVector[2];
-
-    return (*this);
-}
-
-Vector3 Vector3::operator - (const Vector3& v) const
-{
-    return Vector3(this->mVector[0] - v.mVector[0], this->mVector[1] - v.mVector[1], this->mVector[2] - v.mVector[2]);
-}
-
-const Vector3& Vector3::operator -= (const Vector3& v)
-{
-    this->mVector[0] -= v.mVector[0];
-    this->mVector[1] -= v.mVector[1];
-    this->mVector[2] -= v.mVector[2];
-
-    return (*this);
-}
-
 Vector3 Vector3::operator * (float s) const
 {
     return Vector3(this->mVector[0] * s, this->mVector[1] * s, this->mVector[2] * s);
@@ -164,6 +136,20 @@ const Vector3& Vector3::operator *= (float s)
     this->mVector[0] *= s;
     this->mVector[1] *= s;
     this->mVector[2] *= s;
+
+    return (*this);
+}
+
+Vector3 Vector3::operator + (const Vector3& v) const
+{
+    return Vector3(this->mVector[0] + v.mVector[0], this->mVector[1] + v.mVector[1], this->mVector[2] + v.mVector[2]);
+}
+
+const Vector3& Vector3::operator += (const Vector3& v)
+{
+    this->mVector[0] += v.mVector[0];
+    this->mVector[1] += v.mVector[1];
+    this->mVector[2] += v.mVector[2];
 
     return (*this);
 }
@@ -182,6 +168,34 @@ const Vector3& Vector3::operator += (float s)
     return (*this);
 }
 
+Vector3 Vector3::operator - (const Vector3& v) const
+{
+    return Vector3(this->mVector[0] - v.mVector[0], this->mVector[1] - v.mVector[1], this->mVector[2] - v.mVector[2]);
+}
+
+const Vector3& Vector3::operator -= (const Vector3& v)
+{
+    this->mVector[0] -= v.mVector[0];
+    this->mVector[1] -= v.mVector[1];
+    this->mVector[2] -= v.mVector[2];
+
+    return (*this);
+}
+
+Vector3 Vector3::operator - (float s) const
+{
+    return Vector3(this->mVector[0] - s, this->mVector[1] - s, this->mVector[2] - s);
+}
+
+const Vector3& Vector3::operator -= (float s)
+{
+    this->mVector[0] -= s;
+    this->mVector[1] -= s;
+    this->mVector[2] -= s;
+
+    return (*this);
+}
+
 float* Vector3::copyTo(float f[3]) const
 {
     f[0] = this->mVector[0];
@@ -191,15 +205,9 @@ float* Vector3::copyTo(float f[3]) const
     return f;
 }
 
-const char* Vector3::toString(char string[]) const
-{
-    sprintf(string, " v=(%f %f %f)", this->mVector[0], this->mVector[1], this->mVector[2]);
-    return string;
-}
-
 void Vector3::print() const
 {
-	printf("v=(%f %f %f)\n", this->mVector[0], this->mVector[1], this->mVector[2]);
+	std::cout << "v=(" << this->mVector[0] << " " << this->mVector[1] << " " << this->mVector[2] << ")" << std::endl;
 }
 
 Vector3 operator * (float s, const Vector3& v)
@@ -210,6 +218,11 @@ Vector3 operator * (float s, const Vector3& v)
 Vector3 operator + (float s, const Vector3& v)
 {
     return Vector3(v.mVector[0] + s, v.mVector[1] + s, v.mVector[2] + s);
+}
+
+Vector3 operator - (float s, const Vector3& v)
+{
+    return Vector3(v.mVector[0] - s, v.mVector[1] - s, v.mVector[2] - s);
 }
 
 bool operator == (const float f[3], const Vector3& v)

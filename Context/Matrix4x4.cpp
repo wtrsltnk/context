@@ -1,6 +1,6 @@
 #include "Matrix4x4.h"
 #include <math.h>
-#include <stdio.h>
+#include <iostream>
 #include <GL/gl.h>
 
 Matrix4x4::Matrix4x4()
@@ -11,6 +11,13 @@ Matrix4x4::Matrix4x4()
 				this->m[i][j] = 1.0f;
 			else
 				this->m[i][j] = 0.0f;
+}
+
+Matrix4x4::Matrix4x4(const Matrix4x4& matrix)
+{
+	for (int i = 0; i < 4; i++)
+		for (int j = 0; j < 4; j++)
+			this->m[i][j] = matrix.m[i][j];
 }
 
 Matrix4x4::Matrix4x4(float (*matrix)[4])
@@ -24,22 +31,19 @@ Matrix4x4::~Matrix4x4()
 {
 }
 
-void Matrix4x4::print()
+const Vector3 Matrix4x4::forwardVector() const
 {
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 4; j++)
-		{
-			printf("%f\t", this->m[i][j]);
-		}
-		printf("\n");
-	}
-	printf("\n");
+    return Vector3(this->m[0][2], this->m[1][2], this->m[2][2]);
 }
 
-void Matrix4x4::glMultiply()
+const Vector3 Matrix4x4::leftVector() const
 {
-	glMultMatrixf(&this->m[0][0]);
+    return Vector3(this->m[0][0], this->m[1][0], this->m[2][0]);
+}
+
+const Vector3 Matrix4x4::upVector() const
+{
+    return Vector3(this->m[0][1], this->m[1][1], this->m[2][1]);
 }
 
 Matrix4x4 Matrix4x4::operator * (const Matrix4x4& second)
@@ -50,7 +54,7 @@ Matrix4x4 Matrix4x4::operator * (const Matrix4x4& second)
 	{
 		for(int j = 0; j < 4; j++)
 		{
-			out.m[i][j]=0.0f;
+			out.m[i][j] = 0.0f;
 			for(int k = 0; k < 4; k++)
 			{
 				out.m[i][j] += this->m[i][k] * second.m[k][j];
@@ -116,17 +120,20 @@ Matrix4x4 Matrix4x4::translateMatrix(float x, float y, float z)
 	return out;
 }
 
-const Vector3 Matrix4x4::forwardVector() const
+void Matrix4x4::glMultiply() const
 {
-    return Vector3(this->m[0][2], this->m[1][2], this->m[2][2]);
+	glMultMatrixf(&this->m[0][0]);
 }
 
-const Vector3 Matrix4x4::leftVector() const
+void Matrix4x4::print() const
 {
-    return Vector3(this->m[0][0], this->m[1][0], this->m[2][0]);
-}
-
-const Vector3 Matrix4x4::upVector() const
-{
-    return Vector3(this->m[0][1], this->m[1][1], this->m[2][1]);
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			std::cout << this->m[i][j] << "\t";
+		}
+		std::cout << std::endl;
+	}
+	std::cout << std::endl;
 }
