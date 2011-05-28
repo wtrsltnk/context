@@ -214,8 +214,8 @@ public:
 			else if (event.type == MotionNotify)
 			{
 				MouseState::currentState().setMousePositionX(event.xmotion.x);
-				MouseState::currentState().setMousePositionY(event.xmotion.y);
-				this->mParent->onMouseMove(event.xmotion.x, event.xmotion.y);
+				MouseState::currentState().setMousePositionY(this->mHeight - event.xmotion.y);
+				this->mParent->onMouseMove(event.xmotion.x, this->mHeight - event.xmotion.y);
 			}
 			else if (event.type == ConfigureNotify)
 			{

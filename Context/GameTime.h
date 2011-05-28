@@ -14,8 +14,8 @@ public:
 	GameTime(float total, float elapsed) : mTotal(total), mElapsed(elapsed) { }
 	virtual ~GameTime() { }
 
-	virtual float getTotalTime() { return mTotal; }
-	virtual float getElapsedTime() { return mElapsed; }
+	virtual float getTotalTime() const { return mTotal; }
+	virtual float getElapsedTime() const { return mElapsed; }
 
 private:
 	float mTotal;
