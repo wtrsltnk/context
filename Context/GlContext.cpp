@@ -235,7 +235,7 @@ public:
 				if (event.xclient.data.l[0] == this->wmDeleteMessage)
 					this->mRunning = false;
 		}
-		
+
 		this->mParent->onIdle(this->getElapsedTime());
 
 		glXSwapBuffers(this->display, this->window);
