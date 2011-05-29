@@ -165,6 +165,11 @@ void Brush::updateVertices()
 	this->mMins[0] = this->mMins[1] = this->mMins[2] =  99999.9f;
 	this->mMaxs[0] = this->mMaxs[1] = this->mMaxs[2] = -99999.9f;
 	
+	// Reset the vertices
+	this->mVertices.clear();
+	for(int i = 0; i < this->mPlanes.size(); i++)
+		this->mPlanes[i].mIndices.clear();
+	
 	// Loop through all the planes, and gather 3 different planes to create a vertex from
 	for(int i = 0; i < this->mPlanes.size() - 2; i++)
 	{
