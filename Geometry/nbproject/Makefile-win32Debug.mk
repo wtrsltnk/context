@@ -34,8 +34,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/UserInput.o \
-	${OBJECTDIR}/GlContext.o
+	${OBJECTDIR}/Brush.o \
+	${OBJECTDIR}/Scene.o \
+	${OBJECTDIR}/MapLoader.o \
+	${OBJECTDIR}/Entity.o
 
 
 # C Compiler Flags
@@ -52,27 +54,37 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L../Common/dist/win32Debug/MinGW-Windows -lCommon -lgdi32 -lopengl32
+LDLIBSOPTIONS=-L../Common/dist/win32Debug/MinGW-Windows -lCommon
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libContext.dll
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libGeometry.dll
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libContext.dll: ../Common/dist/win32Debug/MinGW-Windows/libCommon.dll
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libGeometry.dll: ../Common/dist/win32Debug/MinGW-Windows/libCommon.dll
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libContext.dll: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libGeometry.dll: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libContext.dll ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libGeometry.dll ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/UserInput.o: UserInput.cpp 
+${OBJECTDIR}/Brush.o: Brush.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../Common  -MMD -MP -MF $@.d -o ${OBJECTDIR}/UserInput.o UserInput.cpp
+	$(COMPILE.cc) -g -I../Common  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Brush.o Brush.cpp
 
-${OBJECTDIR}/GlContext.o: GlContext.cpp 
+${OBJECTDIR}/Scene.o: Scene.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../Common  -MMD -MP -MF $@.d -o ${OBJECTDIR}/GlContext.o GlContext.cpp
+	$(COMPILE.cc) -g -I../Common  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Scene.o Scene.cpp
+
+${OBJECTDIR}/MapLoader.o: MapLoader.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../Common  -MMD -MP -MF $@.d -o ${OBJECTDIR}/MapLoader.o MapLoader.cpp
+
+${OBJECTDIR}/Entity.o: Entity.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../Common  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Entity.o Entity.cpp
 
 # Subprojects
 .build-subprojects:
@@ -80,7 +92,7 @@ ${OBJECTDIR}/GlContext.o: GlContext.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libContext.dll
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libGeometry.dll
 
 # Subprojects
 .clean-subprojects:

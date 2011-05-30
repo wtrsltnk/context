@@ -59,7 +59,7 @@ public:
 	float mMins[3], mMaxs[3];
 
 	// The color of this plane
-	float mColor[4];
+	unsigned char mColor[4];
 
 	// Gets the index of a  vertex at the given position
 	int getIndexOf(const Vector3& vertex);

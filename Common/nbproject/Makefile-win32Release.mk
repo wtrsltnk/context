@@ -34,13 +34,19 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/Texture.o \
 	${OBJECTDIR}/ProjectionMatrix.o \
 	${OBJECTDIR}/Camera.o \
 	${OBJECTDIR}/Shader.o \
+	${OBJECTDIR}/FileLoader.o \
+	${OBJECTDIR}/uiFont.o \
 	${OBJECTDIR}/Matrix4x4.o \
+	${OBJECTDIR}/stb_truetype.o \
 	${OBJECTDIR}/ModelviewMatrix.o \
 	${OBJECTDIR}/Vector3.o \
+	${OBJECTDIR}/Tokenizer.o \
 	${OBJECTDIR}/DefaultShader.o \
+	${OBJECTDIR}/TextureLoader.o \
 	${OBJECTDIR}/Quaternion.o \
 	${OBJECTDIR}/GLee.o
 
@@ -69,6 +75,11 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libCommon.dll: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libCommon.dll ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
+${OBJECTDIR}/Texture.o: Texture.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Texture.o Texture.cpp
+
 ${OBJECTDIR}/ProjectionMatrix.o: ProjectionMatrix.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
@@ -84,10 +95,25 @@ ${OBJECTDIR}/Shader.o: Shader.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Shader.o Shader.cpp
 
+${OBJECTDIR}/FileLoader.o: FileLoader.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/FileLoader.o FileLoader.cpp
+
+${OBJECTDIR}/uiFont.o: uiFont.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/uiFont.o uiFont.cpp
+
 ${OBJECTDIR}/Matrix4x4.o: Matrix4x4.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Matrix4x4.o Matrix4x4.cpp
+
+${OBJECTDIR}/stb_truetype.o: stb_truetype.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/stb_truetype.o stb_truetype.cpp
 
 ${OBJECTDIR}/ModelviewMatrix.o: ModelviewMatrix.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -99,10 +125,20 @@ ${OBJECTDIR}/Vector3.o: Vector3.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Vector3.o Vector3.cpp
 
+${OBJECTDIR}/Tokenizer.o: Tokenizer.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Tokenizer.o Tokenizer.cpp
+
 ${OBJECTDIR}/DefaultShader.o: DefaultShader.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/DefaultShader.o DefaultShader.cpp
+
+${OBJECTDIR}/TextureLoader.o: TextureLoader.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/TextureLoader.o TextureLoader.cpp
 
 ${OBJECTDIR}/Quaternion.o: Quaternion.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="79">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <logicalFolder name="f1" displayName="Font" projectFiles="true" kind="ROOT">
+    <logicalFolder name="f1" displayName="Font" projectFiles="true">
       <itemPath>stb_truetype.cpp</itemPath>
       <itemPath>stb_truetype.h</itemPath>
       <itemPath>uiFont.cpp</itemPath>

@@ -1002,8 +1002,8 @@ public:
 			case WM_MOUSEMOVE:
 			{
 				MouseState::currentState().setMousePositionX(LOWORD(lParam));
-				MouseState::currentState().setMousePositionY(HIWORD(lParam));
-				gl->mParent->onMouseMove(LOWORD(lParam), HIWORD(lParam));
+				MouseState::currentState().setMousePositionY(this->mHeight - HIWORD(lParam));
+				gl->mParent->onMouseMove(LOWORD(lParam), this->mHeight - HIWORD(lParam));
 				return 0;
 			}
 
