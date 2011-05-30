@@ -52,7 +52,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath ../Common/dist/linuxRelease/GNU-Linux-x86 -L../Common/dist/linuxRelease/GNU-Linux-x86 -lCommon -lXxf86vm
+LDLIBSOPTIONS=-Wl,-rpath ../Common/dist/linuxRelease/GNU-Linux-x86 -L../Common/dist/linuxRelease/GNU-Linux-x86 -lCommon -lgdi32
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
