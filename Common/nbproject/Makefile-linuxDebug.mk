@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Texture.o \
 	${OBJECTDIR}/ProjectionMatrix.o \
+	${OBJECTDIR}/Plane.o \
 	${OBJECTDIR}/Camera.o \
 	${OBJECTDIR}/Shader.o \
 	${OBJECTDIR}/FileLoader.o \
@@ -84,6 +85,11 @@ ${OBJECTDIR}/ProjectionMatrix.o: ProjectionMatrix.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ProjectionMatrix.o ProjectionMatrix.cpp
+
+${OBJECTDIR}/Plane.o: Plane.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Plane.o Plane.cpp
 
 ${OBJECTDIR}/Camera.o: Camera.cpp 
 	${MKDIR} -p ${OBJECTDIR}

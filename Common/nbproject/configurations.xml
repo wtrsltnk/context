@@ -17,6 +17,7 @@
       <itemPath>Matrix4x4.h</itemPath>
       <itemPath>MemoryGuard.h</itemPath>
       <itemPath>ModelviewMatrix.h</itemPath>
+      <itemPath>Plane.h</itemPath>
       <itemPath>ProjectionMatrix.h</itemPath>
       <itemPath>Quaternion.h</itemPath>
       <itemPath>Shader.h</itemPath>
@@ -34,6 +35,7 @@
       <itemPath>GLee.c</itemPath>
       <itemPath>Matrix4x4.cpp</itemPath>
       <itemPath>ModelviewMatrix.cpp</itemPath>
+      <itemPath>Plane.cpp</itemPath>
       <itemPath>ProjectionMatrix.cpp</itemPath>
       <itemPath>Quaternion.cpp</itemPath>
       <itemPath>Shader.cpp</itemPath>

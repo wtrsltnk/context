@@ -2,6 +2,7 @@
 #define MATRIX4X4_H
 
 #include "Vector3.h"
+#include "Plane.h"
 
 class Matrix4x4
 {
@@ -21,6 +22,8 @@ public:
 	void loadIdentity();
 	
 	void glMultiply() const;
+	Plane transform(const Plane& plane) const;
+	Plane inverseTransform(const Plane& plane) const;
 	void print() const;
 
 public:
@@ -29,7 +32,7 @@ public:
 	static Matrix4x4 rotateMatrixZ(float angle);
 	static Matrix4x4 translateMatrix(float x, float y, float z);
 
-	float m[4][4];
+	float m[16];
 
 };
 

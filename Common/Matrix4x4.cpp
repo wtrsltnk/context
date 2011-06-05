@@ -144,6 +144,30 @@ void Matrix4x4::glMultiply() const
 	glMultMatrixf(&this->m[0][0]);
 }
 
+// Transform a plane
+Plane Matrix4x4::transform(const Plane& plane) const
+{
+    Plane transformed;
+    transformed.normal().x() = this->m[0][0] * plane.normal().x() + this->m[0][1] * plane.normal().y() + this->m[0][2] * plane.normal().z();
+    transformed.normal().y() = this->m[1][0] * plane.normal().x() + this->m[1][1] * plane.normal().y() + this->m[1][2] * plane.normal().z();
+    transformed.normal().z() = this->m[2][0] * plane.normal().x() + this->m[2][1] * plane.normal().y() + this->m[2][2] * plane.normal().z();
+    transformed.distance() = -(	(-plane.distance() * transformed.normal().x() + this->m[3][0]) * transformed.normal().x() +
+                        (-plane.distance() * transformed.normal().y() + this->m[3][1]) * transformed.normal().y() +
+                        (-plane.distance() * transformed.normal().z() + this->m[3][2]) * transformed.normal().z());
+    return transformed;
+}
+
+// Inverse transform a plane
+Plane Matrix4x4::inverseTransform(const Plane& plane) const		
+{
+    return Plane(
+        this->m[0][0] * plane.normal().x() + this->m[0][1] * plane.normal().y() + this->m[0][2] * plane.normal().z() + this->m[0][3] * plane.distance(),
+        this->m[1][0] * plane.normal().x() + this->m[1][1] * plane.normal().y() + this->m[1][2] * plane.normal().z() + this->m[1][3] * plane.distance(),
+        this->m[2][0] * plane.normal().x() + this->m[2][1] * plane.normal().y() + this->m[2][2] * plane.normal().z() + this->m[2][3] * plane.distance(),
+        this->m[3][0] * plane.normal().x() + this->m[3][1] * plane.normal().y() + this->m[3][2] * plane.normal().z() + this->m[3][3] * plane.distance()
+    );
+}
+
 void Matrix4x4::print() const
 {
 	for (int i = 0; i < 4; i++)
