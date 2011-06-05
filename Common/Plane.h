@@ -18,7 +18,10 @@ public:
 	Vector3 mNormal;
 
 	float distance();
+	float distance() const;
+	void setDistance(float d);
 	Vector3& normal();
+	const Vector3& normal() const;
 
 	float distanceTo(const Vector3& v);
 	bool intersect(const Vector3& start, const Vector3& end, Vector3& result);

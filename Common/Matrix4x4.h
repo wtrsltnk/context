@@ -32,7 +32,7 @@ public:
 	static Matrix4x4 rotateMatrixZ(float angle);
 	static Matrix4x4 translateMatrix(float x, float y, float z);
 
-	float m[16];
+	float m[4][4];
 
 };
 

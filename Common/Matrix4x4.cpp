@@ -148,12 +148,12 @@ void Matrix4x4::glMultiply() const
 Plane Matrix4x4::transform(const Plane& plane) const
 {
     Plane transformed;
-    transformed.normal().x() = this->m[0][0] * plane.normal().x() + this->m[0][1] * plane.normal().y() + this->m[0][2] * plane.normal().z();
-    transformed.normal().y() = this->m[1][0] * plane.normal().x() + this->m[1][1] * plane.normal().y() + this->m[1][2] * plane.normal().z();
-    transformed.normal().z() = this->m[2][0] * plane.normal().x() + this->m[2][1] * plane.normal().y() + this->m[2][2] * plane.normal().z();
-    transformed.distance() = -(	(-plane.distance() * transformed.normal().x() + this->m[3][0]) * transformed.normal().x() +
+    transformed.normal().x(this->m[0][0] * plane.normal().x() + this->m[0][1] * plane.normal().y() + this->m[0][2] * plane.normal().z());
+    transformed.normal().y(this->m[1][0] * plane.normal().x() + this->m[1][1] * plane.normal().y() + this->m[1][2] * plane.normal().z());
+    transformed.normal().z(this->m[2][0] * plane.normal().x() + this->m[2][1] * plane.normal().y() + this->m[2][2] * plane.normal().z());
+    transformed.setDistance(-(	(-plane.distance() * transformed.normal().x() + this->m[3][0]) * transformed.normal().x() +
                         (-plane.distance() * transformed.normal().y() + this->m[3][1]) * transformed.normal().y() +
-                        (-plane.distance() * transformed.normal().z() + this->m[3][2]) * transformed.normal().z());
+                        (-plane.distance() * transformed.normal().z() + this->m[3][2]) * transformed.normal().z()));
     return transformed;
 }
 

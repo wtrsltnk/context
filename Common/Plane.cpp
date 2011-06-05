@@ -39,7 +39,22 @@ float Plane::distance()
 	return mDistance;
 }
 
+float Plane::distance() const
+{
+	return mDistance;
+}
+
+void Plane::setDistance(float d)
+{
+	this->mDistance = d;
+}
+
 Vector3& Plane::normal()
+{
+	return mNormal;
+}
+
+const Vector3& Plane::normal() const
 {
 	return mNormal;
 }
