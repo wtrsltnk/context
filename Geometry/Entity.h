@@ -24,6 +24,9 @@ public:
 
 	void addBrush(Brush* brush);
 	void addKeyValuePair( const std::string& key, const std::string& value);
+	
+	Brush* getBrush(int index);
+	std::string& getValue(const std::string& key);
 
 	std::vector<Brush*> mBrushes;
 	std::map<std::string, std::string> mKeyValuePairs;

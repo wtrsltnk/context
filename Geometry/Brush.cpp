@@ -125,7 +125,7 @@ static int brushCount = 0;
 
 Brush::Brush()
 {
-	this->mColor[0] = rand() % 255;
+	this->mColor[0] = 0;//rand() % 255;
 	this->mColor[1] = rand() % 255;
 	this->mColor[2] = rand() % 255;
 //	this->mColor[brushCount%3] = (155 + (brushCount*10) % 99) / 255.0f;

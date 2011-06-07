@@ -34,4 +34,17 @@ void Entity::addKeyValuePair( const std::string& key, const std::string& value)
 	this->mKeyValuePairs[key] = value;
 }
 
+Brush* Entity::getBrush(int index)
+{
+	if (index >= 0 && index < this->mBrushes.size())
+		return this->mBrushes[index];
+	
+	return 0;
+}
+
+std::string& Entity::getValue(const std::string& key)
+{
+	return this->mKeyValuePairs.at(key);
+}
+
 }
