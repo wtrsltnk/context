@@ -48,6 +48,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Tokenizer.o \
 	${OBJECTDIR}/DefaultShader.o \
 	${OBJECTDIR}/TextureLoader.o \
+	${OBJECTDIR}/Common.o \
 	${OBJECTDIR}/Quaternion.o \
 	${OBJECTDIR}/GLee.o
 
@@ -145,6 +146,11 @@ ${OBJECTDIR}/TextureLoader.o: TextureLoader.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/TextureLoader.o TextureLoader.cpp
+
+${OBJECTDIR}/Common.o: Common.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Common.o Common.cpp
 
 ${OBJECTDIR}/Quaternion.o: Quaternion.cpp 
 	${MKDIR} -p ${OBJECTDIR}

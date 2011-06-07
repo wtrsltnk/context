@@ -11,6 +11,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>Camera.h</itemPath>
+      <itemPath>Common.h</itemPath>
       <itemPath>DefaultShader.h</itemPath>
       <itemPath>FileLoader.h</itemPath>
       <itemPath>GLee.h</itemPath>
@@ -30,6 +31,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>Camera.cpp</itemPath>
+      <itemPath>Common.cpp</itemPath>
       <itemPath>DefaultShader.cpp</itemPath>
       <itemPath>FileLoader.cpp</itemPath>
       <itemPath>GLee.c</itemPath>
