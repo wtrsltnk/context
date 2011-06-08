@@ -7,6 +7,7 @@
 
 #include "Brush.h"
 #include <Matrix4x4.h>
+#include <Quaternion.h>
 #include <cmath>
 #include <map>
 #include <stdio.h>
@@ -331,15 +332,15 @@ void Brush::rotate(float x, float y, float z, const Vector3& origin)
 {
 	for (std::vector<Vector3>::iterator itr = this->mVertices.begin(); itr != this->mVertices.end(); ++itr)
 	{
-		float resultx = (*itr).x()-origin.x();
-		float resulty = (*itr).y()-origin.y();
-		float resultz = (*itr).z()-origin.z();
-
-		// ToDo rotate here
+		Vector3 v((*itr).x()-origin.x(), (*itr).y()-origin.y(), (*itr).z()-origin.z());
 		
-		(*itr).x(resultx+origin.x());
-		(*itr).y(resulty+origin.y());
-		(*itr).z(resultz+origin.z());
+		// ToDo rotate here
+//		Quaternion q(x, y, z);
+//		v = q.rotatePoint(v);
+		
+		(*itr).x(v.x()+origin.x());
+		(*itr).y(v.y()+origin.y());
+		(*itr).z(v.z()+origin.z());
 	}
 	for (std::vector<Plane>::iterator itr = this->mPlanes.begin(); itr != this->mPlanes.end(); ++itr)
 	{
