@@ -27,7 +27,7 @@ void Common::push2DProjection()
 	glPushMatrix();
 	glLoadIdentity();
 
-	glOrtho(-viewport[2], viewport[2], -viewport[3], viewport[3], -4000.0f, 4000.0f);
+	glOrtho(-(viewport[2]/2.0f), (viewport[2]/2.0f), -(viewport[3]/2.0f), (viewport[3]/2.0f), -4000.0f, 4000.0f);
 
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
