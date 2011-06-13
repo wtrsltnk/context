@@ -10,6 +10,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>BoundingVolume.h</itemPath>
       <itemPath>Camera.h</itemPath>
       <itemPath>Common.h</itemPath>
       <itemPath>DefaultShader.h</itemPath>
@@ -30,6 +31,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>BoundingVolume.cpp</itemPath>
       <itemPath>Camera.cpp</itemPath>
       <itemPath>Common.cpp</itemPath>
       <itemPath>DefaultShader.cpp</itemPath>

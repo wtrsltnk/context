@@ -47,6 +47,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Vector3.o \
 	${OBJECTDIR}/Tokenizer.o \
 	${OBJECTDIR}/DefaultShader.o \
+	${OBJECTDIR}/BoundingVolume.o \
 	${OBJECTDIR}/TextureLoader.o \
 	${OBJECTDIR}/Common.o \
 	${OBJECTDIR}/Quaternion.o \
@@ -141,6 +142,11 @@ ${OBJECTDIR}/DefaultShader.o: DefaultShader.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/DefaultShader.o DefaultShader.cpp
+
+${OBJECTDIR}/BoundingVolume.o: BoundingVolume.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/BoundingVolume.o BoundingVolume.cpp
 
 ${OBJECTDIR}/TextureLoader.o: TextureLoader.cpp 
 	${MKDIR} -p ${OBJECTDIR}
