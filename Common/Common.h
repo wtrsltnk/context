@@ -8,6 +8,8 @@
 #ifndef COMMON_H
 #define	COMMON_H
 
+#include "BoundingVolume.h"
+
 class Common
 {
 public:
@@ -22,6 +24,8 @@ public:
 	static void glColorFromIndex(int index);
 	static int getIndexFromColor(unsigned char color[3]);
 	static int getIndexFromPixelAt(int x, int y);
+	
+	static void renderBoundingBox(const BoundingVolume& bb);
 };
 
 #endif	/* COMMON_H */

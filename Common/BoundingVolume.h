@@ -19,6 +19,8 @@ public:
 	BoundingVolume& operator << (const Vector3& p);
 	BoundingVolume& operator << (const BoundingVolume& b);
 	
+	const Vector3& mins() const;
+	const Vector3& maxs() const;
 	Vector3& mins();
 	Vector3& maxs();
 	Vector3 origin();

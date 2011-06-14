@@ -83,3 +83,48 @@ int Common::getIndexFromPixelAt(int x, int y)
 	glReadPixels(x, y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, (void *)color);
 	return Common::getIndexFromColor(color);
 }
+
+
+void Common::renderBoundingBox(const BoundingVolume& bb)
+{
+	glBegin(GL_LINES);
+	// bottom
+	glVertex3f(bb.mins().x(), bb.mins().y(), bb.mins().z());
+	glVertex3f(bb.maxs().x(), bb.mins().y(), bb.mins().z());
+
+	glVertex3f(bb.maxs().x(), bb.mins().y(), bb.mins().z());
+	glVertex3f(bb.maxs().x(), bb.maxs().y(), bb.mins().z());
+
+	glVertex3f(bb.maxs().x(), bb.maxs().y(), bb.mins().z());
+	glVertex3f(bb.mins().x(), bb.maxs().y(), bb.mins().z());
+
+	glVertex3f(bb.mins().x(), bb.maxs().y(), bb.mins().z());
+	glVertex3f(bb.mins().x(), bb.mins().y(), bb.mins().z());
+
+	// top
+	glVertex3f(bb.mins().x(), bb.maxs().y(), bb.maxs().z());
+	glVertex3f(bb.maxs().x(), bb.maxs().y(), bb.maxs().z());
+
+	glVertex3f(bb.maxs().x(), bb.maxs().y(), bb.maxs().z());
+	glVertex3f(bb.maxs().x(), bb.mins().y(), bb.maxs().z());
+
+	glVertex3f(bb.maxs().x(), bb.mins().y(), bb.maxs().z());
+	glVertex3f(bb.mins().x(), bb.mins().y(), bb.maxs().z());
+
+	glVertex3f(bb.mins().x(), bb.mins().y(), bb.maxs().z());
+	glVertex3f(bb.mins().x(), bb.maxs().y(), bb.maxs().z());
+
+	//sides
+	glVertex3f(bb.mins().x(), bb.maxs().y(), bb.mins().z());
+	glVertex3f(bb.mins().x(), bb.maxs().y(), bb.maxs().z());
+
+	glVertex3f(bb.maxs().x(), bb.maxs().y(), bb.mins().z());
+	glVertex3f(bb.maxs().x(), bb.maxs().y(), bb.maxs().z());
+
+	glVertex3f(bb.maxs().x(), bb.mins().y(), bb.mins().z());
+	glVertex3f(bb.maxs().x(), bb.mins().y(), bb.maxs().z());
+
+	glVertex3f(bb.mins().x(), bb.mins().y(), bb.mins().z());
+	glVertex3f(bb.mins().x(), bb.mins().y(), bb.maxs().z());
+	glEnd();
+}
