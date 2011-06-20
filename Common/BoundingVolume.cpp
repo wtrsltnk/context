@@ -85,3 +85,19 @@ Vector3 BoundingVolume::origin()
 			this->mMins.z() + ((this->mMaxs.z()-this->mMins.z()) / 2)
 		);
 }
+
+float BoundingVolume::width() const
+{
+	return this->mMaxs[0] - this->mMins[0];
+}
+
+float BoundingVolume::heigth() const
+{
+	return this->mMaxs[1] - this->mMins[1];
+}
+
+float BoundingVolume::depth() const
+{
+	return this->mMaxs[2] - this->mMins[2];
+}
+

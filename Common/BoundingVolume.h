@@ -25,6 +25,10 @@ public:
 	Vector3& maxs();
 	Vector3 origin();
 	
+	float width() const;
+	float heigth() const;
+	float depth() const;
+	
 private:
 	Vector3 mMins, mMaxs;
 
