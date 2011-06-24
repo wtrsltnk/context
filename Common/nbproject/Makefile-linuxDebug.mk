@@ -39,8 +39,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/Plane.o \
 	${OBJECTDIR}/Camera.o \
 	${OBJECTDIR}/Shader.o \
-	${OBJECTDIR}/FileLoader.o \
+	${OBJECTDIR}/Camera2d.o \
 	${OBJECTDIR}/uiFont.o \
+	${OBJECTDIR}/FileLoader.o \
 	${OBJECTDIR}/Matrix4x4.o \
 	${OBJECTDIR}/stb_truetype.o \
 	${OBJECTDIR}/ModelviewMatrix.o \
@@ -103,15 +104,20 @@ ${OBJECTDIR}/Shader.o: Shader.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Shader.o Shader.cpp
 
-${OBJECTDIR}/FileLoader.o: FileLoader.cpp 
+${OBJECTDIR}/Camera2d.o: Camera2d.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/FileLoader.o FileLoader.cpp
+	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Camera2d.o Camera2d.cpp
 
 ${OBJECTDIR}/uiFont.o: uiFont.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/uiFont.o uiFont.cpp
+
+${OBJECTDIR}/FileLoader.o: FileLoader.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/FileLoader.o FileLoader.cpp
 
 ${OBJECTDIR}/Matrix4x4.o: Matrix4x4.cpp 
 	${MKDIR} -p ${OBJECTDIR}
