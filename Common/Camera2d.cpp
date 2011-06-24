@@ -7,7 +7,6 @@
 
 #include "Camera2d.h"
 #include "GLee.h"
-#include <iostream>
 
 Camera2d::Camera2d()
 {
@@ -29,8 +28,6 @@ void Camera2d::update()
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	
-	std::cout << this->mPosition[0] << " " << this->mPosition[1] << " " << this->mPosition[2] << std::endl;
 	
 	switch (this->mAxis)
 	{
