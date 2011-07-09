@@ -17,6 +17,7 @@ public:
 
 	const Texture& operator = (const Texture& tex);
 	void setData(int w, int h, int bpp, unsigned char* data = 0);
+	void setChecker(int w, int h);
 
 	unsigned int upload(bool repeat = true);
 	void download();

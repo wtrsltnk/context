@@ -121,7 +121,56 @@ void Font::drawText(float x, float y, const char *text, unsigned int col)
 
         glColor4ub(col&0xff, (col>>8)&0xff, (col>>16)&0xff, (col>>24)&0xff);
 
-        glEnable(GL_TEXTURE_2D);
+        // assume orthographic projection with units = screen pixels, origin at top left
+        glBindTexture(GL_TEXTURE_2D, this->mTextureId);
+
+        glBegin(GL_TRIANGLES);
+
+        const float ox = x;
+
+        while (*text)
+        {
+			int c = (unsigned char)*text;
+			if (c == '\t')
+			{
+				for (int i = 0; i < 4; ++i)
+				{
+					if (x < g_tabStops[i]+ox)
+					{
+						x = g_tabStops[i]+ox;
+						break;
+					}
+				}
+			}
+			else if (c >= 32 && c < 128)
+			{
+				stbtt_aligned_quad q;
+				this->getBakedQuad(512,512, c-32, &x,&y,&q);
+
+				glTexCoord2f(q.s0, q.t0);
+				glVertex2f(q.x0, q.y0);
+				glTexCoord2f(q.s1, q.t1);
+				glVertex2f(q.x1, q.y1);
+				glTexCoord2f(q.s1, q.t0);
+				glVertex2f(q.x1, q.y0);
+
+				glTexCoord2f(q.s0, q.t0);
+				glVertex2f(q.x0, q.y0);
+				glTexCoord2f(q.s0, q.t1);
+				glVertex2f(q.x0, q.y1);
+				glTexCoord2f(q.s1, q.t1);
+				glVertex2f(q.x1, q.y1);
+			}
+			++text;
+        }
+
+        glEnd();
+}
+
+void Font::drawTextColorLess(float x, float y, const char *text)
+{
+        if (this->mTextureId == 0) return;
+        if (!text) return;
 
         // assume orthographic projection with units = screen pixels, origin at top left
         glBindTexture(GL_TEXTURE_2D, this->mTextureId);
@@ -167,7 +216,6 @@ void Font::drawText(float x, float y, const char *text, unsigned int col)
         }
 
         glEnd();
-        glDisable(GL_TEXTURE_2D);
 }
 
 void Font::getBakedQuad(int pw, int ph, int char_index, float *xpos, float *ypos, stbtt_aligned_quad *q)

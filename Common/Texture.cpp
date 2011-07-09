@@ -51,6 +51,36 @@ void Texture::setData(int w, int h, int bpp, unsigned char* data)
 	}
 }
 
+void Texture::setChecker(int w, int h)
+{
+	int dataSize = w * h * 4;
+
+	if (dataSize > 0)
+	{
+		this->mWidth = w;
+		this->mHeight = h;
+		this->mBpp = 4;
+
+		if (this->mData != NULL)
+			delete []this->mData;
+
+		bool evenRow = false, evenCol = false;
+		this->mData = new unsigned char[dataSize];
+		int i, j, c;
+
+		for (i = 0; i < this->mHeight; i++) {
+			for (j = 0; j < this->mWidth; j++) {
+				int pixel = i*this->mWidth+j;
+				c = ((((i&0x8)==0)^((j&0x8))==0))*255;
+				this->mData[pixel*4] = (GLubyte) c;
+				this->mData[pixel*4+1] = (GLubyte) c;
+				this->mData[pixel*4+2] = (GLubyte) c;
+				this->mData[pixel*4+3] = (GLubyte) 255;
+			}
+		}
+	}
+}
+
 const Texture& Texture::operator = (const Texture& tex)
 {
 	this->setData(tex.mWidth, tex.mHeight, tex.mBpp, tex.mData);

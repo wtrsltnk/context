@@ -12,7 +12,7 @@ Camera::~Camera()
 {
 }
 
-void Camera::update()
+void Camera::update() const
 {
 	(Matrix4x4::translateMatrix(this->mPosition[0], this->mPosition[1], this->mPosition[2]) * this->mMatrix).glMultiply();
 }

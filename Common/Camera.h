@@ -10,7 +10,7 @@ public:
 	Camera();
 	virtual ~Camera();
 
-    void update();
+    void update() const;
 
 	Vector3& rotation();
     void setRotation(float rotation[3]);

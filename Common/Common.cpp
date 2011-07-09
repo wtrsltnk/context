@@ -68,7 +68,7 @@ void Common::glColorFromIndex(int index)
 {
 	unsigned char color[3];
 	Common::getColorFromIndex(index, color);
-	glColor3ubv(color);
+	glColor4ub(color[0], color[1], color[2], 255);
 }
 
 int Common::getIndexFromColor(unsigned char color[3])
