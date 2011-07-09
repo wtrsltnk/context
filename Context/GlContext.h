@@ -20,6 +20,7 @@ private:
 	
 public:
 	GlContext();
+	GlContext(int width, int height);
 	virtual ~GlContext();
 
 	bool create(int major = 3, int minor = 1);

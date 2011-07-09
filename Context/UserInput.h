@@ -194,10 +194,10 @@ public:
 
 	bool isButtonPressed(Mouse::Button button) const;
 	void setButtonPressed(Mouse::Button button, bool pressed);
-	int getMousePositionX() const;
-	void setMousePositionX(int x);
-	int getMousePositionY() const;
-	void setMousePositionY(int y);
+	int x() const;
+	void x(int x);
+	int y() const;
+	void y(int y);
 
 private:
 	bool mMouseButton[Mouse::Count];

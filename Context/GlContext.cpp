@@ -213,8 +213,8 @@ public:
 			}
 			else if (event.type == MotionNotify)
 			{
-				MouseState::currentState().setMousePositionX(event.xmotion.x);
-				MouseState::currentState().setMousePositionY(this->mHeight - event.xmotion.y);
+				MouseState::currentState().x(event.xmotion.x);
+				MouseState::currentState().y(this->mHeight - event.xmotion.y);
 				this->mParent->onMouseMove(event.xmotion.x, this->mHeight - event.xmotion.y);
 			}
 			else if (event.type == ConfigureNotify)
@@ -1001,8 +1001,8 @@ public:
 
 			case WM_MOUSEMOVE:
 			{
-				MouseState::currentState().setMousePositionX(LOWORD(lParam));
-				MouseState::currentState().setMousePositionY(this->mHeight - HIWORD(lParam));
+				MouseState::currentState().x(LOWORD(lParam));
+				MouseState::currentState().y(this->mHeight - HIWORD(lParam));
 				gl->mParent->onMouseMove(LOWORD(lParam), this->mHeight - HIWORD(lParam));
 				return 0;
 			}
@@ -1331,6 +1331,13 @@ Key::Code sKeymap[] =
 GlContext::GlContext()
 	: pimpl(new Impl(this))
 {
+}
+
+GlContext::GlContext(int width, int height)
+	: pimpl(new Impl(this))
+{
+	pimpl->mWidth = width;
+	pimpl->mHeight = height;
 }
 
 GlContext::~GlContext()

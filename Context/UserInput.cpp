@@ -40,22 +40,22 @@ void MouseState::setButtonPressed(Mouse::Button button, bool pressed)
 	this->mMouseButton[button] = pressed;
 }
 
-int MouseState::getMousePositionX() const
+int MouseState::x() const
 {
 	return this->mMouseX;
 }
 
-void MouseState::setMousePositionX(int x)
+void MouseState::x(int x)
 {
 	this->mMouseX = x;
 }
 
-int MouseState::getMousePositionY() const
+int MouseState::y() const
 {
 	return this->mMouseY;
 }
 
-void MouseState::setMousePositionY(int y)
+void MouseState::y(int y)
 {
 	this->mMouseY = y;
 }
