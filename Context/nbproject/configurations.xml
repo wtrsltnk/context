@@ -116,7 +116,7 @@
                             CT="2"
                             CN="win32Debug"
                             AC="true"
-                            BL="false"
+                            BL="true"
                             WD="../Common"
                             BC="${MAKE}  -f Makefile CONF=win32Debug"
                             CC="${MAKE}  -f Makefile CONF=win32Debug clean"

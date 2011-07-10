@@ -113,6 +113,7 @@
         <linkerTool>
           <linkerLibItems>
             <linkerLibLibItem>opengl32</linkerLibLibItem>
+            <linkerLibLibItem>glu32</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

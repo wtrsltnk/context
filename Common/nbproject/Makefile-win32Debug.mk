@@ -36,17 +36,21 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Texture.o \
 	${OBJECTDIR}/ProjectionMatrix.o \
+	${OBJECTDIR}/Plane.o \
 	${OBJECTDIR}/Camera.o \
 	${OBJECTDIR}/Shader.o \
-	${OBJECTDIR}/FileLoader.o \
+	${OBJECTDIR}/Camera2d.o \
 	${OBJECTDIR}/uiFont.o \
+	${OBJECTDIR}/FileLoader.o \
 	${OBJECTDIR}/Matrix4x4.o \
 	${OBJECTDIR}/stb_truetype.o \
 	${OBJECTDIR}/ModelviewMatrix.o \
 	${OBJECTDIR}/Vector3.o \
 	${OBJECTDIR}/Tokenizer.o \
 	${OBJECTDIR}/DefaultShader.o \
+	${OBJECTDIR}/BoundingVolume.o \
 	${OBJECTDIR}/TextureLoader.o \
+	${OBJECTDIR}/Common.o \
 	${OBJECTDIR}/Quaternion.o \
 	${OBJECTDIR}/GLee.o
 
@@ -65,7 +69,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lopengl32
+LDLIBSOPTIONS=-lopengl32 -lglu32
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -85,6 +89,11 @@ ${OBJECTDIR}/ProjectionMatrix.o: ProjectionMatrix.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ProjectionMatrix.o ProjectionMatrix.cpp
 
+${OBJECTDIR}/Plane.o: Plane.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Plane.o Plane.cpp
+
 ${OBJECTDIR}/Camera.o: Camera.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
@@ -95,15 +104,20 @@ ${OBJECTDIR}/Shader.o: Shader.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Shader.o Shader.cpp
 
-${OBJECTDIR}/FileLoader.o: FileLoader.cpp 
+${OBJECTDIR}/Camera2d.o: Camera2d.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g  -MMD -MP -MF $@.d -o ${OBJECTDIR}/FileLoader.o FileLoader.cpp
+	$(COMPILE.cc) -g  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Camera2d.o Camera2d.cpp
 
 ${OBJECTDIR}/uiFont.o: uiFont.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g  -MMD -MP -MF $@.d -o ${OBJECTDIR}/uiFont.o uiFont.cpp
+
+${OBJECTDIR}/FileLoader.o: FileLoader.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g  -MMD -MP -MF $@.d -o ${OBJECTDIR}/FileLoader.o FileLoader.cpp
 
 ${OBJECTDIR}/Matrix4x4.o: Matrix4x4.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -135,10 +149,20 @@ ${OBJECTDIR}/DefaultShader.o: DefaultShader.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g  -MMD -MP -MF $@.d -o ${OBJECTDIR}/DefaultShader.o DefaultShader.cpp
 
+${OBJECTDIR}/BoundingVolume.o: BoundingVolume.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g  -MMD -MP -MF $@.d -o ${OBJECTDIR}/BoundingVolume.o BoundingVolume.cpp
+
 ${OBJECTDIR}/TextureLoader.o: TextureLoader.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g  -MMD -MP -MF $@.d -o ${OBJECTDIR}/TextureLoader.o TextureLoader.cpp
+
+${OBJECTDIR}/Common.o: Common.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Common.o Common.cpp
 
 ${OBJECTDIR}/Quaternion.o: Quaternion.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -76,6 +76,7 @@ ${OBJECTDIR}/GlContext.o: GlContext.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../Common && ${MAKE}  -f Makefile CONF=win32Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -84,6 +85,7 @@ ${OBJECTDIR}/GlContext.o: GlContext.cpp
 
 # Subprojects
 .clean-subprojects:
+	cd ../Common && ${MAKE}  -f Makefile CONF=win32Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
