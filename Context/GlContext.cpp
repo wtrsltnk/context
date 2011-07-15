@@ -953,6 +953,32 @@ public:
 
 			case WM_LBUTTONDOWN:
 			{
+				RECT rcClient;                 // client area rectangle 
+				POINT ptClientUL;              // client upper left corner 
+				POINT ptClientLR;              // client lower right corner 
+				SetCapture(gl->hWnd); 
+				GetClientRect(gl->hWnd, &rcClient); 
+				ptClientUL.x = rcClient.left; 
+				ptClientUL.y = rcClient.top; 
+
+				// Add one to the right and bottom sides, because the 
+				// coordinates retrieved by GetClientRect do not 
+				// include the far left and lowermost pixels. 
+
+				ptClientLR.x = rcClient.right + 1; 
+				ptClientLR.y = rcClient.bottom + 1; 
+				ClientToScreen(gl->hWnd, &ptClientUL); 
+				ClientToScreen(gl->hWnd, &ptClientLR); 
+
+				// Copy the client coordinates of the client area 
+				// to the rcClient structure. Confine the mouse cursor 
+				// to the client area by passing the rcClient structure 
+				// to the ClipCursor function. 
+
+				SetRect(&rcClient, ptClientUL.x, ptClientUL.y, 
+					ptClientLR.x, ptClientLR.y); 
+				ClipCursor(&rcClient); 
+				
 				button = Mouse::Left;
 				MouseState::currentState().setButtonPressed(button, true);
 				gl->mParent->onMouseButtonDown(button);
@@ -961,6 +987,8 @@ public:
 
 			case WM_LBUTTONUP:
 			{
+				ReleaseCapture();
+				ClipCursor(NULL);
 				button = Mouse::Left;
 				MouseState::currentState().setButtonPressed(button, false);
 				gl->mParent->onMouseButtonUp(button);
@@ -969,6 +997,7 @@ public:
 
 			case WM_MBUTTONDOWN:
 			{
+				SetCapture(gl->hWnd);
 				button = Mouse::Middle;
 				MouseState::currentState().setButtonPressed(button, true);
 				gl->mParent->onMouseButtonDown(button);
@@ -985,6 +1014,7 @@ public:
 
 			case WM_RBUTTONDOWN:
 			{
+				SetCapture(gl->hWnd);
 				button = Mouse::Right;
 				MouseState::currentState().setButtonPressed(button, true);
 				gl->mParent->onMouseButtonDown(button);
