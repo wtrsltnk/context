@@ -34,8 +34,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/DirectoryPackage.o \
+	${OBJECTDIR}/PackageFromDirectory.o \
 	${OBJECTDIR}/FileSystem.o \
+	${OBJECTDIR}/FileFromDirectory.o \
 	${OBJECTDIR}/File.o \
 	${OBJECTDIR}/Item.o \
 	${OBJECTDIR}/Package.o \
@@ -68,15 +69,20 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfilesystem.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfilesystem.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfilesystem.a
 
-${OBJECTDIR}/DirectoryPackage.o: DirectoryPackage.cpp 
+${OBJECTDIR}/PackageFromDirectory.o: PackageFromDirectory.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/DirectoryPackage.o DirectoryPackage.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/PackageFromDirectory.o PackageFromDirectory.cpp
 
 ${OBJECTDIR}/FileSystem.o: FileSystem.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/FileSystem.o FileSystem.cpp
+
+${OBJECTDIR}/FileFromDirectory.o: FileFromDirectory.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/FileFromDirectory.o FileFromDirectory.cpp
 
 ${OBJECTDIR}/File.o: File.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -7,7 +7,7 @@
 
 #include "FileSystem.h"
 #include "Package.h"
-#include "DirectoryPackage.h"
+#include "PackageFromDirectory.h"
 #include <string.h>
 
 namespace fs
@@ -49,8 +49,8 @@ Package* FileSystem::addPackage(const char* pathToPackage)
 	else
 	{
 		fs::FilePath filePath(fs::FilePathType::Package, 0, pathToPackage);
-		DirectoryPackage* package = new DirectoryPackage(filePath, 0);
-		if (package != 0)
+		PackageFromDirectory* package = new PackageFromDirectory(filePath);
+		if (package->open())
 		{
 			this->mPackages.push_back(package);
 			return package;
@@ -64,7 +64,7 @@ Package* FileSystem::addPackage(fs::FilePath& pathToPackage)
 	if (pathToPackage.package() != 0)
 	{
 		Package* package = pathToPackage.package()->openPackage(pathToPackage);
-		if (package != 0)
+		if (package != 0 && package->open())
 		{
 			this->mPackages.push_back(package);
 			return package;
@@ -72,8 +72,8 @@ Package* FileSystem::addPackage(fs::FilePath& pathToPackage)
 	}
 	else 
 	{
-		DirectoryPackage* package = new DirectoryPackage(pathToPackage, 0);
-		if (package != 0)
+		PackageFromDirectory* package = new PackageFromDirectory(pathToPackage);
+		if (package->open())
 		{
 			this->mPackages.push_back(package);
 			return package;

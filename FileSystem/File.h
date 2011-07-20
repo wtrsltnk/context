@@ -22,11 +22,11 @@ namespace fs
 		virtual ~File();
 		
 		virtual void setCursorFromBegin(int offset) = 0;
+		virtual void setCursorFromCurrent(int offset) = 0;
 		virtual void setCursorFromEnd(int offset) = 0;
-		virtual byte* read(int size, int offset = 0) = 0;
+		virtual int read(byte* buffer, int size, int offset = 0) = 0;
 		virtual int size() = 0;
 		
-
 	};
 
 }

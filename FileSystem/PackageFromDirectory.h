@@ -1,24 +1,24 @@
 /* 
- * File:   DirectoryPackage.h
+ * File:   PackageFromDirectory.h
  * Author: wouter
  *
  * Created on July 18, 2011, 10:57 AM
  */
 
-#ifndef DIRECTORYPACKAGE_H
-#define	DIRECTORYPACKAGE_H
+#ifndef PACKAGEFROMDIRECTORY_H
+#define	PACKAGEFROMDIRECTORY_H
 
 #include "Package.h"
 
 namespace fs
 {
-	class DirectoryPackage : public fs::Package
+	class PackageFromDirectory : public fs::Package
 	{
 	public:
-		DirectoryPackage(const fs::FilePath& filePath, int flags = 0);
-		virtual ~DirectoryPackage();
+		PackageFromDirectory(const fs::FilePath& filePath);
+		virtual ~PackageFromDirectory();
 
-		virtual bool open();
+		virtual bool open(int flags = 0);
 		virtual bool close();
 		
 		virtual fs::FilePath findFile(const char* filename);
@@ -30,9 +30,10 @@ namespace fs
 		virtual bool closeFile(fs::File* file);
 
 	private:
+		bool mOpen;
 		std::vector<fs::Item*> mOpenItems;
 		
-		static void addFilesFromFolder(const char* root, int flags, DirectoryPackage* parent);
+		static void addFilesFromFolder(const char* root, int flags, PackageFromDirectory* parent);
 		static bool isFile(const char* root, const char* file);
 		static bool isFolder(const char* root, const char* folder);
 		
@@ -40,5 +41,5 @@ namespace fs
 	
 }
 
-#endif	/* DIRECTORYPACKAGE_H */
+#endif	/* PACKAGEFROMDIRECTORY_H */
 

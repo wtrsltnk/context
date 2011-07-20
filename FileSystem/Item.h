@@ -19,6 +19,9 @@ namespace fs
 		Item(const fs::FilePath& filePath);
 		virtual ~Item();
 
+		virtual bool open(int flags = 0) = 0;
+		virtual bool close() = 0;
+		
 		const fs::FilePath& filePath() const;
 
 	protected:
