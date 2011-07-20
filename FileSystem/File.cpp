@@ -11,17 +11,12 @@ namespace fs
 {
 
 File::File(const fs::FilePath& filePath)
-	: mFilePath(filePath)
+	: Item(filePath)
 {
 }
 
 File::~File()
 {
-}
-
-const fs::FilePath& File::filePath() const
-{
-	return this->mFilePath;
 }
 
 }

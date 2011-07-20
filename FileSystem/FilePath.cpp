@@ -6,6 +6,9 @@
  */
 
 #include "FilePath.h"
+#include "Package.h"
+#include "Item.h"
+#include <string>
 
 namespace fs
 {
@@ -16,8 +19,8 @@ FilePath::FilePath()
 	this->mPathToFile[0] = '\0';
 }
 
-FilePath::FilePath(Package* package, const char* pathToFile)
-	: mPackage(package)
+FilePath::FilePath(int type, Package* package, const char* pathToFile)
+	: mType(type), mPackage(package)
 {
 	for (int i = 0; i < MAX_PATH_TO_FILE; i++)
 	{
@@ -38,6 +41,7 @@ FilePath::~FilePath()
 
 const FilePath& FilePath::operator = (const FilePath& other)
 {
+	this->mType = other.mType;
 	this->mPackage = other.mPackage;
 	
 	for (int i = 0; i < MAX_PATH_TO_FILE; i++)
@@ -56,7 +60,7 @@ bool FilePath::isValid() const
 	return (this->mPathToFile[0] != '\0');
 }
 
-const Package* FilePath::package() const
+Package* FilePath::package()
 {
 	return this->mPackage;
 }
@@ -64,6 +68,23 @@ const Package* FilePath::package() const
 const char* FilePath::pathToFile() const
 {
 	return this->mPathToFile;
+}
+
+const char* FilePath::fullPath() const
+{
+	static std::string fullPath;
+	
+	if (this->mPackage != 0)
+		fullPath = std::string(this->mPackage->filePath().fullPath()) + std::string("/") + std::string(this->mPathToFile);
+	else
+		fullPath = std::string(this->mPathToFile);
+	
+	return fullPath.c_str();
+}
+
+int FilePath::type() const
+{
+	return this->mType;
 }
 
 }

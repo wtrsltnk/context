@@ -10,8 +10,8 @@
 namespace fs
 {
 
-Package::Package()
-	: mParentPackage(0)
+Package::Package(const fs::FilePath& filePath)
+	: Item(filePath)
 {
 }
 
@@ -19,15 +19,9 @@ Package::~Package()
 {
 }
 
-const fs::Package* Package::parentPackage() const
+const std::vector<fs::FilePath>& Package::files() const
 {
-	return this->mParentPackage;
+	return this->mFiles;
 }
 
-const std::vector<fs::File*>& Package::openFiles() const
-{
-	return this->mOpenFiles;
-}
-
-	
 }

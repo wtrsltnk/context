@@ -8,14 +8,14 @@
 #ifndef FILE_H
 #define	FILE_H
 
-#include "FilePath.h"
+#include "Item.h"
 
 namespace fs
 {
 	
 	typedef unsigned char byte;
 
-	class File
+	class File : public Item
 	{
 	public:
 		File(const fs::FilePath& filePath);
@@ -26,10 +26,6 @@ namespace fs
 		virtual byte* read(int size, int offset = 0) = 0;
 		virtual int size() = 0;
 		
-		const fs::FilePath& filePath() const;
-
-	protected:
-		fs::FilePath mFilePath;
 
 	};
 

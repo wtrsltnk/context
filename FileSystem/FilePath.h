@@ -12,6 +12,14 @@
 
 namespace fs
 {
+	namespace FilePathType
+	{
+		enum Type
+		{
+			File,
+			Package
+		};
+	}
 
 	class Package;
 
@@ -19,7 +27,7 @@ namespace fs
 	{
 	public:
 		FilePath();
-		FilePath(Package* package, const char* pathToFile);
+		FilePath(int type, Package* package, const char* pathToFile);
 		FilePath(const FilePath& other);
 		virtual ~FilePath();
 
@@ -27,10 +35,13 @@ namespace fs
 		operator bool ();
 		bool isValid() const;
 
-		const Package* package() const;
+		Package* package();
 		const char* pathToFile() const;
+		const char* fullPath() const;
+		int type() const;
 
 	protected:
+		int mType;
 		Package* mPackage;
 		char mPathToFile[MAX_PATH_TO_FILE];
 

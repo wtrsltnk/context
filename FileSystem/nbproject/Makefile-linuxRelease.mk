@@ -37,6 +37,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/DirectoryPackage.o \
 	${OBJECTDIR}/FileSystem.o \
 	${OBJECTDIR}/File.o \
+	${OBJECTDIR}/Item.o \
 	${OBJECTDIR}/Package.o \
 	${OBJECTDIR}/FilePath.o
 
@@ -81,6 +82,11 @@ ${OBJECTDIR}/File.o: File.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/File.o File.cpp
+
+${OBJECTDIR}/Item.o: Item.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Item.o Item.cpp
 
 ${OBJECTDIR}/Package.o: Package.cpp 
 	${MKDIR} -p ${OBJECTDIR}

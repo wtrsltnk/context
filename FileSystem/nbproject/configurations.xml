@@ -4,19 +4,21 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>DirectoryPackage.cpp</itemPath>
       <itemPath>DirectoryPackage.h</itemPath>
       <itemPath>File.h</itemPath>
       <itemPath>FilePath.h</itemPath>
       <itemPath>FileSystem.h</itemPath>
+      <itemPath>Item.h</itemPath>
       <itemPath>Package.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>DirectoryPackage.cpp</itemPath>
       <itemPath>File.cpp</itemPath>
       <itemPath>FilePath.cpp</itemPath>
       <itemPath>FileSystem.cpp</itemPath>
+      <itemPath>Item.cpp</itemPath>
       <itemPath>Package.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"

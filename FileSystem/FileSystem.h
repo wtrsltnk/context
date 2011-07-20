@@ -21,12 +21,15 @@ namespace fs
 		virtual ~FileSystem();
 
 		Package* addPackage(const char* pathToPackage);
-		Package* addPackage(const fs::FilePath& pathToPackage);
+		Package* addPackage(fs::FilePath& pathToPackage);
 		
 		fs::FilePath findFile(const char* filename);
 		
 	private:
 		std::vector<Package*> mPackages;
+		
+	public:
+		static const char* extension(const char* fullpath);
 		
 	};
 

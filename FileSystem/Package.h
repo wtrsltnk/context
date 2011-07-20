@@ -8,30 +8,45 @@
 #ifndef PACKAGE_H
 #define	PACKAGE_H
 
-#include "FilePath.h"
+#include "Item.h"
 #include "File.h"
 #include <vector>
 
 namespace fs
 {
 
-	class Package
+	class Package : public Item
 	{
 	public:
-		Package();
+		Package(const fs::FilePath& filePath);
 		virtual ~Package();
 		
+		virtual bool open() = 0;
+		virtual bool close() = 0;
+		
 		virtual fs::FilePath findFile(const char* filename) = 0;
-		virtual fs::File* openFile(const fs::FilePath& filePath) = 0;
-		virtual bool closeFile(const fs::FilePath& filePath) = 0;
+		
+		virtual fs::Package* openPackage(const fs::FilePath& filePath, int flags = 0) = 0;
+		
+		/*
+		 * Closes the give child package if it is a child. The given pointer is 
+		 * not valid after this method returns true.
+		 */
+		virtual bool closePackage(fs::Package* package) = 0;
+		
+		virtual fs::File* openFile(const fs::FilePath& filePath, int flags = 0) = 0;
+		
+		/*
+		 * Closes the give child package if it is a child. The given pointer is 
+		 * not valid after this method returns true.
+		 */
+		virtual bool closeFile(fs::File* file) = 0;
 
-		const fs::Package* parentPackage() const;
-		const std::vector<fs::File*>& openFiles() const;
-
+		const std::vector<fs::FilePath>& files() const;
+		
 	protected:
-		Package* mParentPackage;
-		std::vector<fs::File*> mOpenFiles;
-
+		std::vector<fs::FilePath> mFiles;
+		
 	};
 
 }
