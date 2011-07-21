@@ -9,6 +9,7 @@
 #include "GLee.h"
 #include <GL/glu.h>
 #include <iostream>
+#include <sstream>
 
 Common::Common()
 {
@@ -127,4 +128,37 @@ void Common::renderBoundingBox(const BoundingVolume& bb)
 	glVertex3f(bb.mins().x(), bb.mins().y(), bb.mins().z());
 	glVertex3f(bb.mins().x(), bb.mins().y(), bb.maxs().z());
 	glEnd();
+}
+
+/*
+ * From stackoverflow.com:
+ *		http://stackoverflow.com/questions/236129/how-to-split-a-string-in-c#4689579
+ */
+void Common::explode(std::vector<std::string>& lst, const std::string& input, const std::string& separators, bool remove_empty)
+{
+    std::ostringstream word;
+    for (size_t n = 0; n < input.size(); ++n)
+    {
+        if (std::string::npos == separators.find(input[n]))
+            word << input[n];
+        else
+        {
+            if (!word.str().empty() || !remove_empty)
+                lst.push_back(word.str());
+            word.str("");
+        }
+    }
+    if (!word.str().empty() || !remove_empty)
+        lst.push_back(word.str());
+}
+
+std::string Common::implode(const std::vector<std::string>& lst, const std::string& glue)
+{
+	std::string output;
+	
+	for (size_t i = 0; i != lst.size()-1; i++)
+		output += lst[i] + glue;
+	output += lst[lst.size()-1];
+	
+	return output;
 }

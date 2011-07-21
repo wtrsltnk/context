@@ -10,7 +10,7 @@ class Plane
 public:
 	Plane();
 	Plane(float nx, float ny, float nz, float d);
-	Plane(float d, float n[3]);
+	Plane(float d, const float n[3]);
 	Plane(float p[4]);
 	virtual ~Plane();
 

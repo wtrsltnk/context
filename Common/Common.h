@@ -9,6 +9,8 @@
 #define	COMMON_H
 
 #include "BoundingVolume.h"
+#include <vector>
+#include <string>
 
 class Common
 {
@@ -26,6 +28,9 @@ public:
 	static int getIndexFromPixelAt(int x, int y);
 	
 	static void renderBoundingBox(const BoundingVolume& bb);
+	
+	static void explode(std::vector<std::string>& lst, const std::string& input, const std::string& separators, bool remove_empty = true);
+	static std::string implode(const std::vector<std::string>& lst, const std::string& glue = "");
 };
 
 #endif	/* COMMON_H */

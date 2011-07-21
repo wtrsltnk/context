@@ -14,7 +14,7 @@ Plane::Plane(float nx, float ny, float nz, float d)
 	mNormal.z(nz);
 }
 
-Plane::Plane(float d, float n[3])
+Plane::Plane(float d, const float n[3])
 	: mDistance(d)
 {
 	mNormal.x(n[0]);
