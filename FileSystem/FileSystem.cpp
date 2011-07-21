@@ -28,21 +28,23 @@ FileSystem::~FileSystem()
 	}
 }
 
-Package* FileSystem::addPackage(const char* pathToPackage)
+Package* FileSystem::addPackage(const std::string& pathToPackage)
 {
-	if (strcmp(FileSystem::extension(pathToPackage), ".pak") == 0 || strcmp(FileSystem::extension(pathToPackage), ".PAK") == 0)
+	std::string ext = FileSystem::extension(pathToPackage);
+	
+	if (ext == ".pak" || ext == ".PAK")
 	{
 		// TODO : Open a Pak-file
 	}
-	else if (strcmp(FileSystem::extension(pathToPackage), ".zip") == 0 || strcmp(FileSystem::extension(pathToPackage), ".ZIP") == 0)
+	else if (ext == ".zip" || ext == ".ZIP")
 	{
 		// TODO : Open a Zip-file
 	}
-	else if (strcmp(FileSystem::extension(pathToPackage), ".wad") == 0 || strcmp(FileSystem::extension(pathToPackage), ".WAD") == 0)
+	else if (ext == ".wad" || ext == ".WAD")
 	{
 		// TODO : Open a Wad-file
 	}
-	else if (strcmp(FileSystem::extension(pathToPackage), ".gcf") == 0 || strcmp(FileSystem::extension(pathToPackage), ".GCF") == 0)
+	else if (ext == ".gcf" || ext == ".GCF")
 	{
 		// TODO : Open a Gcf-file
 	}
@@ -59,7 +61,7 @@ Package* FileSystem::addPackage(const char* pathToPackage)
 	return 0;
 }
 
-Package* FileSystem::addPackage(fs::FilePath& pathToPackage)
+Package* FileSystem::addPackage(fs::FilePath pathToPackage)
 {
 	if (pathToPackage.package() != 0)
 	{
@@ -82,7 +84,21 @@ Package* FileSystem::addPackage(fs::FilePath& pathToPackage)
 	return 0;
 }
 
-fs::FilePath FileSystem::findFile(const char* filename)
+void FileSystem::removePackage(Package* p)
+{
+	for (std::vector<Package*>::iterator i = this->mPackages.begin(); i != this->mPackages.end(); ++i)
+	{
+		if (p == (*i))
+		{
+			this->mPackages.erase(i);
+			p->close();
+			delete p;
+			return;
+		}
+	}
+}
+
+fs::FilePath FileSystem::findFile(const std::string& filename)
 {
 	for (std::vector<Package*>::iterator i = this->mPackages.begin(); i != this->mPackages.end(); ++i)
 	{
@@ -95,9 +111,16 @@ fs::FilePath FileSystem::findFile(const char* filename)
 	return fs::FilePath();
 }
 
-const char* FileSystem::extension(const char* fullpath)
+std::string FileSystem::extension(const std::string& fullpath)
 {
-	return strrchr(fullpath, '.');
+	int pos = fullpath.length();
+	
+	while (pos > 0)
+	{
+		if (fullpath[--pos] == '.')
+			return fullpath.substr(pos);
+	}
+	return "";
 }
 
 }

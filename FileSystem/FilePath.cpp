@@ -8,26 +8,21 @@
 #include "FilePath.h"
 #include "Package.h"
 #include "Item.h"
+#include "FileFromDirectory.h"
+#include "PackageFromDirectory.h"
 #include <string>
 
 namespace fs
 {
 
 FilePath::FilePath()
-	: mPackage(0)
+	: mType(0), mPackage(0), mPathToFile("")
 {
-	this->mPathToFile[0] = '\0';
 }
 
-FilePath::FilePath(int type, Package* package, const char* pathToFile)
-	: mType(type), mPackage(package)
+FilePath::FilePath(int type, Package* package, const std::string& pathToFile)
+	: mType(type), mPackage(package), mPathToFile(pathToFile)
 {
-	for (int i = 0; i < MAX_PATH_TO_FILE; i++)
-	{
-		this->mPathToFile[i] = pathToFile[i];
-		if (pathToFile[i] == '\0')
-			break;
-	}
 }
 
 FilePath::FilePath(const FilePath& other)
@@ -43,9 +38,7 @@ const FilePath& FilePath::operator = (const FilePath& other)
 {
 	this->mType = other.mType;
 	this->mPackage = other.mPackage;
-	
-	for (int i = 0; i < MAX_PATH_TO_FILE; i++)
-		this->mPathToFile[i] = other.mPathToFile[i];
+	this->mPathToFile = other.mPathToFile;
 	
 	return (*this);
 }
@@ -57,7 +50,7 @@ FilePath::operator bool ()
 
 bool FilePath::isValid() const
 {
-	return (this->mPathToFile[0] != '\0');
+	return (this->mPathToFile.length() > 0);
 }
 
 Package* FilePath::package()
@@ -65,26 +58,60 @@ Package* FilePath::package()
 	return this->mPackage;
 }
 
-const char* FilePath::pathToFile() const
+const std::string& FilePath::pathToFile() const
 {
 	return this->mPathToFile;
 }
 
-const char* FilePath::fullPath() const
+std::string FilePath::fullPath() const
 {
-	static std::string fullPath;
+	std::string fullPath;
 	
 	if (this->mPackage != 0)
 		fullPath = std::string(this->mPackage->filePath().fullPath()) + std::string("/") + std::string(this->mPathToFile);
 	else
 		fullPath = std::string(this->mPathToFile);
 	
-	return fullPath.c_str();
+	return fullPath;
 }
 
 int FilePath::type() const
 {
 	return this->mType;
+}
+
+fs::File* FilePath::openAsFile(int flags)
+{
+	if (this->mType == fs::FilePathType::File)
+	{
+		if (this->mPackage != 0)
+			return this->mPackage->openFile(*this, flags);
+		else
+		{
+			fs::FileFromDirectory* file = new fs::FileFromDirectory(*this);
+			if (file->open(flags))
+				return file;
+			delete file;
+		}
+	}
+	return 0;
+}
+
+fs::Package* FilePath::openAsPackage(int flags)
+{
+	if (this->mType == fs::FilePathType::File)
+	{
+		if (this->mPackage != 0)
+			return this->mPackage->openPackage(*this, flags);
+		else
+		{
+			fs::PackageFromDirectory* file = new fs::PackageFromDirectory(*this);
+			if (file->open(flags))
+				return file;
+			delete file;
+		}
+	}
+	return 0;
 }
 
 }

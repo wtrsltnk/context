@@ -44,13 +44,13 @@ bool PackageFromDirectory::close()
 	return true;
 }
 
-fs::FilePath PackageFromDirectory::findFile(const char* filename)
+fs::FilePath PackageFromDirectory::findFile(const std::string& filename)
 {
 	if (this->mOpen)
 	{
 		for (std::vector<fs::FilePath>::iterator f = this->mFiles.begin(); f != this->mFiles.end(); ++f)
 		{
-			if (strcmp((*f).pathToFile(), filename) == 0)
+			if ((*f).pathToFile() == filename)
 				return (*f);
 		}
 	}
@@ -61,7 +61,7 @@ fs::Package* PackageFromDirectory::openPackage(const fs::FilePath& filePath, int
 {
 	if (this->mOpen && filePath.type() == fs::FilePathType::Package)
 	{
-		std::string tmp(std::string(this->mFilePath.pathToFile()) + std::string("/") + std::string(filePath.pathToFile()));
+		std::string tmp(this->mFilePath.pathToFile() + std::string("/") + filePath.pathToFile());
 		PackageFromDirectory* dir = new PackageFromDirectory(filePath);
 		if (dir->open(flags))
 		{
@@ -134,11 +134,11 @@ bool PackageFromDirectory::closeFile(fs::File* file)
 	return true;
 }
 
-void PackageFromDirectory::addFilesFromFolder(const char* root, int flags, PackageFromDirectory* parent)
+void PackageFromDirectory::addFilesFromFolder(const std::string& root, int flags, PackageFromDirectory* parent)
 {
 #ifdef WIN32
 #else
-	DIR* dir = opendir(root);
+	DIR* dir = opendir(root.c_str());
     struct dirent* dirp;
     if (dir != false)
     {
@@ -161,9 +161,9 @@ void PackageFromDirectory::addFilesFromFolder(const char* root, int flags, Packa
 #endif
 }
 
-bool PackageFromDirectory::isFile(const char* root, const char* file)
+bool PackageFromDirectory::isFile(const std::string& root, const std::string& file)
 {
-	std::string tmp(std::string(root) + std::string("/") + std::string(file));
+	std::string tmp(root + std::string("/") + file);
 	
 	struct stat buf = { 0 };
 	if (stat(tmp.c_str(), &buf) == 0)
@@ -172,9 +172,9 @@ bool PackageFromDirectory::isFile(const char* root, const char* file)
 	return false;
 }
 
-bool PackageFromDirectory::isFolder(const char* root, const char* folder)
+bool PackageFromDirectory::isFolder(const std::string& root, const std::string& folder)
 {
-	std::string tmp(std::string(root) + std::string("/") + std::string(folder));
+	std::string tmp(root + std::string("/") + folder);
 	
 	struct stat buf = { 0 };
 	if (stat(tmp.c_str(), &buf) == 0)

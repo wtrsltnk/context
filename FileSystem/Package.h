@@ -21,7 +21,7 @@ namespace fs
 		Package(const fs::FilePath& filePath);
 		virtual ~Package();
 		
-		virtual fs::FilePath findFile(const char* filename) = 0;
+		virtual fs::FilePath findFile(const std::string& filename) = 0;
 		
 		virtual fs::Package* openPackage(const fs::FilePath& filePath, int flags = 0) = 0;
 		

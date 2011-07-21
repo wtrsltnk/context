@@ -6,6 +6,7 @@
  */
 
 #include "File.h"
+#include "Package.h"
 
 namespace fs
 {
@@ -17,6 +18,14 @@ File::File(const fs::FilePath& filePath)
 
 File::~File()
 {
+}
+
+bool File::close()
+{
+	if (this->mFilePath.package() != 0)
+		return this->mFilePath.package()->closeFile(this);
+	
+	return false;
 }
 
 }

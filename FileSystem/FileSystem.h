@@ -10,6 +10,7 @@
 
 #include "FilePath.h"
 #include <vector>
+#include <string>
 
 namespace fs
 {
@@ -20,16 +21,17 @@ namespace fs
 		FileSystem();
 		virtual ~FileSystem();
 
-		Package* addPackage(const char* pathToPackage);
-		Package* addPackage(fs::FilePath& pathToPackage);
+		Package* addPackage(const std::string& pathToPackage);
+		Package* addPackage(fs::FilePath pathToPackage);
+		void removePackage(Package* p);
 		
-		fs::FilePath findFile(const char* filename);
+		fs::FilePath findFile(const std::string& filename);
 		
 	private:
 		std::vector<Package*> mPackages;
 		
 	public:
-		static const char* extension(const char* fullpath);
+		static std::string extension(const std::string& fullpath);
 		
 	};
 

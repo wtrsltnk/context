@@ -24,7 +24,7 @@ bool FileFromDirectory::open(int flags)
 {
 	if (this->mFilePath.type() == fs::FilePathType::File)
 	{
-		this->mHandle = fopen(this->mFilePath.fullPath(), "r");
+		this->mHandle = fopen(this->mFilePath.fullPath().c_str(), "r");
 		if (this->mHandle != 0)
 		{
 			fseek((FILE*)this->mHandle, 0, SEEK_END);

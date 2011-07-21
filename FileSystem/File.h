@@ -21,6 +21,8 @@ namespace fs
 		File(const fs::FilePath& filePath);
 		virtual ~File();
 		
+		bool close();
+		
 		virtual void setCursorFromBegin(int offset) = 0;
 		virtual void setCursorFromCurrent(int offset) = 0;
 		virtual void setCursorFromEnd(int offset) = 0;

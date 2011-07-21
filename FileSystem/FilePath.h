@@ -8,7 +8,7 @@
 #ifndef FILEPATH_H
 #define	FILEPATH_H
 
-#define MAX_PATH_TO_FILE 256
+#include <string>
 
 namespace fs
 {
@@ -22,12 +22,13 @@ namespace fs
 	}
 
 	class Package;
+	class File;
 
 	class FilePath
 	{
 	public:
 		FilePath();
-		FilePath(int type, Package* package, const char* pathToFile);
+		FilePath(int type, Package* package, const std::string& pathToFile);
 		FilePath(const FilePath& other);
 		virtual ~FilePath();
 
@@ -36,14 +37,17 @@ namespace fs
 		bool isValid() const;
 
 		Package* package();
-		const char* pathToFile() const;
-		const char* fullPath() const;
+		const std::string& pathToFile() const;
+		std::string fullPath() const;
 		int type() const;
+		
+		fs::File* openAsFile(int flags = 0);
+		fs::Package* openAsPackage(int flags = 0);
 
 	protected:
 		int mType;
 		Package* mPackage;
-		char mPathToFile[MAX_PATH_TO_FILE];
+		std::string mPathToFile;
 
 	};
 
