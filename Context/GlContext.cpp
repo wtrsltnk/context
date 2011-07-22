@@ -1386,6 +1386,8 @@ int GlContext::startGameloop()
 	{
 		this->pimpl->handleEvents();
 	}
+	this->pimpl->destroy();
+	
 	return 0;
 }
 
