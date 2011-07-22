@@ -6,6 +6,7 @@
  */
 
 #include "FileFromDirectory.h"
+#include "Package.h"
 #include <stdio.h>
 
 namespace fs

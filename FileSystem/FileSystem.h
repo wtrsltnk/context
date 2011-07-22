@@ -17,18 +17,20 @@ namespace fs
 	
 	class FileSystem
 	{
-	public:
 		FileSystem();
 		virtual ~FileSystem();
+		static FileSystem* sInstance;
+	public:
+		static FileSystem* instance();
+		static void clearInstance();
 
-		Package* addPackage(const std::string& pathToPackage);
+		Package* setRoot(const std::string& pathToPackage);
 		Package* addPackage(fs::FilePath pathToPackage);
-		void removePackage(Package* p);
 		
 		fs::FilePath findFile(const std::string& filename);
 		
 	private:
-		std::vector<Package*> mPackages;
+		Package* mRoot;
 		
 	public:
 		static std::string extension(const std::string& fullpath);

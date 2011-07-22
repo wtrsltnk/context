@@ -22,7 +22,7 @@ namespace fs
 		virtual bool open(int flags = 0) = 0;
 		virtual bool close() = 0;
 		
-		const fs::FilePath& filePath() const;
+		fs::FilePath filePath();
 
 	protected:
 		fs::FilePath mFilePath;

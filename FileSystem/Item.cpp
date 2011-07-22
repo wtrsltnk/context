@@ -19,7 +19,7 @@ Item::~Item()
 {
 }
 
-const fs::FilePath& Item::filePath() const
+fs::FilePath Item::filePath()
 {
 	return this->mFilePath;
 }

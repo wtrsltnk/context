@@ -7,6 +7,7 @@
 
 #include "PackageFromDirectory.h"
 #include "FileFromDirectory.h"
+#include "FileSystem.h"
 #include <sys/stat.h>
 #include <sys/dir.h>
 #include <string.h>
@@ -33,15 +34,19 @@ bool PackageFromDirectory::open(int flags)
 
 bool PackageFromDirectory::close()
 {
-	this->mOpen = false;
-	while (this->mOpenItems.empty() == false)
+	if (this->mOpen)
 	{
-		fs::Item* item = this->mOpenItems.back();
-		this->mOpenItems.pop_back();
-		item->close();
-		delete item;
+		this->mOpen = false;
+		while (this->mOpenItems.empty() == false)
+		{
+			fs::Item* item = this->mOpenItems.back();
+			this->mOpenItems.pop_back();
+			item->close();
+			delete item;
+		}
+		return true;
 	}
-	return true;
+	return false;
 }
 
 fs::FilePath PackageFromDirectory::findFile(const std::string& filename)
@@ -52,6 +57,15 @@ fs::FilePath PackageFromDirectory::findFile(const std::string& filename)
 		{
 			if ((*f).pathToFile() == filename)
 				return (*f);
+		}
+		for (std::vector<fs::Item*>::iterator i = this->mOpenItems.begin(); i != this->mOpenItems.end(); ++i)
+		{
+			if ((*i)->filePath().type() == fs::FilePathType::Package)
+			{
+				fs::FilePath path = ((fs::Package*)(*i))->findFile(filename);
+				if (path.isValid())
+					return path;
+			}
 		}
 	}
 	return fs::FilePath();

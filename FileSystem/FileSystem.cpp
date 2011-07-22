@@ -14,22 +14,48 @@ namespace fs
 {
 
 FileSystem::FileSystem()
+	: mRoot(0)
 {
 }
 
 FileSystem::~FileSystem()
 {
-	while (this->mPackages.empty() == false)
+	if (this->mRoot != 0)
 	{
-		fs::Package* package = this->mPackages.back();
-		this->mPackages.pop_back();
-		package->close();
-		delete package;
+		this->mRoot->close();
+		delete this->mRoot;
+		this->mRoot = 0;
 	}
 }
 
-Package* FileSystem::addPackage(const std::string& pathToPackage)
+FileSystem* FileSystem::sInstance = 0;
+
+FileSystem* FileSystem::instance()
 {
+	if (FileSystem::sInstance == 0)
+		FileSystem::sInstance = new FileSystem();
+	
+	return FileSystem::sInstance;
+}
+
+void FileSystem::clearInstance()
+{
+	if (FileSystem::sInstance != 0)
+	{
+		delete FileSystem::sInstance;
+		FileSystem::sInstance = 0;
+	}
+}
+
+Package* FileSystem::setRoot(const std::string& pathToPackage)
+{
+	if (this->mRoot != 0)
+	{
+		this->mRoot->close();
+		delete this->mRoot;
+	}
+	this->mRoot = 0;
+	
 	std::string ext = FileSystem::extension(pathToPackage);
 	
 	if (ext == ".pak" || ext == ".PAK")
@@ -54,7 +80,7 @@ Package* FileSystem::addPackage(const std::string& pathToPackage)
 		PackageFromDirectory* package = new PackageFromDirectory(filePath);
 		if (package->open())
 		{
-			this->mPackages.push_back(package);
+			this->mRoot = package;
 			return package;
 		}
 	}
@@ -68,7 +94,6 @@ Package* FileSystem::addPackage(fs::FilePath pathToPackage)
 		Package* package = pathToPackage.package()->openPackage(pathToPackage);
 		if (package != 0 && package->open())
 		{
-			this->mPackages.push_back(package);
 			return package;
 		}
 	}
@@ -77,37 +102,17 @@ Package* FileSystem::addPackage(fs::FilePath pathToPackage)
 		PackageFromDirectory* package = new PackageFromDirectory(pathToPackage);
 		if (package->open())
 		{
-			this->mPackages.push_back(package);
 			return package;
 		}
 	}
 	return 0;
 }
 
-void FileSystem::removePackage(Package* p)
-{
-	for (std::vector<Package*>::iterator i = this->mPackages.begin(); i != this->mPackages.end(); ++i)
-	{
-		if (p == (*i))
-		{
-			this->mPackages.erase(i);
-			p->close();
-			delete p;
-			return;
-		}
-	}
-}
-
 fs::FilePath FileSystem::findFile(const std::string& filename)
 {
-	for (std::vector<Package*>::iterator i = this->mPackages.begin(); i != this->mPackages.end(); ++i)
-	{
-		fs::FilePath file = (*i)->findFile(filename);
-		if (file.isValid())
-		{
-			return file;
-		}
-	}
+	if (this->mRoot != 0)
+		return this->mRoot->findFile(filename);
+	
 	return fs::FilePath();
 }
 
