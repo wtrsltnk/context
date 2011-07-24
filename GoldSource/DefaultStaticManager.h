@@ -17,6 +17,7 @@ public:	// Data management
 
 	virtual void setVertices(int count, tVertex* vertices);
 	virtual void setFaces(int count, tFace* faces);
+	virtual void setModels(int count, tModel* models);
 	virtual void setTextures(int count, Texture* textures);
 	virtual Texture* getTexture(int index);
 
@@ -33,6 +34,9 @@ public:	// Rendering
 
 	int mFaceCount;
 	tFace* mFaces;
+
+	int mModelCount;
+	tModel* mModels;
 
 	int mTextureCount;
 	Texture* mTextures;

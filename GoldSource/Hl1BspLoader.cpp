@@ -4,12 +4,14 @@
 #include "lightmap.h"
 #include <FileSystem.h>
 #include <File.h>
+#include <Texture.h>
 #include <Vector3.h>
 #include <GLee.h>
-#include <Tokenizer.h>
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
+#include <map>
+#include <string>
 
 Hl1BspLoader::Hl1BspLoader()
 {
@@ -25,6 +27,7 @@ bool Hl1BspLoader::loadBsp(Hl1BspData* data, IStaticManager* mngr)
 		return false;
 	
 	this->loadEntityData(data);
+	this->loadModels(data, mngr);
 
 	glActiveTextureARB(GL_TEXTURE0);
 	this->loadTextures(data, mngr);
@@ -40,15 +43,15 @@ bool Hl1BspLoader::loadEntityData(Hl1BspData* data)
 	char* d = (char*)data->entityData;
 	Tokenizer tok(d, (int)strlen(d));
 
-	tok.nextToken();
-	while (tok.getNextToken()[0] != '}')
+	this->models = new tModel[data->modelCount];
+	
+	KeyValueMap worldspawn;
+	
+	if (tok.nextToken() && this->loadSingleEntity(tok, worldspawn))
 	{
-		std::string key(tok.getToken());
-		std::string value(tok.getNextToken());
-
-		if (key == "wad")
+		if (worldspawn["wad"] != "")
 		{
-			const char* wads = value.c_str();
+			const char* wads = worldspawn["wad"].c_str();
 			int wadsLen = strlen(wads);
 
 			int a = 0;
@@ -65,18 +68,18 @@ bool Hl1BspLoader::loadEntityData(Hl1BspData* data)
 				}
 			}
 		}
-//		else if (key == "skyname")
-//		{
-//			this->mSkyName = value;
-//		}
-//		else if (key == "MaxRange")
-//		{
-//			this->mMaxRange = atoi(value);
-//		}
-		else
-		{
-			// printf("%s - %s\n", (const char*)key, (const char*)value);
-		}
+	}
+	return true;
+}
+
+bool Hl1BspLoader::loadSingleEntity(Tokenizer& tok, KeyValueMap& keyValues)
+{
+	while (tok.getNextToken()[0] != '}')
+	{
+		std::string key = tok.getToken();
+		std::string value = tok.getNextToken();
+		
+		keyValues.push_back(std::pair<std::string, std::string>(key, value));
 	}
 	return true;
 }
@@ -157,6 +160,31 @@ bool Hl1BspLoader::loadFaces(Hl1BspData* data, IStaticManager* mngr)
 
 	// Don't forget to clean up
 	delete []faces;
+	return true;
+}
+
+bool Hl1BspLoader::loadModels(Hl1BspData* data, IStaticManager* mngr)
+{
+	for (int i = 0; i < data->modelCount; i++)
+	{
+		this->models[i].faceCount = data->models[i].faceCount;
+		this->models[i].firstFace = data->models[i].firstFace;
+		this->models[i].headnode[0] = data->models[i].headnode[0];
+		this->models[i].headnode[1] = data->models[i].headnode[1];
+		this->models[i].headnode[2] = data->models[i].headnode[2];
+		this->models[i].headnode[3] = data->models[i].headnode[3];
+		this->models[i].maxs[0] = data->models[i].maxs[0];
+		this->models[i].maxs[1] = data->models[i].maxs[1];
+		this->models[i].maxs[2] = data->models[i].maxs[2];
+		this->models[i].mins[0] = data->models[i].mins[0];
+		this->models[i].mins[1] = data->models[i].mins[1];
+		this->models[i].mins[2] = data->models[i].mins[2];
+		this->models[i].origin[0] = data->models[i].origin[0];
+		this->models[i].origin[1] = data->models[i].origin[1];
+		this->models[i].origin[2] = data->models[i].origin[2];
+	}
+	mngr->setModels(data->modelCount, this->models);
+	delete []this->models;
 	return true;
 }
 

@@ -1,4 +1,5 @@
 #include "lightmap.h"
+#include <Texture.h>
 #include <math.h>
 #include <string.h>
 

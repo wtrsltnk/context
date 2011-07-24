@@ -1,10 +1,11 @@
 #ifndef ISTATICMANAGER_H
 #define	ISTATICMANAGER_H
 
-#include <Texture.h>
 #include <Plane.h>
 #include <vector>
-#include <stdlib.h>
+
+class Camera;
+class Texture;
 
 typedef std::vector<unsigned short> Indexlist;
 
@@ -30,8 +31,16 @@ typedef struct sFace
 
 } tFace;
 
-class Camera;
-class Texture;
+typedef struct sModel
+{
+	float mins[3], maxs[3];
+	float origin[3];
+	int headnode[4];
+	int visLeafs;                       // not including the solid leaf 0
+	int firstFace;
+	int faceCount;
+	
+} tModel;
 
 class IStaticManager
 {
@@ -43,6 +52,7 @@ public:	// Data management
 
 	virtual void setVertices(int count, tVertex* vertices) = 0;
 	virtual void setFaces(int count, tFace* faces) = 0;
+	virtual void setModels(int count, tModel* models) = 0;
 	virtual void setTextures(int count, Texture* textures) = 0;
 	virtual Texture* getTexture(int index) = 0;
 

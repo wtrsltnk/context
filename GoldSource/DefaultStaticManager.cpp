@@ -1,5 +1,6 @@
 #include "DefaultStaticManager.h"
 #include <Camera.h>
+#include <Texture.h>
 #include <GLee.h>
 
 #include <string.h>
@@ -7,7 +8,7 @@
 #include <vector>
 
 DefaultStaticManager::DefaultStaticManager()
-	: mVertexCount(0), mVertices(0), mFaceCount(0), mFaces(0), mTextureCount(0), mTextures(0)
+	: mVertexCount(0), mVertices(0), mFaceCount(0), mFaces(0), mModelCount(0), mModels(0), mTextureCount(0), mTextures(0)
 {
 }
 
@@ -56,6 +57,16 @@ void DefaultStaticManager::setFaces(int count, tFace* faces)
 	this->mFaces = new tFace[count];
 	memcpy(this->mFaces, faces, sizeof(tFace) * count);
 	this->mFaceCount = count;
+}
+
+void DefaultStaticManager::setModels(int count, tModel* models)
+{
+	// Copy the given faces to a new array of faces
+	if (this->mModels != 0)
+		delete []this->mModels;
+	this->mModels = new tModel[count];
+	memcpy(this->mModels, models, sizeof(tModel) * count);
+	this->mModelCount = count;
 }
 
 void DefaultStaticManager::setTextures(int count, Texture* textures)
