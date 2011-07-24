@@ -8,9 +8,6 @@
 #ifndef TOKENIZER_H
 #define	TOKENIZER_H
 
-namespace common
-{
-
 class Tokenizer
 {
 public:
@@ -33,8 +30,6 @@ private:
 	char* token;
 
 };
-
-}
 
 #endif	/* TOKENIZER_H */
 

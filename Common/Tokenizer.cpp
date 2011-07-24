@@ -9,9 +9,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-namespace common
-{
-
 Tokenizer::Tokenizer(const char* data, int size)
 	: data(data), dataSize(size), cursor(0), token(0)
 {
@@ -149,6 +146,4 @@ bool Tokenizer::isQuote(char c)
 	if (c == '\'') return true;
 
 	return false;
-}
-
 }
