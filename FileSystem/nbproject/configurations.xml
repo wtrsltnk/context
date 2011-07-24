@@ -6,21 +6,26 @@
                    projectFiles="true">
       <itemPath>File.h</itemPath>
       <itemPath>FileFromDirectory.h</itemPath>
+      <itemPath>FileFromMemory.h</itemPath>
       <itemPath>FilePath.h</itemPath>
       <itemPath>FileSystem.h</itemPath>
       <itemPath>Item.h</itemPath>
       <itemPath>Package.h</itemPath>
+      <itemPath>PackageFromDirectory.h</itemPath>
+      <itemPath>PackageFromWad.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>File.cpp</itemPath>
       <itemPath>FileFromDirectory.cpp</itemPath>
+      <itemPath>FileFromMemory.cpp</itemPath>
       <itemPath>FilePath.cpp</itemPath>
       <itemPath>FileSystem.cpp</itemPath>
       <itemPath>Item.cpp</itemPath>
       <itemPath>Package.cpp</itemPath>
       <itemPath>PackageFromDirectory.cpp</itemPath>
+      <itemPath>PackageFromWad.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"

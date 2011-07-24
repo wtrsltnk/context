@@ -37,9 +37,11 @@ OBJECTFILES= \
 	${OBJECTDIR}/PackageFromDirectory.o \
 	${OBJECTDIR}/FileSystem.o \
 	${OBJECTDIR}/FileFromDirectory.o \
+	${OBJECTDIR}/PackageFromWad.o \
 	${OBJECTDIR}/File.o \
 	${OBJECTDIR}/Item.o \
 	${OBJECTDIR}/Package.o \
+	${OBJECTDIR}/FileFromMemory.o \
 	${OBJECTDIR}/FilePath.o
 
 
@@ -84,6 +86,11 @@ ${OBJECTDIR}/FileFromDirectory.o: FileFromDirectory.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/FileFromDirectory.o FileFromDirectory.cpp
 
+${OBJECTDIR}/PackageFromWad.o: PackageFromWad.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/PackageFromWad.o PackageFromWad.cpp
+
 ${OBJECTDIR}/File.o: File.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
@@ -98,6 +105,11 @@ ${OBJECTDIR}/Package.o: Package.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Package.o Package.cpp
+
+${OBJECTDIR}/FileFromMemory.o: FileFromMemory.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/FileFromMemory.o FileFromMemory.cpp
 
 ${OBJECTDIR}/FilePath.o: FilePath.cpp 
 	${MKDIR} -p ${OBJECTDIR}

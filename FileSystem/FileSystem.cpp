@@ -56,55 +56,29 @@ Package* FileSystem::setRoot(const std::string& pathToPackage)
 	}
 	this->mRoot = 0;
 	
-	std::string ext = FileSystem::extension(pathToPackage);
+	fs::FilePath filePath(fs::FilePathType::Package, 0, pathToPackage);
+	this->mRoot = filePath.openAsPackage();
 	
-	if (ext == ".pak" || ext == ".PAK")
-	{
-		// TODO : Open a Pak-file
-	}
-	else if (ext == ".zip" || ext == ".ZIP")
-	{
-		// TODO : Open a Zip-file
-	}
-	else if (ext == ".wad" || ext == ".WAD")
-	{
-		// TODO : Open a Wad-file
-	}
-	else if (ext == ".gcf" || ext == ".GCF")
-	{
-		// TODO : Open a Gcf-file
-	}
-	else
-	{
-		fs::FilePath filePath(fs::FilePathType::Package, 0, pathToPackage);
-		PackageFromDirectory* package = new PackageFromDirectory(filePath);
-		if (package->open())
-		{
-			this->mRoot = package;
-			return package;
-		}
-	}
-	return 0;
+	return this->mRoot;
 }
 
 Package* FileSystem::addPackage(fs::FilePath pathToPackage)
 {
-	if (pathToPackage.package() != 0)
+	if (pathToPackage.isValid())
 	{
-		Package* package = pathToPackage.package()->openPackage(pathToPackage);
-		if (package != 0 && package->open())
-		{
+		Package* package = pathToPackage.openAsPackage();
+		if (package != 0)
 			return package;
-		}
 	}
-	else 
-	{
-		PackageFromDirectory* package = new PackageFromDirectory(pathToPackage);
-		if (package->open())
-		{
-			return package;
-		}
-	}
+	return 0;
+}
+
+Package* FileSystem::addPackage(const std::string& pathToPackage)
+{
+	fs::FilePath path = this->findFile(pathToPackage);
+	if (path.isValid())
+		return this->addPackage(fs::FilePath(fs::FilePathType::Package, path.package(), path.pathToFile()));
+	
 	return 0;
 }
 
@@ -126,6 +100,30 @@ std::string FileSystem::extension(const std::string& fullpath)
 			return fullpath.substr(pos);
 	}
 	return "";
+}
+
+std::string FileSystem::fileName(const std::string& fullname)
+{
+    const char* slash = strrchr(fullname.c_str(), '\\');
+    const char* backslash = strrchr(fullname.c_str(), '/');
+
+    if (slash == NULL && backslash == NULL)
+        return fullname;
+
+    if (slash != NULL && backslash != NULL)
+    {
+        if (slash > backslash)
+            return std::string(slash + 1);
+        return std::string(backslash + 1);
+    }
+
+    if (slash != NULL)
+        return std::string(slash + 1);
+
+    if (backslash != NULL)
+        return std::string(backslash + 1);
+
+    return std::string("");
 }
 
 }

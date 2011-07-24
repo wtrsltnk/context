@@ -23,7 +23,7 @@ FileFromDirectory::~FileFromDirectory()
 
 bool FileFromDirectory::open(int flags)
 {
-	if (this->mFilePath.type() == fs::FilePathType::File)
+//	if (this->mFilePath.type() == fs::FilePathType::File)
 	{
 		this->mHandle = fopen(this->mFilePath.fullPath().c_str(), "r");
 		if (this->mHandle != 0)
@@ -64,7 +64,8 @@ void FileFromDirectory::setCursorFromEnd(int offset)
 
 int FileFromDirectory::read(byte* buffer, int size, int offset)
 {
-	fseek((FILE*)this->mHandle, offset, SEEK_CUR);
+	if (offset > 0)
+		fseek((FILE*)this->mHandle, offset, SEEK_CUR);
 	return int(fread(buffer, 1, size, (FILE*)this->mHandle));
 }
 

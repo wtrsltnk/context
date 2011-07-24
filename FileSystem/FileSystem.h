@@ -26,6 +26,7 @@ namespace fs
 
 		Package* setRoot(const std::string& pathToPackage);
 		Package* addPackage(fs::FilePath pathToPackage);
+		Package* addPackage(const std::string& pathToPackage);
 		
 		fs::FilePath findFile(const std::string& filename);
 		
@@ -34,6 +35,7 @@ namespace fs
 		
 	public:
 		static std::string extension(const std::string& fullpath);
+		static std::string fileName(const std::string& fullname);
 		
 	};
 

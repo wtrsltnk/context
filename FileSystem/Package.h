@@ -21,29 +21,22 @@ namespace fs
 		Package(const fs::FilePath& filePath);
 		virtual ~Package();
 		
-		virtual fs::FilePath findFile(const std::string& filename) = 0;
-		
-		virtual fs::Package* openPackage(const fs::FilePath& filePath, int flags = 0) = 0;
-		
-		/*
-		 * Closes the give child package if it is a child. The given pointer is 
-		 * not valid after this method returns true.
-		 */
-		virtual bool closePackage(fs::Package* package) = 0;
-		
+		virtual fs::FilePath findFile(const std::string& filename);
 		virtual fs::File* openFile(const fs::FilePath& filePath, int flags = 0) = 0;
 		
 		/*
 		 * Closes the give child package if it is a child. The given pointer is 
 		 * not valid after this method returns true.
 		 */
-		virtual bool closeFile(fs::File* file) = 0;
+		virtual bool closeFile(fs::File* file);
 
 		const std::vector<fs::FilePath>& files() const;
 		
 	protected:
 		std::vector<fs::FilePath> mFiles;
+		std::vector<fs::Item*> mOpenItems;
 		
+		friend class FilePath;
 	};
 
 }

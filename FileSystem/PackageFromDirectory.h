@@ -21,17 +21,10 @@ namespace fs
 		virtual bool open(int flags = 0);
 		virtual bool close();
 		
-		virtual fs::FilePath findFile(const std::string& filename);
-		
-		virtual fs::Package* openPackage(const fs::FilePath& filePath, int flags = 0);
-		virtual bool closePackage(fs::Package* package);
-		
 		virtual fs::File* openFile(const fs::FilePath& filePath, int flags = 0);
-		virtual bool closeFile(fs::File* file);
 
 	private:
 		bool mOpen;
-		std::vector<fs::Item*> mOpenItems;
 		
 		static void addFilesFromFolder(const std::string& root, int flags, PackageFromDirectory* parent);
 		static bool isFile(const std::string& root, const std::string& file);

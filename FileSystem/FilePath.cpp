@@ -10,6 +10,8 @@
 #include "Item.h"
 #include "FileFromDirectory.h"
 #include "PackageFromDirectory.h"
+#include "PackageFromWad.h"
+#include "FileSystem.h"
 #include <string>
 
 namespace fs
@@ -82,15 +84,18 @@ int FilePath::type() const
 
 fs::File* FilePath::openAsFile(int flags)
 {
-	if (this->mType == fs::FilePathType::File)
+//	if (this->mType == fs::FilePathType::File)
 	{
 		if (this->mPackage != 0)
-			return this->mPackage->openFile(*this, flags);
+		{
+			return this->mPackage->openFile(fs::FilePath(fs::FilePathType::File, this->mPackage, this->mPathToFile), flags);
+		}
 		else
 		{
-			fs::FileFromDirectory* file = new fs::FileFromDirectory(*this);
+			fs::FileFromDirectory* file = new fs::FileFromDirectory(fs::FilePath(fs::FilePathType::File, this->mPackage, this->mPathToFile));
 			if (file->open(flags))
 				return file;
+			
 			delete file;
 		}
 	}
@@ -99,19 +104,44 @@ fs::File* FilePath::openAsFile(int flags)
 
 fs::Package* FilePath::openAsPackage(int flags)
 {
-	if (this->mType == fs::FilePathType::File)
+	fs::Package* p = 0;
+//	if (this->mType == fs::FilePathType::Package)
 	{
-		if (this->mPackage != 0)
-			return this->mPackage->openPackage(*this, flags);
+		std::string ext = FileSystem::extension(this->pathToFile());
+
+		if (ext == ".pak" || ext == ".PAK")
+		{
+			// TODO : Open a Pak-file
+		}
+		else if (ext == ".zip" || ext == ".ZIP")
+		{
+			// TODO : Open a Zip-file
+		}
+		else if (ext == ".wad" || ext == ".WAD")
+		{
+			p = new fs::PackageFromWad(fs::FilePath(fs::FilePathType::Package, this->mPackage, this->mPathToFile));
+		}
+		else if (ext == ".gcf" || ext == ".GCF")
+		{
+			// TODO : Open a Gcf-file
+		}
 		else
 		{
-			fs::PackageFromDirectory* file = new fs::PackageFromDirectory(*this);
-			if (file->open(flags))
-				return file;
-			delete file;
+			p = new fs::PackageFromDirectory(fs::FilePath(fs::FilePathType::Package, this->mPackage, this->mPathToFile));
+		}
+		
+		if (p->open(flags) != false)
+		{
+			if (this->mPackage != 0)
+				this->mPackage->mOpenItems.push_back(p);
+		}
+		else
+		{
+			delete p;
+			p = 0;
 		}
 	}
-	return 0;
+	return p;
 }
 
 }
