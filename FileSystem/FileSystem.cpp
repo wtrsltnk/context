@@ -9,6 +9,7 @@
 #include "Package.h"
 #include "PackageFromDirectory.h"
 #include <string.h>
+#include <iostream>
 
 namespace fs
 {
@@ -68,7 +69,9 @@ Package* FileSystem::addPackage(fs::FilePath pathToPackage)
 	{
 		Package* package = pathToPackage.openAsPackage();
 		if (package != 0)
+		{
 			return package;
+		}
 	}
 	return 0;
 }

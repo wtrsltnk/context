@@ -23,11 +23,6 @@ namespace fs
 		
 		virtual fs::FilePath findFile(const std::string& filename);
 		virtual fs::File* openFile(const fs::FilePath& filePath, int flags = 0) = 0;
-		
-		/*
-		 * Closes the give child package if it is a child. The given pointer is 
-		 * not valid after this method returns true.
-		 */
 		virtual bool closeFile(fs::File* file);
 
 		const std::vector<fs::FilePath>& files() const;

@@ -11,6 +11,7 @@
 #include "FileFromDirectory.h"
 #include "PackageFromDirectory.h"
 #include "PackageFromWad.h"
+#include "PackageFromPak.h"
 #include "FileSystem.h"
 #include <string>
 
@@ -111,7 +112,7 @@ fs::Package* FilePath::openAsPackage(int flags)
 
 		if (ext == ".pak" || ext == ".PAK")
 		{
-			// TODO : Open a Pak-file
+			p = new fs::PackageFromPak(fs::FilePath(fs::FilePathType::Package, this->mPackage, this->mPathToFile));
 		}
 		else if (ext == ".zip" || ext == ".ZIP")
 		{
@@ -130,7 +131,7 @@ fs::Package* FilePath::openAsPackage(int flags)
 			p = new fs::PackageFromDirectory(fs::FilePath(fs::FilePathType::Package, this->mPackage, this->mPathToFile));
 		}
 		
-		if (p->open(flags) != false)
+		if (p != 0 && p->open(flags) != false)
 		{
 			if (this->mPackage != 0)
 				this->mPackage->mOpenItems.push_back(p);

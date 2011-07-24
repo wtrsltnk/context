@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/FileSystem.o \
 	${OBJECTDIR}/FileFromDirectory.o \
 	${OBJECTDIR}/PackageFromWad.o \
+	${OBJECTDIR}/PackageFromPak.o \
 	${OBJECTDIR}/File.o \
 	${OBJECTDIR}/Item.o \
 	${OBJECTDIR}/Package.o \
@@ -90,6 +91,11 @@ ${OBJECTDIR}/PackageFromWad.o: PackageFromWad.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/PackageFromWad.o PackageFromWad.cpp
+
+${OBJECTDIR}/PackageFromPak.o: PackageFromPak.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/PackageFromPak.o PackageFromPak.cpp
 
 ${OBJECTDIR}/File.o: File.cpp 
 	${MKDIR} -p ${OBJECTDIR}

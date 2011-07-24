@@ -39,6 +39,11 @@ fs::FilePath Package::findFile(const std::string& filename)
 	return fs::FilePath();
 }
 
+		
+/*
+ * Closes the give child package if it is a child. The given pointer is 
+ * not valid after this method returns true.
+ */
 bool Package::closeFile(fs::File* file)
 {
 	for (std::vector<fs::Item*>::iterator f = this->mOpenItems.begin(); f != this->mOpenItems.end(); ++f)

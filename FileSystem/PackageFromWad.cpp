@@ -29,7 +29,7 @@ bool PackageFromWad::open(int flags)
 	{
 		fs::tWADHeader header;
 		this->mWadFile->read((byte*)&header, sizeof(header));
-		if (strncmp(header.signature, "WAD3", 4) == 0)
+		if (strncmp(header.signature, HL1_WAD_SIGNATURE, 4) == 0)
 		{
 			this->mLumpCount = header.lumpsCount;
 			this->mLumps = new fs::tWADLump[this->mLumpCount];
