@@ -2,9 +2,13 @@
 #include "Hl1BspData.h"
 #include "indexarray.h"
 #include "lightmap.h"
+#include <FileSystem.h>
+#include <File.h>
 #include <Vector3.h>
 #include <GLee.h>
+#include <Tokenizer.h>
 #include <stdio.h>
+#include <string.h>
 #include <iostream>
 
 Hl1BspLoader::Hl1BspLoader()
@@ -19,6 +23,8 @@ bool Hl1BspLoader::loadBsp(Hl1BspData* data, IStaticManager* mngr)
 {
 	if (data != 0 && data->isLoaded() == false)
 		return false;
+	
+	this->loadEntityData(data);
 
 	glActiveTextureARB(GL_TEXTURE0);
 	this->loadTextures(data, mngr);
@@ -26,6 +32,52 @@ bool Hl1BspLoader::loadBsp(Hl1BspData* data, IStaticManager* mngr)
 	glActiveTextureARB(GL_TEXTURE1);
 	this->loadFaces(data, mngr);
 
+	return true;
+}
+
+bool Hl1BspLoader::loadEntityData(Hl1BspData* data)
+{
+	char* d = (char*)data->entityData;
+	Tokenizer tok(d, (int)strlen(d));
+
+	tok.nextToken();
+	while (tok.getNextToken()[0] != '}')
+	{
+		std::string key(tok.getToken());
+		std::string value(tok.getNextToken());
+
+		if (key == "wad")
+		{
+			const char* wads = value.c_str();
+			int wadsLen = strlen(wads);
+
+			int a = 0;
+			for (int i = 0; i <= wadsLen; i++)
+			{
+				if (wads[i] == ';' || i > wadsLen)
+				{
+					char* wad = (char*)calloc(1, i - a + 1);
+					strncpy(wad, &wads[a], i - a);
+					fs::FileSystem::instance()->addPackage(fs::FileSystem::fileName(wad));
+
+					free(wad);
+					a = i + 1;
+				}
+			}
+		}
+//		else if (key == "skyname")
+//		{
+//			this->mSkyName = value;
+//		}
+//		else if (key == "MaxRange")
+//		{
+//			this->mMaxRange = atoi(value);
+//		}
+		else
+		{
+			// printf("%s - %s\n", (const char*)key, (const char*)value);
+		}
+	}
 	return true;
 }
 
@@ -56,10 +108,13 @@ bool Hl1BspLoader::loadFaces(Hl1BspData* data, IStaticManager* mngr)
 
         float min[2], max[2];
 		
+		GLint unpackAlignment;
+		glGetIntegerv(GL_UNPACK_ALIGNMENT, &unpackAlignment);
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		// Calculate and grab the lightmap buffer
         CalcSurfaceExtents(&inFace, min, max, data);
         outFace->lightmap = ComputeLightmap(&inFace, min, max, data);
+		glPixelStorei(GL_UNPACK_ALIGNMENT, unpackAlignment);
 
 		// Create a vertex list for this face
 		for (int e = 0; e < inFace.edgeCount; e++)
@@ -123,8 +178,27 @@ bool Hl1BspLoader::loadTextures(Hl1BspData* data, IStaticManager* mngr)
 			// Parse the miptex data
 			this->loadMiptex(&textures[t-1], data->textureData + miptexTable[t]);
 		else
-			// For now, use dummy texture
-			textures[t-1].setChecker(miptex->width, miptex->height);
+		{
+			fs::FilePath path = fs::FileSystem::instance()->findFile(miptex->name);
+			if (path.isValid())
+			{
+				fs::File* texture = path.openAsFile();
+				if (texture != 0 && texture->size() > 0)
+				{
+					fs::byte* data = new fs::byte[texture->size()];
+					texture->read(data, texture->size());
+					texture->close();
+					delete texture;
+					this->loadMiptex(&textures[t-1], data);
+					delete []data;
+				}
+			}
+			else
+			{
+				// Can't find it, use dummy texture
+				textures[t-1].setChecker(miptex->width, miptex->height);
+			}
+		}
 
 		// Upload texture
 		textures[t-1].upload();

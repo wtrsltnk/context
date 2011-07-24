@@ -15,6 +15,7 @@ public:
 	bool loadBsp(Hl1BspData* data, IStaticManager* mngr);
 
 private:
+	bool loadEntityData(Hl1BspData* data);
 	bool loadFaces(Hl1BspData* data, IStaticManager* mngr);
 	bool loadTextures(Hl1BspData* data, IStaticManager* mngr);
 	bool loadMiptex(Texture* t, unsigned char* data);
