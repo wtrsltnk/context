@@ -18,6 +18,7 @@ PackageFromPak::PackageFromPak(const fs::FilePath& filePath)
 
 PackageFromPak::~PackageFromPak()
 {
+	this->close();
 }
 
 bool PackageFromPak::open(int flags)
