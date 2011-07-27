@@ -15,21 +15,31 @@ Hl1BspData::Hl1BspData(fs::File* file)
 	
 	this->header = (HL1::tBSPHeader*)this->data;
 	
-	this->entitySize = loadLump(&this->entityData, header->lumps[HL1_BSP_ENTITYLUMP], this->data, this->dataSize);
-	this->planeCount = loadLump(&this->planes, header->lumps[HL1_BSP_PLANELUMP], this->data, this->dataSize);
-	this->textureSize = loadLump(&this->textureData, header->lumps[HL1_BSP_TEXTURELUMP], this->data, this->dataSize);
-	this->vertexCount = loadLump(&this->vertices, header->lumps[HL1_BSP_VERTEXLUMP], this->data, this->dataSize);
-	this->visibilitySize = loadLump(&this->visibilityData, header->lumps[HL1_BSP_VISIBILITYLUMP], this->data, this->dataSize);
-	this->nodeCount = loadLump(&this->nodes, header->lumps[HL1_BSP_NODELUMP], this->data, this->dataSize);
-	this->texinfoCount = loadLump(&this->texinfos, header->lumps[HL1_BSP_TEXINFOLUMP], this->data, this->dataSize);
-	this->faceCount = loadLump(&this->faces, header->lumps[HL1_BSP_FACELUMP], this->data, this->dataSize);
-	this->lightingSize = loadLump(&this->lightingData, header->lumps[HL1_BSP_LIGHTINGLUMP], this->data, this->dataSize);
-	this->clipnodeCount = loadLump(&this->clipnodes, header->lumps[HL1_BSP_CLIPNODELUMP], this->data, this->dataSize);
-	this->leafCount = loadLump(&this->leafs, header->lumps[HL1_BSP_LEAFLUMP], this->data, this->dataSize);
-	this->marksurfaceCount = loadLump(&this->marksurfaces, header->lumps[HL1_BSP_MARKSURFACELUMP], this->data, this->dataSize);
-	this->edgeCount = loadLump(&this->edges, header->lumps[HL1_BSP_EDGELUMP], this->data, this->dataSize);
-	this->surfedgeCount = loadLump(&this->surfedges, header->lumps[HL1_BSP_SURFEDGELUMP], this->data, this->dataSize);
-	this->modelCount = loadLump(&this->models, header->lumps[HL1_BSP_MODELLUMP], this->data, this->dataSize);
+	if (this->header->signature == HL1_BSP_SIGNATURE)
+	{
+		this->entitySize = loadLump(&this->entityData, header->lumps[HL1_BSP_ENTITYLUMP], this->data, this->dataSize);
+		this->planeCount = loadLump(&this->planes, header->lumps[HL1_BSP_PLANELUMP], this->data, this->dataSize);
+		this->textureSize = loadLump(&this->textureData, header->lumps[HL1_BSP_TEXTURELUMP], this->data, this->dataSize);
+		this->vertexCount = loadLump(&this->vertices, header->lumps[HL1_BSP_VERTEXLUMP], this->data, this->dataSize);
+		this->visibilitySize = loadLump(&this->visibilityData, header->lumps[HL1_BSP_VISIBILITYLUMP], this->data, this->dataSize);
+		this->nodeCount = loadLump(&this->nodes, header->lumps[HL1_BSP_NODELUMP], this->data, this->dataSize);
+		this->texinfoCount = loadLump(&this->texinfos, header->lumps[HL1_BSP_TEXINFOLUMP], this->data, this->dataSize);
+		this->faceCount = loadLump(&this->faces, header->lumps[HL1_BSP_FACELUMP], this->data, this->dataSize);
+		this->lightingSize = loadLump(&this->lightingData, header->lumps[HL1_BSP_LIGHTINGLUMP], this->data, this->dataSize);
+		this->clipnodeCount = loadLump(&this->clipnodes, header->lumps[HL1_BSP_CLIPNODELUMP], this->data, this->dataSize);
+		this->leafCount = loadLump(&this->leafs, header->lumps[HL1_BSP_LEAFLUMP], this->data, this->dataSize);
+		this->marksurfaceCount = loadLump(&this->marksurfaces, header->lumps[HL1_BSP_MARKSURFACELUMP], this->data, this->dataSize);
+		this->edgeCount = loadLump(&this->edges, header->lumps[HL1_BSP_EDGELUMP], this->data, this->dataSize);
+		this->surfedgeCount = loadLump(&this->surfedges, header->lumps[HL1_BSP_SURFEDGELUMP], this->data, this->dataSize);
+		this->modelCount = loadLump(&this->models, header->lumps[HL1_BSP_MODELLUMP], this->data, this->dataSize);
+	}
+	else
+	{
+		delete []this->data;
+		this->data = 0;
+		this->dataSize = 0;
+		this->header = 0;
+	}
 }
 
 Hl1BspData::~Hl1BspData()
