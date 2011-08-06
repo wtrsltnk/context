@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/Hl1BspLoader.o \
+	${OBJECTDIR}/Hl1SprData.o \
 	${OBJECTDIR}/Hl1BspData.o \
 	${OBJECTDIR}/DefaultStaticManager.o \
 	${OBJECTDIR}/lightmap.o
@@ -70,6 +71,11 @@ ${OBJECTDIR}/Hl1BspLoader.o: Hl1BspLoader.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Hl1BspLoader.o Hl1BspLoader.cpp
+
+${OBJECTDIR}/Hl1SprData.o: Hl1SprData.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Hl1SprData.o Hl1SprData.cpp
 
 ${OBJECTDIR}/Hl1BspData.o: Hl1BspData.cpp 
 	${MKDIR} -p ${OBJECTDIR}

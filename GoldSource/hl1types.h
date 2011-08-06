@@ -154,6 +154,31 @@ namespace HL1
 
 	} tBSPLeaf;
 	
+	typedef enum { ST_SYNC = 0, ST_RAND } eSyncType;
+	typedef enum { SPR_SINGLE = 0, SPR_GROUP } eSpriteFrameType;
+
+	typedef struct sSPRHeader
+	{
+		char signature[4];
+		int version;
+		int	type;
+		int texFormat;
+		float boundingradius;
+		int width;
+		int height;
+		int numframes;
+		float beamlength;
+		eSyncType synctype;
+
+	} tSPRHeader;
+
+	typedef struct sSPRFrame
+	{
+		int origin[2];
+		int width;
+		int height;
+		
+	} tSPRFrame;
 }
 
 #endif	/* _BSPTYPES_H */
