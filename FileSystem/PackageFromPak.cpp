@@ -42,6 +42,7 @@ bool PackageFromPak::open(int flags)
 		else
 		{
 			this->mPakFile->close();
+			delete this->mPakFile;
 			this->mPakFile = 0;
 		}
 	}

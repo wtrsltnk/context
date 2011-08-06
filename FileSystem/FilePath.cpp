@@ -19,7 +19,7 @@ namespace fs
 {
 
 FilePath::FilePath()
-	: mType(0), mPackage(0), mPathToFile("")
+	: mType(0), mPackage(0), mPathToFile(std::string(""))
 {
 }
 
