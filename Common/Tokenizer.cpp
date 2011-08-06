@@ -133,6 +133,11 @@ bool Tokenizer::nextToken()
 	return true;
 }
 
+int Tokenizer::getCursor()
+{
+	return this->cursor;
+}
+
 bool Tokenizer::isSeperator(char c)
 {
 	if (c <= ' ') return true;

@@ -18,6 +18,7 @@ public:
 	const char* getToken();
 	const char* getNextToken();
 	bool nextToken();
+	int getCursor();
 
 public:
 	static bool isSeperator(char c);
