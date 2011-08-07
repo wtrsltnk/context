@@ -19,6 +19,7 @@ public:
 
 	Texture* loadTexture(const char* filename);
 	Texture* loadFromTga(const char* textureName);
+	Texture* loadFromTga(const char* data, int size);
 
 	bool writeTGA(const char *file, const Texture* texture);
 	

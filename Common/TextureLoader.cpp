@@ -78,6 +78,15 @@ Texture* TextureLoader::loadFromTga(const char* textureName)
 		return 0;
 	}
 
+	result = this->loadFromTga((const char*)data, len);
+	
+	delete []data;
+	return result;
+}
+
+Texture* TextureLoader::loadFromTga(const char* data, int size)
+{
+	Texture* result = 0;
 	TGA::tTGAHeader* header = (TGA::tTGAHeader*)data;
 
 	if (header->imageType == TGA::TgaDataType::UncompressedRGB)
@@ -103,7 +112,7 @@ Texture* TextureLoader::loadFromTga(const char* textureName)
 		if ((header->attributes & (1 << 4)) == 0)
 			result->flipVertically();
 	}
-	delete []data;
+	
 	return result;
 }
 
