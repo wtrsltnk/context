@@ -12,6 +12,10 @@
 #include <vector>
 #include <string>
 
+typedef void (*ptr2RenderObjectFunction)(void*, int);
+
+class Camera;
+
 class Common
 {
 public:
@@ -26,6 +30,8 @@ public:
 	static void glColorFromIndex(int index);
 	static int getIndexFromColor(unsigned char color[3]);
 	static int getIndexFromPixelAt(int x, int y);
+	
+	static int selectObject(Camera& camera, float scale, int mousex, int mousey, void* objects, int count, ptr2RenderObjectFunction renderObjectFunction);
 	
 	static void renderBoundingBox(const BoundingVolume& bb);
 	

@@ -6,6 +6,7 @@
  */
 
 #include "Common.h"
+#include "Camera.h"
 #include "GLee.h"
 #include <GL/glu.h>
 #include <iostream>
@@ -83,6 +84,32 @@ int Common::getIndexFromPixelAt(int x, int y)
 	glReadBuffer(GL_BACK);
 	glReadPixels(x, y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, (void *)color);
 	return Common::getIndexFromColor(color);
+}
+
+int Common::selectObject(Camera& camera, float scale, int mousex, int mousey, void* objects, int count, ptr2RenderObjectFunction renderObjectFunction)
+{
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+	glDisable(GL_TEXTURE_2D);
+
+	camera.update();
+	
+	glScalef(scale, scale, scale);
+	
+	glEnable(GL_DEPTH_TEST);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	for (int i = 0; i < count; i++)
+	{
+		Common::glColorFromIndex(i);
+		renderObjectFunction(objects, i);
+	}
+	
+	int index = Common::getIndexFromPixelAt(mousex, mousey);
+	if (index >= 0 && index < count)
+		return index;
+
+	return -1;
 }
 
 
