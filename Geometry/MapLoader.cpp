@@ -42,7 +42,7 @@ bool MapLoader::load(const char* filename, Scene* scene)
 	}
 	if (data.data != 0 && data.size > 0)
 	{
-		common::Tokenizer tok(data.data, data.size);
+		Tokenizer tok(data.data, data.size);
 
 		// Do load
 		while (tok.nextToken())
@@ -59,7 +59,7 @@ bool MapLoader::load(const char* filename, Scene* scene)
 	return false;
 }
 
-bool MapLoader::loadEntity(common::Tokenizer& tok, Scene* scene)
+bool MapLoader::loadEntity(Tokenizer& tok, Scene* scene)
 {
 	MemoryGuard<Entity> e;
 	e.data = new Entity();
@@ -91,7 +91,7 @@ bool MapLoader::loadEntity(common::Tokenizer& tok, Scene* scene)
 	return strcmp(tok.getToken(), "}") == 0;
 }
 
-bool MapLoader::loadBrush(common::Tokenizer& tok, Entity* entity)
+bool MapLoader::loadBrush(Tokenizer& tok, Entity* entity)
 {
 	MemoryGuard<Brush> b;
 	b.data = new Brush();

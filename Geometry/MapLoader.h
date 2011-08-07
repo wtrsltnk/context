@@ -23,8 +23,8 @@ public:
 	bool load(const char* filename, Scene* scene);
 
 private:
-	bool loadEntity(common::Tokenizer& tok, Scene* scene);
-	bool loadBrush(common::Tokenizer& tok, Entity* entity);
+	bool loadEntity(Tokenizer& tok, Scene* scene);
+	bool loadBrush(Tokenizer& tok, Entity* entity);
 
 	int mVersion;
 };
