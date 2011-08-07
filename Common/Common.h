@@ -34,6 +34,7 @@ public:
 	static int selectObject(Camera& camera, float scale, int mousex, int mousey, void* objects, int count, ptr2RenderObjectFunction renderObjectFunction);
 	
 	static void renderBoundingBox(const BoundingVolume& bb);
+	static void renderAxis();
 	
 	static void explode(std::vector<std::string>& lst, const std::string& input, const std::string& separators, bool remove_empty = true);
 	static std::string implode(const std::vector<std::string>& lst, const std::string& glue = "");

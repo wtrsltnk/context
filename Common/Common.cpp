@@ -157,6 +157,24 @@ void Common::renderBoundingBox(const BoundingVolume& bb)
 	glEnd();
 }
 
+void Common::renderAxis()
+{
+	// Axis
+	glBegin(GL_LINES);
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(10.0f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(0.0f, 10.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.0f, 0.0f, 10.0f);
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	glEnd();
+}
+
 /*
  * From stackoverflow.com:
  *		http://stackoverflow.com/questions/236129/how-to-split-a-string-in-c#4689579
