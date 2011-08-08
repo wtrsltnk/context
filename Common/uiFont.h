@@ -25,6 +25,8 @@ class Font
 public:
 	Font();
 	virtual ~Font();
+	
+	float size() const { return this->mFontSize; }
 
 	bool initializeFont(const char* fontpath, float size = 15.0f);
 	int getTextLength(const char* text, int count = 0);
