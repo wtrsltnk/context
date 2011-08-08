@@ -113,7 +113,6 @@ int Common::selectObject(float* projection, float* modelview, int mousex, int mo
 	return -1;
 }
 
-
 void Common::renderBoundingBox(const BoundingVolume& bb)
 {
 	glBegin(GL_LINES);
