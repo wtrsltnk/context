@@ -86,19 +86,20 @@ int Common::getIndexFromPixelAt(int x, int y)
 	return Common::getIndexFromColor(color);
 }
 
-int Common::selectObject(Camera& camera, float scale, int mousex, int mousey, void* objects, int count, ptr2RenderObjectFunction renderObjectFunction)
+int Common::selectObject(float* projection, float* modelview, int mousex, int mousey, void* objects, int count, ptr2RenderObjectFunction renderObjectFunction)
 {
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glLoadIdentity();
-	glDisable(GL_TEXTURE_2D);
+	
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(projection);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixf(modelview);
 
-	camera.update();
-	
-	glScalef(scale, scale, scale);
-	
+	glDisable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	
 	for (int i = 0; i < count; i++)
 	{
 		Common::glColorFromIndex(i);

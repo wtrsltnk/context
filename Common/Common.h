@@ -31,7 +31,7 @@ public:
 	static int getIndexFromColor(unsigned char color[3]);
 	static int getIndexFromPixelAt(int x, int y);
 	
-	static int selectObject(Camera& camera, float scale, int mousex, int mousey, void* objects, int count, ptr2RenderObjectFunction renderObjectFunction);
+	static int selectObject(float* projection, float* modelview, int mousex, int mousey, void* objects, int count, ptr2RenderObjectFunction renderObjectFunction);
 	
 	static void renderBoundingBox(const BoundingVolume& bb);
 	static void renderAxis();
