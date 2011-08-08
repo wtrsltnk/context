@@ -98,7 +98,6 @@ int Common::selectObject(float* projection, float* modelview, int mousex, int mo
 
 	glDisable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	
 	for (int i = 0; i < count; i++)
 	{
