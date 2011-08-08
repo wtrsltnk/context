@@ -35,7 +35,7 @@ public:
 	Impl(GlContext* parent)
 		: mParent(parent), mRunning(true), mActive(true), 
 				mPositionX(0), mPositionY(0), mWidth(800), mHeight(600), mBits(0),
-				mFullscreen(false)
+				mFullscreen(false), mDelay(0)
 	{ }
 	virtual ~Impl() { }
 	
@@ -48,6 +48,7 @@ public:
 	int mHeight;
 	int mBits;
 	bool mFullscreen;
+	int mDelay;
 	
     Display* display;
     Window window;
@@ -239,6 +240,7 @@ public:
 		this->mParent->onIdle(this->getElapsedTime());
 
 		glXSwapBuffers(this->display, this->window);
+		usleep(this->mDelay);
 	}
 
 	GameTime* getElapsedTime()
@@ -282,9 +284,9 @@ Mouse::Button sButtonmap[]  =
 /*   1 */	Mouse::Left,
 /*   2 */	Mouse::Middle,
 /*   3 */	Mouse::Right,
-/*   4 */	Mouse::XButton1,
-/*   5 */	Mouse::XButton2,
-/*   6 */	Mouse::Unknown,
+/*   4 */	Mouse::WheelDown,
+/*   5 */	Mouse::WheelUp,
+/*   6 */	Mouse::XButton1,
 /*   7 */	Mouse::Unknown,
 /*   8 */	Mouse::Unknown,
 /*   9 */	Mouse::Unknown
@@ -563,7 +565,7 @@ class GlContext::Impl
 public:
 	Impl(GlContext* parent)
 		: mParent(parent), mRunning(true), mActive(true), mPositionX(0), mPositionY(0), mWidth(800), mHeight(600), mBits(0),mFullscreen(false),
-				hDC(0), hRC(0), hWnd(0), dwExStyle(WS_EX_APPWINDOW | WS_EX_WINDOWEDGE), dwStyle(WS_OVERLAPPEDWINDOW)
+				hDC(0), hRC(0), hWnd(0), dwExStyle(WS_EX_APPWINDOW | WS_EX_WINDOWEDGE), dwStyle(WS_OVERLAPPEDWINDOW), mDelay(0)
 	{ }
 	virtual ~Impl() { }
 	
@@ -576,6 +578,7 @@ public:
 	int mHeight;
 	int mBits;
 	bool mFullscreen;
+	int mDelay;
 	
 	HDC hDC;
 	HGLRC hRC;
@@ -711,6 +714,7 @@ public:
 				DispatchMessage(&msg);
 			}
 		}
+		// TODO : delay with usleep(this->mDelay)
 		if (this->mActive)
 		{
 			this->mParent->onIdle(this->getElapsedTime());
@@ -1414,4 +1418,14 @@ int GlContext::bits() const
 bool GlContext::fullscreen() const
 {
 	return this->pimpl->mFullscreen;
+}
+
+int GlContext::delay() const
+{
+	return this->pimpl->mDelay;
+}
+
+void GlContext::setDelay(int d)
+{
+	this->pimpl->mDelay = d;
 }

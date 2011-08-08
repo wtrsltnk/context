@@ -32,6 +32,8 @@ public:
 	int height() const;
 	int bits() const;
 	bool fullscreen() const;
+	int delay() const;
+	void setDelay(int d);
 	
 protected:
 	virtual bool onInitializeGl() { return true; }

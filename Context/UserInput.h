@@ -175,6 +175,8 @@ namespace Mouse
         Left,
         Right,
         Middle,
+        WheelDown,
+        WheelUp,
         XButton1,
         XButton2,
 
