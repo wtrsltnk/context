@@ -47,7 +47,7 @@ public:
 	virtual ~Brush();
 
 	// Adds a plane to this brush
-	void addPlane(Plane& plane);
+	void addPlane(const Plane& plane);
 
 	// All the planes a brush is made of
 	std::vector<Plane> mPlanes;

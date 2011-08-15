@@ -140,7 +140,7 @@ Brush::~Brush()
 {
 }
 
-void Brush::addPlane(Plane& plane)
+void Brush::addPlane(const Plane& plane)
 {
 	this->mPlanes.push_back(plane);
 }
