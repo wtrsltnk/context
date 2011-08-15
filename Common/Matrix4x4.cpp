@@ -27,8 +27,25 @@ Matrix4x4::Matrix4x4(float (*matrix)[4])
 			this->m[i][j] = matrix[i][j];
 }
 
+Matrix4x4::Matrix4x4(float* matrix)
+{
+	for (int i = 0; i < 4; i++)
+		for (int j = 0; j < 4; j++)
+			this->m[i][j] = matrix[i*4+j];
+}
+
 Matrix4x4::~Matrix4x4()
 {
+}
+
+float Matrix4x4::get(int index)
+{
+	return m[index%4][index/4];
+}
+
+float* Matrix4x4::get()
+{
+	return (float*)&this->m[0][0];
 }
 
 const Vector3 Matrix4x4::forwardVector() const

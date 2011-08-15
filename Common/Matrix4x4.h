@@ -10,7 +10,11 @@ public:
 	Matrix4x4();
 	Matrix4x4(const Matrix4x4& matrix);
 	Matrix4x4(float (*matrix)[4]);
+	Matrix4x4(float* matrix);
 	virtual ~Matrix4x4();
+	
+	float get(int index);
+	float* get();
 
 	const Vector3 forwardVector() const;
 	const Vector3 leftVector() const;
