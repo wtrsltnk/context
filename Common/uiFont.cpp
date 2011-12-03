@@ -11,6 +11,13 @@
 
 namespace ui
 {
+	
+	typedef struct sVertex
+	{
+		float position[3];
+		float texCoords[2];
+		
+	} tVertex;
 
 Font::Font()
 	: mTextureId(0)
@@ -50,7 +57,7 @@ bool Font::initializeFont(const char* fontpath, float fontSize)
 		return false;
     }
 
-    stbtt_BakeFontBitmap(ttfBuffer,0, fontSize, bmap,512,512, 32,96, this->mCharData);
+    stbtt_BakeFontBitmap(ttfBuffer,0, fontSize, bmap, 512, 512, 32, 96, this->mCharData);
 
     // can free ttf_buffer at this point
     glGenTextures(1, &this->mTextureId);
