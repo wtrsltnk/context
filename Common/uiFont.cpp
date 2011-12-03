@@ -100,18 +100,64 @@ int Font::getTextLength(const char* text, int count)
 
 int Font::getTextHeight(const char* text)
 {
-	float height = 0;
+	float height0 = 0;
 	while (*text)
 	{
 		int c = (unsigned char)*text;
 		if (c >= 32 && c < 128)
 		{
 			stbtt_bakedchar *b = this->mCharData + c-32;
-			if (b->y0 > height) height = b->y0;
+			if ((b->y1-b->y0) > height0) height0 = (b->y1-b->y0);
 		}
 		++text;
 	}
-	return height;
+	return height0;
+}
+
+void Font::getTextBoungingBox(const char* text, float bb[4])
+{
+	if (!text) return;
+
+	float x = 0, y = 0;
+	const float ox = x;
+
+	while (*text)
+	{
+		int c = (unsigned char)*text;
+		if (c == '\t')
+		{
+			for (int i = 0; i < 4; ++i)
+			{
+				if (x < g_tabStops[i]+ox)
+				{
+					x = g_tabStops[i]+ox;
+					break;
+				}
+			}
+		}
+		else if (c >= 32 && c < 128)
+		{
+			stbtt_aligned_quad q;
+			this->getBakedQuad(512,512, c-32, &x,&y,&q);
+
+			// min x
+			if (bb[0] > q.x0) bb[0] = q.x0;
+			if (bb[0] > q.x1) bb[0] = q.x1;
+
+			// min y
+			if (bb[1] > q.y0) bb[1] = q.y0;
+			if (bb[1] > q.y1) bb[1] = q.y1;
+
+			// max x
+			if (bb[2] < q.x0) bb[2] = q.x0;
+			if (bb[2] < q.x1) bb[2] = q.x1;
+
+			// max x
+			if (bb[3] < q.y0) bb[3] = q.y0;
+			if (bb[3] < q.y1) bb[3] = q.y1;
+		}
+		++text;
+	}	
 }
 
 void Font::drawText(float x, float y, const char *text, unsigned int col)

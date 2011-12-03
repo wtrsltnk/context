@@ -31,6 +31,8 @@ public:
 	void moveForward(float amount);
 	void moveUp(float amount);
 	void moveLeft(float amount);
+	
+	Matrix4x4& matrix();
 
 	Vector3 forward();
 	Vector3 up();

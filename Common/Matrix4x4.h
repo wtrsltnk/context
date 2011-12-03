@@ -28,6 +28,7 @@ public:
 	void glMultiply() const;
 	Plane transform(const Plane& plane) const;
 	Plane inverseTransform(const Plane& plane) const;
+	Vector3 multiplyVector(const Vector3& v);
 	void print() const;
 
 public:

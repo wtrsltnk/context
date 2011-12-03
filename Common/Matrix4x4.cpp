@@ -185,6 +185,15 @@ Plane Matrix4x4::inverseTransform(const Plane& plane) const
     );
 }
 
+Vector3 Matrix4x4::multiplyVector(const Vector3& v)
+{
+	return Vector3(
+			m[0][0] * v.x() + m[0][1] * v.y() + m[0][2] * v.z() + m[0][3],
+			m[1][0] * v.x() + m[1][1] * v.y() + m[1][2] * v.z() + m[1][3],
+			m[2][0] * v.x() + m[2][1] * v.y() + m[2][2] * v.z() + m[2][3]
+		);
+}
+
 void Matrix4x4::print() const
 {
 	for (int i = 0; i < 4; i++)

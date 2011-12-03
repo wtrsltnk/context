@@ -35,6 +35,8 @@ public:
 	int mHeight;
 	int mBpp;
 	unsigned int mGlIndex;
+	
+	static void useNoTexture();
 
 };
 

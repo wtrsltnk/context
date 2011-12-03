@@ -158,6 +158,11 @@ void Camera::moveLeft(float amount)
 			this->mPosition.z()+(this->mMatrix.leftVector() * amount).z());
 }
 
+Matrix4x4& Camera::matrix()
+{
+	return this->mMatrix;
+}
+
 Vector3 Camera::forward()
 {
 	return this->mMatrix.forwardVector();

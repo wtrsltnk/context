@@ -196,3 +196,8 @@ void Texture::setName(const char* name)
 {
 	strcpy(this->mName, name);
 }
+
+void Texture::useNoTexture()
+{
+	glBindTexture(GL_TEXTURE_2D, 0);
+}

@@ -31,6 +31,7 @@ public:
 	bool initializeFont(const char* fontpath, float size = 15.0f);
 	int getTextLength(const char* text, int count = 0);
 	int getTextHeight(const char* text);
+	void getTextBoungingBox(const char* text, float bb[4]);
 	void drawText(float x, float y, const char *text, unsigned int col = ui::RGBA(255, 255, 255, 255));
 	void drawTextColorLess(float x, float y, const char *text);
 	void getBakedQuad(int pw, int ph, int char_index, float *xpos, float *ypos, stbtt_aligned_quad *q);
