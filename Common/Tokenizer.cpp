@@ -14,6 +14,11 @@ Tokenizer::Tokenizer(const char* data, int size)
 {
 }
 
+Tokenizer::Tokenizer(const unsigned char* data, int size)
+	: data((const char*)data), dataSize(size), cursor(0), token(0)
+{
+}
+
 Tokenizer::Tokenizer(const Tokenizer& orig)
 	: data(orig.data), dataSize(orig.dataSize), cursor(0), token(0)
 {

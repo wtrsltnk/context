@@ -12,6 +12,7 @@ class Tokenizer
 {
 public:
 	Tokenizer(const char* data, int size);
+	Tokenizer(const unsigned char* data, int size);
 	Tokenizer(const Tokenizer& orig);
 	virtual ~Tokenizer();
 
