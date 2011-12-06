@@ -8,6 +8,9 @@
 #include "TextureLoader.h"
 #include <stdio.h>
 #include <string.h>
+#include <iostream>
+
+using namespace std;
 
 TextureLoader::TextureLoader()
 {
@@ -72,9 +75,7 @@ Texture* TextureLoader::loadFromTga(const char* textureName)
 	int len;
 	if (this->loadBinaryFile(textureName, data, len) == false)
 	{
-#ifdef SHOW_DEBUG_TEXT
-		printf("Could not load TGA texture %s\n\n", textureName);
-#endif
+		cout << "Could not load TGA texture " << textureName << endl << endl;
 		return 0;
 	}
 
