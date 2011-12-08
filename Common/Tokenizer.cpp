@@ -127,7 +127,7 @@ bool Tokenizer::nextToken()
 	}
 	else
 	{
-		while (Tokenizer::isSeperator(data[cursor + c]) == false)
+		while (cursor + c < this->dataSize && Tokenizer::isSeperator(data[cursor + c]) == false)
 			c++;
 		this->token = new char[c + 2];
 		memcpy(this->token, data + cursor, c);
