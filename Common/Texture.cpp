@@ -71,7 +71,7 @@ void Texture::setChecker(int w, int h)
 		for (i = 0; i < this->mHeight; i++) {
 			for (j = 0; j < this->mWidth; j++) {
 				int pixel = i*this->mWidth+j;
-				c = ((((i&0x8)==0)^((j&0x8))==0))*255;
+				c = ((((i&0x2)==0)^((j&0x2))==0))*255;
 				this->mData[pixel*4] = (GLubyte) c;
 				this->mData[pixel*4+1] = (GLubyte) c;
 				this->mData[pixel*4+2] = (GLubyte) c;
