@@ -34,35 +34,35 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/BulletSoftBody/btSoftBodyConcaveCollisionAlgorithm.o \
-	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btCapsuleShape.o \
 	${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btRaycastCallback.o \
+	${OBJECTDIR}/src/BulletSoftBody/btSoftBodyConcaveCollisionAlgorithm.o \
 	${OBJECTDIR}/src/BulletDynamics/Character/btKinematicCharacterController.o \
 	${OBJECTDIR}/src/BulletCollision/BroadphaseCollision/btSimpleBroadphase.o \
 	${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btSubSimplexConvexCast.o \
+	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btCapsuleShape.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btBox2dShape.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btMultimaterialTriangleMeshShape.o \
 	${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btVoronoiSimplexSolver.o \
 	${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.o \
-	${OBJECTDIR}/src/BulletCollision/Gimpact/btGImpactCollisionAlgorithm.o \
 	${OBJECTDIR}/src/BulletDynamics/Vehicle/btRaycastVehicle.o \
+	${OBJECTDIR}/src/BulletCollision/Gimpact/btGImpactCollisionAlgorithm.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btOptimizedBvh.o \
 	${OBJECTDIR}/src/BulletDynamics/Dynamics/btDiscreteDynamicsWorld.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btTriangleBuffer.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btMultiSphereShape.o \
-	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btConvex2dConvex2dAlgorithm.o \
 	${OBJECTDIR}/src/BulletSoftBody/btSoftBodyRigidBodyCollisionConfiguration.o \
+	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btConvex2dConvex2dAlgorithm.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btCollisionWorld.o \
 	${OBJECTDIR}/src/BulletDynamics/Dynamics/Bullet-C-API.o \
 	${OBJECTDIR}/src/LinearMath/btConvexHull.o \
-	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btInternalEdgeUtility.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.o \
+	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btInternalEdgeUtility.o \
 	${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btUniversalConstraint.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexPolyhedron.o \
 	${OBJECTDIR}/src/MiniCL/MiniCLTask/MiniCLTask.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btSimulationIslandManager.o \
-	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btTriangleMeshShape.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btSphereSphereCollisionAlgorithm.o \
+	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btTriangleMeshShape.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexHullShape.o \
 	${OBJECTDIR}/src/BulletCollision/Gimpact/btGImpactBvh.o \
 	${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btConeTwistConstraint.o \
@@ -70,44 +70,44 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/BulletDynamics/Dynamics/btRigidBody.o \
 	${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btMinkowskiPenetrationDepthSolver.o \
 	${OBJECTDIR}/src/BulletCollision/BroadphaseCollision/btDbvt.o \
-	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btGhostObject.o \
 	${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.o \
+	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btGhostObject.o \
 	${OBJECTDIR}/src/BulletSoftBody/btSoftRigidCollisionAlgorithm.o \
+	${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btPersistentManifold.o \
 	${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btGjkConvexCast.o \
 	${OBJECTDIR}/src/BulletCollision/Gimpact/gim_box_set.o \
 	${OBJECTDIR}/src/LinearMath/btQuickprof.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConeShape.o \
-	${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btPersistentManifold.o \
 	${OBJECTDIR}/src/BulletCollision/BroadphaseCollision/btAxisSweep3.o \
 	${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btPolyhedralContactClipping.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btCollisionShape.o \
 	${OBJECTDIR}/src/BulletCollision/BroadphaseCollision/btBroadphaseProxy.o \
 	${OBJECTDIR}/src/BulletCollision/BroadphaseCollision/btOverlappingPairCache.o \
-	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.o \
-	${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btTypedConstraint.o \
 	${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btGeneric6DofSpringConstraint.o \
+	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.o \
 	${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btHinge2Constraint.o \
 	${OBJECTDIR}/src/BulletSoftBody/btSoftRigidDynamicsWorld.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexTriangleMeshShape.o \
+	${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btTypedConstraint.o \
 	${OBJECTDIR}/src/BulletSoftBody/btDefaultSoftBodySolver.o \
-	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btCollisionObject.o \
 	${OBJECTDIR}/src/LinearMath/btConvexHullComputer.o \
+	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btCollisionObject.o \
+	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btUniformScalingShape.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btEmptyCollisionAlgorithm.o \
-	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btPolyhedralConvexShape.o \
-	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btSphereShape.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btBoxBoxCollisionAlgorithm.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btTetrahedronShape.o \
 	${OBJECTDIR}/src/BulletSoftBody/btSoftSoftCollisionAlgorithm.o \
 	${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btContinuousConvexCollision.o \
-	${OBJECTDIR}/src/LinearMath/btAlignedAllocator.o \
-	${OBJECTDIR}/src/BulletCollision/Gimpact/gim_contact.o \
-	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexPointCloudShape.o \
+	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btPolyhedralConvexShape.o \
 	${OBJECTDIR}/src/BulletCollision/BroadphaseCollision/btMultiSapBroadphase.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvex2dShape.o \
-	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btCollisionDispatcher.o \
+	${OBJECTDIR}/src/LinearMath/btAlignedAllocator.o \
+	${OBJECTDIR}/src/BulletCollision/Gimpact/gim_contact.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btConvexConvexAlgorithm.o \
+	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btCollisionDispatcher.o \
+	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexPointCloudShape.o \
 	${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btPoint2PointConstraint.o \
 	${OBJECTDIR}/src/MiniCL/MiniCL.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btTriangleIndexVertexMaterialArray.o \
@@ -121,13 +121,13 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/BulletDynamics/Dynamics/btSimpleDynamicsWorld.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btConvexConcaveCollisionAlgorithm.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.o \
+	${OBJECTDIR}/src/BulletCollision/Gimpact/btGenericPoolAllocator.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btSphereBoxCollisionAlgorithm.o \
+	${OBJECTDIR}/src/LinearMath/btSerializer.o \
 	${OBJECTDIR}/src/BulletCollision/Gimpact/btTriangleShapeEx.o \
 	${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btGjkPairDetector.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btTriangleIndexVertexArray.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btUnionFind.o \
-	${OBJECTDIR}/src/BulletCollision/Gimpact/btGenericPoolAllocator.o \
-	${OBJECTDIR}/src/LinearMath/btSerializer.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btCylinderShape.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/SphereTriangleDetector.o \
 	${OBJECTDIR}/src/MiniCL/MiniCLTaskScheduler.o \
@@ -136,8 +136,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btBox2dBox2dCollisionAlgorithm.o \
 	${OBJECTDIR}/src/BulletCollision/Gimpact/btGImpactShape.o \
 	${OBJECTDIR}/src/BulletCollision/BroadphaseCollision/btQuantizedBvh.o \
-	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btConvexPlaneCollisionAlgorithm.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btTriangleMesh.o \
+	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btConvexPlaneCollisionAlgorithm.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btCompoundCollisionAlgorithm.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConcaveShape.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btBoxBoxDetector.o \
@@ -151,12 +151,12 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/BulletCollision/BroadphaseCollision/btCollisionAlgorithm.o \
 	${OBJECTDIR}/src/BulletSoftBody/btSoftBodyHelpers.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btCompoundShape.o \
-	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexShape.o \
-	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btBoxShape.o \
-	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexInternalShape.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btShapeHull.o \
 	${OBJECTDIR}/src/BulletCollision/Gimpact/btGImpactQuantizedBvh.o \
 	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btTriangleCallback.o \
+	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexShape.o \
+	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexInternalShape.o \
+	${OBJECTDIR}/src/BulletCollision/CollisionShapes/btBoxShape.o \
 	${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btHingeConstraint.o \
 	${OBJECTDIR}/src/BulletCollision/Gimpact/gim_memory.o \
 	${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btSolve2LinearConstraint.o \
@@ -190,20 +190,15 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libbullet.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libbullet.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libbullet.a
 
-${OBJECTDIR}/src/BulletSoftBody/btSoftBodyConcaveCollisionAlgorithm.o: src/BulletSoftBody/btSoftBodyConcaveCollisionAlgorithm.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/BulletSoftBody
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletSoftBody/btSoftBodyConcaveCollisionAlgorithm.o src/BulletSoftBody/btSoftBodyConcaveCollisionAlgorithm.cpp
-
-${OBJECTDIR}/src/BulletCollision/CollisionShapes/btCapsuleShape.o: src/BulletCollision/CollisionShapes/btCapsuleShape.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btCapsuleShape.o src/BulletCollision/CollisionShapes/btCapsuleShape.cpp
-
 ${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btRaycastCallback.o: src/BulletCollision/NarrowPhaseCollision/btRaycastCallback.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btRaycastCallback.o src/BulletCollision/NarrowPhaseCollision/btRaycastCallback.cpp
+
+${OBJECTDIR}/src/BulletSoftBody/btSoftBodyConcaveCollisionAlgorithm.o: src/BulletSoftBody/btSoftBodyConcaveCollisionAlgorithm.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/BulletSoftBody
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletSoftBody/btSoftBodyConcaveCollisionAlgorithm.o src/BulletSoftBody/btSoftBodyConcaveCollisionAlgorithm.cpp
 
 ${OBJECTDIR}/src/BulletDynamics/Character/btKinematicCharacterController.o: src/BulletDynamics/Character/btKinematicCharacterController.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletDynamics/Character
@@ -219,6 +214,11 @@ ${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btSubSimplexConvexCast.o: 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btSubSimplexConvexCast.o src/BulletCollision/NarrowPhaseCollision/btSubSimplexConvexCast.cpp
+
+${OBJECTDIR}/src/BulletCollision/CollisionShapes/btCapsuleShape.o: src/BulletCollision/CollisionShapes/btCapsuleShape.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btCapsuleShape.o src/BulletCollision/CollisionShapes/btCapsuleShape.cpp
 
 ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btBox2dShape.o: src/BulletCollision/CollisionShapes/btBox2dShape.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
@@ -240,15 +240,15 @@ ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.o: src/
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.o src/BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.cpp
 
-${OBJECTDIR}/src/BulletCollision/Gimpact/btGImpactCollisionAlgorithm.o: src/BulletCollision/Gimpact/btGImpactCollisionAlgorithm.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/Gimpact
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/Gimpact/btGImpactCollisionAlgorithm.o src/BulletCollision/Gimpact/btGImpactCollisionAlgorithm.cpp
-
 ${OBJECTDIR}/src/BulletDynamics/Vehicle/btRaycastVehicle.o: src/BulletDynamics/Vehicle/btRaycastVehicle.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletDynamics/Vehicle
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletDynamics/Vehicle/btRaycastVehicle.o src/BulletDynamics/Vehicle/btRaycastVehicle.cpp
+
+${OBJECTDIR}/src/BulletCollision/Gimpact/btGImpactCollisionAlgorithm.o: src/BulletCollision/Gimpact/btGImpactCollisionAlgorithm.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/Gimpact
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/Gimpact/btGImpactCollisionAlgorithm.o src/BulletCollision/Gimpact/btGImpactCollisionAlgorithm.cpp
 
 ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btOptimizedBvh.o: src/BulletCollision/CollisionShapes/btOptimizedBvh.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
@@ -270,15 +270,15 @@ ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btMultiSphereShape.o: src/Bulle
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btMultiSphereShape.o src/BulletCollision/CollisionShapes/btMultiSphereShape.cpp
 
-${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btConvex2dConvex2dAlgorithm.o: src/BulletCollision/CollisionDispatch/btConvex2dConvex2dAlgorithm.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionDispatch
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btConvex2dConvex2dAlgorithm.o src/BulletCollision/CollisionDispatch/btConvex2dConvex2dAlgorithm.cpp
-
 ${OBJECTDIR}/src/BulletSoftBody/btSoftBodyRigidBodyCollisionConfiguration.o: src/BulletSoftBody/btSoftBodyRigidBodyCollisionConfiguration.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletSoftBody
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletSoftBody/btSoftBodyRigidBodyCollisionConfiguration.o src/BulletSoftBody/btSoftBodyRigidBodyCollisionConfiguration.cpp
+
+${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btConvex2dConvex2dAlgorithm.o: src/BulletCollision/CollisionDispatch/btConvex2dConvex2dAlgorithm.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionDispatch
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btConvex2dConvex2dAlgorithm.o src/BulletCollision/CollisionDispatch/btConvex2dConvex2dAlgorithm.cpp
 
 ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btCollisionWorld.o: src/BulletCollision/CollisionDispatch/btCollisionWorld.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionDispatch
@@ -295,15 +295,15 @@ ${OBJECTDIR}/src/LinearMath/btConvexHull.o: src/LinearMath/btConvexHull.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/LinearMath/btConvexHull.o src/LinearMath/btConvexHull.cpp
 
-${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btInternalEdgeUtility.o: src/BulletCollision/CollisionDispatch/btInternalEdgeUtility.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionDispatch
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btInternalEdgeUtility.o src/BulletCollision/CollisionDispatch/btInternalEdgeUtility.cpp
-
 ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.o: src/BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionDispatch
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.o src/BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.cpp
+
+${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btInternalEdgeUtility.o: src/BulletCollision/CollisionDispatch/btInternalEdgeUtility.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionDispatch
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btInternalEdgeUtility.o src/BulletCollision/CollisionDispatch/btInternalEdgeUtility.cpp
 
 ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btUniversalConstraint.o: src/BulletDynamics/ConstraintSolver/btUniversalConstraint.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver
@@ -325,15 +325,15 @@ ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btSimulationIslandManager.o: 
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btSimulationIslandManager.o src/BulletCollision/CollisionDispatch/btSimulationIslandManager.cpp
 
-${OBJECTDIR}/src/BulletCollision/CollisionShapes/btTriangleMeshShape.o: src/BulletCollision/CollisionShapes/btTriangleMeshShape.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btTriangleMeshShape.o src/BulletCollision/CollisionShapes/btTriangleMeshShape.cpp
-
 ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btSphereSphereCollisionAlgorithm.o: src/BulletCollision/CollisionDispatch/btSphereSphereCollisionAlgorithm.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionDispatch
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btSphereSphereCollisionAlgorithm.o src/BulletCollision/CollisionDispatch/btSphereSphereCollisionAlgorithm.cpp
+
+${OBJECTDIR}/src/BulletCollision/CollisionShapes/btTriangleMeshShape.o: src/BulletCollision/CollisionShapes/btTriangleMeshShape.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btTriangleMeshShape.o src/BulletCollision/CollisionShapes/btTriangleMeshShape.cpp
 
 ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexHullShape.o: src/BulletCollision/CollisionShapes/btConvexHullShape.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
@@ -370,20 +370,25 @@ ${OBJECTDIR}/src/BulletCollision/BroadphaseCollision/btDbvt.o: src/BulletCollisi
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/BroadphaseCollision/btDbvt.o src/BulletCollision/BroadphaseCollision/btDbvt.cpp
 
-${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btGhostObject.o: src/BulletCollision/CollisionDispatch/btGhostObject.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionDispatch
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btGhostObject.o src/BulletCollision/CollisionDispatch/btGhostObject.cpp
-
 ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.o: src/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.o src/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.cpp
 
+${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btGhostObject.o: src/BulletCollision/CollisionDispatch/btGhostObject.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionDispatch
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btGhostObject.o src/BulletCollision/CollisionDispatch/btGhostObject.cpp
+
 ${OBJECTDIR}/src/BulletSoftBody/btSoftRigidCollisionAlgorithm.o: src/BulletSoftBody/btSoftRigidCollisionAlgorithm.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletSoftBody
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletSoftBody/btSoftRigidCollisionAlgorithm.o src/BulletSoftBody/btSoftRigidCollisionAlgorithm.cpp
+
+${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btPersistentManifold.o: src/BulletCollision/NarrowPhaseCollision/btPersistentManifold.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btPersistentManifold.o src/BulletCollision/NarrowPhaseCollision/btPersistentManifold.cpp
 
 ${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btGjkConvexCast.o: src/BulletCollision/NarrowPhaseCollision/btGjkConvexCast.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision
@@ -404,11 +409,6 @@ ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConeShape.o: src/BulletCollis
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConeShape.o src/BulletCollision/CollisionShapes/btConeShape.cpp
-
-${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btPersistentManifold.o: src/BulletCollision/NarrowPhaseCollision/btPersistentManifold.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btPersistentManifold.o src/BulletCollision/NarrowPhaseCollision/btPersistentManifold.cpp
 
 ${OBJECTDIR}/src/BulletCollision/BroadphaseCollision/btAxisSweep3.o: src/BulletCollision/BroadphaseCollision/btAxisSweep3.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/BroadphaseCollision
@@ -435,20 +435,15 @@ ${OBJECTDIR}/src/BulletCollision/BroadphaseCollision/btOverlappingPairCache.o: s
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/BroadphaseCollision/btOverlappingPairCache.o src/BulletCollision/BroadphaseCollision/btOverlappingPairCache.cpp
 
-${OBJECTDIR}/src/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.o: src/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.o src/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.cpp
-
-${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btTypedConstraint.o: src/BulletDynamics/ConstraintSolver/btTypedConstraint.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btTypedConstraint.o src/BulletDynamics/ConstraintSolver/btTypedConstraint.cpp
-
 ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btGeneric6DofSpringConstraint.o: src/BulletDynamics/ConstraintSolver/btGeneric6DofSpringConstraint.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btGeneric6DofSpringConstraint.o src/BulletDynamics/ConstraintSolver/btGeneric6DofSpringConstraint.cpp
+
+${OBJECTDIR}/src/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.o: src/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.o src/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.cpp
 
 ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btHinge2Constraint.o: src/BulletDynamics/ConstraintSolver/btHinge2Constraint.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver
@@ -465,20 +460,30 @@ ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexTriangleMeshShape.o: sr
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexTriangleMeshShape.o src/BulletCollision/CollisionShapes/btConvexTriangleMeshShape.cpp
 
+${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btTypedConstraint.o: src/BulletDynamics/ConstraintSolver/btTypedConstraint.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btTypedConstraint.o src/BulletDynamics/ConstraintSolver/btTypedConstraint.cpp
+
 ${OBJECTDIR}/src/BulletSoftBody/btDefaultSoftBodySolver.o: src/BulletSoftBody/btDefaultSoftBodySolver.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletSoftBody
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletSoftBody/btDefaultSoftBodySolver.o src/BulletSoftBody/btDefaultSoftBodySolver.cpp
+
+${OBJECTDIR}/src/LinearMath/btConvexHullComputer.o: src/LinearMath/btConvexHullComputer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/LinearMath
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/LinearMath/btConvexHullComputer.o src/LinearMath/btConvexHullComputer.cpp
 
 ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btCollisionObject.o: src/BulletCollision/CollisionDispatch/btCollisionObject.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionDispatch
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btCollisionObject.o src/BulletCollision/CollisionDispatch/btCollisionObject.cpp
 
-${OBJECTDIR}/src/LinearMath/btConvexHullComputer.o: src/LinearMath/btConvexHullComputer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/LinearMath
+${OBJECTDIR}/src/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.o: src/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
 	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/LinearMath/btConvexHullComputer.o src/LinearMath/btConvexHullComputer.cpp
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.o src/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.cpp
 
 ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btUniformScalingShape.o: src/BulletCollision/CollisionShapes/btUniformScalingShape.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
@@ -489,16 +494,6 @@ ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btEmptyCollisionAlgorithm.o: 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionDispatch
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btEmptyCollisionAlgorithm.o src/BulletCollision/CollisionDispatch/btEmptyCollisionAlgorithm.cpp
-
-${OBJECTDIR}/src/BulletCollision/CollisionShapes/btPolyhedralConvexShape.o: src/BulletCollision/CollisionShapes/btPolyhedralConvexShape.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btPolyhedralConvexShape.o src/BulletCollision/CollisionShapes/btPolyhedralConvexShape.cpp
-
-${OBJECTDIR}/src/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.o: src/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.o src/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.cpp
 
 ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btSphereShape.o: src/BulletCollision/CollisionShapes/btSphereShape.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
@@ -525,20 +520,10 @@ ${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btContinuousConvexCollisio
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/NarrowPhaseCollision/btContinuousConvexCollision.o src/BulletCollision/NarrowPhaseCollision/btContinuousConvexCollision.cpp
 
-${OBJECTDIR}/src/LinearMath/btAlignedAllocator.o: src/LinearMath/btAlignedAllocator.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/LinearMath
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/LinearMath/btAlignedAllocator.o src/LinearMath/btAlignedAllocator.cpp
-
-${OBJECTDIR}/src/BulletCollision/Gimpact/gim_contact.o: src/BulletCollision/Gimpact/gim_contact.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/Gimpact
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/Gimpact/gim_contact.o src/BulletCollision/Gimpact/gim_contact.cpp
-
-${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexPointCloudShape.o: src/BulletCollision/CollisionShapes/btConvexPointCloudShape.cpp 
+${OBJECTDIR}/src/BulletCollision/CollisionShapes/btPolyhedralConvexShape.o: src/BulletCollision/CollisionShapes/btPolyhedralConvexShape.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
 	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexPointCloudShape.o src/BulletCollision/CollisionShapes/btConvexPointCloudShape.cpp
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btPolyhedralConvexShape.o src/BulletCollision/CollisionShapes/btPolyhedralConvexShape.cpp
 
 ${OBJECTDIR}/src/BulletCollision/BroadphaseCollision/btMultiSapBroadphase.o: src/BulletCollision/BroadphaseCollision/btMultiSapBroadphase.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/BroadphaseCollision
@@ -550,15 +535,30 @@ ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvex2dShape.o: src/BulletCo
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvex2dShape.o src/BulletCollision/CollisionShapes/btConvex2dShape.cpp
 
-${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btCollisionDispatcher.o: src/BulletCollision/CollisionDispatch/btCollisionDispatcher.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionDispatch
+${OBJECTDIR}/src/LinearMath/btAlignedAllocator.o: src/LinearMath/btAlignedAllocator.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/LinearMath
 	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btCollisionDispatcher.o src/BulletCollision/CollisionDispatch/btCollisionDispatcher.cpp
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/LinearMath/btAlignedAllocator.o src/LinearMath/btAlignedAllocator.cpp
+
+${OBJECTDIR}/src/BulletCollision/Gimpact/gim_contact.o: src/BulletCollision/Gimpact/gim_contact.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/Gimpact
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/Gimpact/gim_contact.o src/BulletCollision/Gimpact/gim_contact.cpp
 
 ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btConvexConvexAlgorithm.o: src/BulletCollision/CollisionDispatch/btConvexConvexAlgorithm.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionDispatch
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btConvexConvexAlgorithm.o src/BulletCollision/CollisionDispatch/btConvexConvexAlgorithm.cpp
+
+${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btCollisionDispatcher.o: src/BulletCollision/CollisionDispatch/btCollisionDispatcher.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionDispatch
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btCollisionDispatcher.o src/BulletCollision/CollisionDispatch/btCollisionDispatcher.cpp
+
+${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexPointCloudShape.o: src/BulletCollision/CollisionShapes/btConvexPointCloudShape.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexPointCloudShape.o src/BulletCollision/CollisionShapes/btConvexPointCloudShape.cpp
 
 ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btPoint2PointConstraint.o: src/BulletDynamics/ConstraintSolver/btPoint2PointConstraint.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver
@@ -625,10 +625,20 @@ ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.o:
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.o src/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.cpp
 
+${OBJECTDIR}/src/BulletCollision/Gimpact/btGenericPoolAllocator.o: src/BulletCollision/Gimpact/btGenericPoolAllocator.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/Gimpact
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/Gimpact/btGenericPoolAllocator.o src/BulletCollision/Gimpact/btGenericPoolAllocator.cpp
+
 ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btSphereBoxCollisionAlgorithm.o: src/BulletCollision/CollisionDispatch/btSphereBoxCollisionAlgorithm.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionDispatch
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btSphereBoxCollisionAlgorithm.o src/BulletCollision/CollisionDispatch/btSphereBoxCollisionAlgorithm.cpp
+
+${OBJECTDIR}/src/LinearMath/btSerializer.o: src/LinearMath/btSerializer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/LinearMath
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/LinearMath/btSerializer.o src/LinearMath/btSerializer.cpp
 
 ${OBJECTDIR}/src/BulletCollision/Gimpact/btTriangleShapeEx.o: src/BulletCollision/Gimpact/btTriangleShapeEx.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/Gimpact
@@ -649,16 +659,6 @@ ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btUnionFind.o: src/BulletColl
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionDispatch
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btUnionFind.o src/BulletCollision/CollisionDispatch/btUnionFind.cpp
-
-${OBJECTDIR}/src/BulletCollision/Gimpact/btGenericPoolAllocator.o: src/BulletCollision/Gimpact/btGenericPoolAllocator.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/Gimpact
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/Gimpact/btGenericPoolAllocator.o src/BulletCollision/Gimpact/btGenericPoolAllocator.cpp
-
-${OBJECTDIR}/src/LinearMath/btSerializer.o: src/LinearMath/btSerializer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/LinearMath
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/LinearMath/btSerializer.o src/LinearMath/btSerializer.cpp
 
 ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btCylinderShape.o: src/BulletCollision/CollisionShapes/btCylinderShape.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
@@ -700,15 +700,15 @@ ${OBJECTDIR}/src/BulletCollision/BroadphaseCollision/btQuantizedBvh.o: src/Bulle
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/BroadphaseCollision/btQuantizedBvh.o src/BulletCollision/BroadphaseCollision/btQuantizedBvh.cpp
 
-${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btConvexPlaneCollisionAlgorithm.o: src/BulletCollision/CollisionDispatch/btConvexPlaneCollisionAlgorithm.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionDispatch
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btConvexPlaneCollisionAlgorithm.o src/BulletCollision/CollisionDispatch/btConvexPlaneCollisionAlgorithm.cpp
-
 ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btTriangleMesh.o: src/BulletCollision/CollisionShapes/btTriangleMesh.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btTriangleMesh.o src/BulletCollision/CollisionShapes/btTriangleMesh.cpp
+
+${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btConvexPlaneCollisionAlgorithm.o: src/BulletCollision/CollisionDispatch/btConvexPlaneCollisionAlgorithm.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionDispatch
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btConvexPlaneCollisionAlgorithm.o src/BulletCollision/CollisionDispatch/btConvexPlaneCollisionAlgorithm.cpp
 
 ${OBJECTDIR}/src/BulletCollision/CollisionDispatch/btCompoundCollisionAlgorithm.o: src/BulletCollision/CollisionDispatch/btCompoundCollisionAlgorithm.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionDispatch
@@ -775,21 +775,6 @@ ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btCompoundShape.o: src/BulletCo
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btCompoundShape.o src/BulletCollision/CollisionShapes/btCompoundShape.cpp
 
-${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexShape.o: src/BulletCollision/CollisionShapes/btConvexShape.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexShape.o src/BulletCollision/CollisionShapes/btConvexShape.cpp
-
-${OBJECTDIR}/src/BulletCollision/CollisionShapes/btBoxShape.o: src/BulletCollision/CollisionShapes/btBoxShape.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btBoxShape.o src/BulletCollision/CollisionShapes/btBoxShape.cpp
-
-${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexInternalShape.o: src/BulletCollision/CollisionShapes/btConvexInternalShape.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
-	${RM} $@.d
-	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexInternalShape.o src/BulletCollision/CollisionShapes/btConvexInternalShape.cpp
-
 ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btShapeHull.o: src/BulletCollision/CollisionShapes/btShapeHull.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
 	${RM} $@.d
@@ -804,6 +789,21 @@ ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btTriangleCallback.o: src/Bulle
 	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
 	${RM} $@.d
 	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btTriangleCallback.o src/BulletCollision/CollisionShapes/btTriangleCallback.cpp
+
+${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexShape.o: src/BulletCollision/CollisionShapes/btConvexShape.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexShape.o src/BulletCollision/CollisionShapes/btConvexShape.cpp
+
+${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexInternalShape.o: src/BulletCollision/CollisionShapes/btConvexInternalShape.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btConvexInternalShape.o src/BulletCollision/CollisionShapes/btConvexInternalShape.cpp
+
+${OBJECTDIR}/src/BulletCollision/CollisionShapes/btBoxShape.o: src/BulletCollision/CollisionShapes/btBoxShape.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/BulletCollision/CollisionShapes
+	${RM} $@.d
+	$(COMPILE.cc) -g -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BulletCollision/CollisionShapes/btBoxShape.o src/BulletCollision/CollisionShapes/btBoxShape.cpp
 
 ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver/btHingeConstraint.o: src/BulletDynamics/ConstraintSolver/btHingeConstraint.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/BulletDynamics/ConstraintSolver
