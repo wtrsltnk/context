@@ -124,6 +124,10 @@ Plane Plane::fromVertices(const Vector3& v1, const Vector3& v2, const Vector3& v
 /******************************************************************/
 static int brushCount = 0;
 
+#ifndef random
+#define random rand
+#endif
+
 Brush::Brush()
 {
 	this->mColor[0] = 0;//rand() % 255;

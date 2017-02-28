@@ -681,22 +681,19 @@ public:
 			this->hRC = NULL;
 		}
 
-		if (this->hDC && !ReleaseDC(this->hWnd, this->hDC))
+        if (this->hDC)
 		{
-			MessageBox(NULL,"Release Device Context Failed.","SHUTDOWN ERROR",MB_OK | MB_ICONINFORMATION);
+            ReleaseDC(this->hWnd, this->hDC);
 			this->hDC = NULL;
 		}
 
-		if (this->hWnd && !DestroyWindow(this->hWnd))
+        if (this->hWnd)
 		{
-			MessageBox(NULL,"Could Not Release hWnd.","SHUTDOWN ERROR",MB_OK | MB_ICONINFORMATION);
+            DestroyWindow(this->hWnd);
 			this->hWnd = NULL;
 		}
 
-		if (!UnregisterClass("OpenGL", GetModuleHandle(0)))
-		{
-			MessageBox(NULL,"Could Not Unregister Class.","SHUTDOWN ERROR",MB_OK | MB_ICONINFORMATION);
-		}
+        UnregisterClass("OpenGL", GetModuleHandle(0));
 	}
 	
 	void handleEvents()
@@ -804,7 +801,7 @@ public:
 			0,											// Shift Bit Ignored
 			0,											// No Accumulation Buffer
 			0, 0, 0, 0,									// Accumulation Bits Ignored
-			16,											// 16Bit Z-Buffer (Depth Buffer)
+            24,											// 16Bit Z-Buffer (Depth Buffer)
 			0,											// No Stencil Buffer
 			0,											// No Auxiliary Buffer
 			PFD_MAIN_PLANE,								// Main Drawing Layer
