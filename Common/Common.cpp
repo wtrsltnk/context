@@ -7,7 +7,7 @@
 
 #include "Common.h"
 #include "Camera.h"
-#include "GLee.h"
+#include <GL/glextl.h>
 #include <GL/glu.h>
 #include <iostream>
 #include <sstream>

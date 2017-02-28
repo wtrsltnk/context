@@ -8,7 +8,7 @@
 #include "Texture.h"
 #include <stdlib.h>
 #include <memory.h>
-#include "GLee.h"
+#include <GL/glextl.h>
 
 Texture::Texture()
 	: mData(NULL), mWidth(0), mHeight(0), mBpp(0), mGlIndex(0)

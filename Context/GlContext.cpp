@@ -556,8 +556,8 @@ Key::Code sKeymap[] =
 
 #ifdef PLATFORM_IS_WIN32
 #include <windows.h>
-#include <GLee.h>
-#include <GL/glext.h>
+#define GLEXTL_IMPLEMENTATION
+#include <GL/glextl.h>
 #include <GL/wglext.h>
 
 class GlContext::Impl
@@ -643,7 +643,7 @@ public:
 			return false;
 		}
 
-		if (GLEE_WGL_ARB_create_context)
+        if (glExtIsLoaded("WGL_ARB_create_context"))
 		{
 			this->createOpenGL3xContext();
 		}
@@ -845,10 +845,9 @@ public:
 				return false;
 			}
 
-//			PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB");
+            PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB");
 
-			if (wglCreateContextAttribsARB)
-				hContext = wglCreateContextAttribsARB(hDC, 0, attribList);
+            hContext = wglCreateContextAttribsARB(hDC, 0, attribList);
 
 			wglMakeCurrent(hDC, 0);
 			wglDeleteContext(hCurrentContext);
@@ -858,10 +857,9 @@ public:
 			if (!wglMakeCurrent(hDC, hCurrentContext))
 				return false;
 
-//			PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB");
+            PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB");
 
-			if (wglCreateContextAttribsARB)
-				hContext = wglCreateContextAttribsARB(hDC, 0, attribList);
+            hContext = wglCreateContextAttribsARB(hDC, 0, attribList);
 		}
 		return true;
 	}
