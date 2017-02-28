@@ -8,7 +8,7 @@
 #ifndef BOUNDINGVOLUME_H
 #define	BOUNDINGVOLUME_H
 
-#include "Vector3.h"
+#include <glm/glm.hpp>
 
 class BoundingVolume
 {
@@ -16,21 +16,21 @@ public:
 	BoundingVolume();
 	virtual ~BoundingVolume();
 
-	BoundingVolume& operator << (const Vector3& p);
+    BoundingVolume& operator << (const glm::vec3& p);
 	BoundingVolume& operator << (const BoundingVolume& b);
 	
-	const Vector3& mins() const;
-	const Vector3& maxs() const;
-	Vector3& mins();
-	Vector3& maxs();
-	Vector3 origin();
+    const glm::vec3& mins() const;
+    const glm::vec3& maxs() const;
+    glm::vec3& mins();
+    glm::vec3& maxs();
+    glm::vec3 origin();
 	
 	float width() const;
 	float heigth() const;
 	float depth() const;
 	
 private:
-	Vector3 mMins, mMaxs;
+    glm::vec3 mMins, mMaxs;
 
 };
 

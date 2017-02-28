@@ -98,23 +98,23 @@ bool MapLoader::loadBrush(Tokenizer& tok, Entity* entity)
 
 	while (tok.nextToken() && strcmp(tok.getToken(), "}") != 0)
 	{
-		Vector3 v1, v2, v3;
+        glm::vec3 v1, v2, v3;
 		if (tok.nextToken() == false) return false;	// Skip the "("
-		v1.x(atoi(tok.getToken())); if (tok.nextToken() == false) return false;
-		v1.y(atoi(tok.getToken())); if (tok.nextToken() == false) return false;
-		v1.z(atoi(tok.getToken())); if (tok.nextToken() == false) return false;
+        v1.x = atoi(tok.getToken()); if (tok.nextToken() == false) return false;
+        v1.y = atoi(tok.getToken()); if (tok.nextToken() == false) return false;
+        v1.z = atoi(tok.getToken()); if (tok.nextToken() == false) return false;
 		if (tok.nextToken() == false) return false;	// Skip the ")"
 
 		if (tok.nextToken() == false) return false;	// Skip the "("
-		v2.x(atoi(tok.getToken())); if (tok.nextToken() == false) return false;
-		v2.y(atoi(tok.getToken())); if (tok.nextToken() == false) return false;
-		v2.z(atoi(tok.getToken())); if (tok.nextToken() == false) return false;
+        v2.x = atoi(tok.getToken()); if (tok.nextToken() == false) return false;
+        v2.y = atoi(tok.getToken()); if (tok.nextToken() == false) return false;
+        v2.z = atoi(tok.getToken()); if (tok.nextToken() == false) return false;
 		if (tok.nextToken() == false) return false;	// Skip the ")"
 
 		if (tok.nextToken() == false) return false;	// Skip the "("
-		v3.x(atoi(tok.getToken())); if (tok.nextToken() == false) return false;
-		v3.y(atoi(tok.getToken())); if (tok.nextToken() == false) return false;
-		v3.z(atoi(tok.getToken())); if (tok.nextToken() == false) return false;
+        v3.x = atoi(tok.getToken()); if (tok.nextToken() == false) return false;
+        v3.y = atoi(tok.getToken()); if (tok.nextToken() == false) return false;
+        v3.z = atoi(tok.getToken()); if (tok.nextToken() == false) return false;
 		if (tok.nextToken() == false) return false;	// Skip the ")"
 
 		if (this->mVersion == 100)

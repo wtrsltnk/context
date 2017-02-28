@@ -24,7 +24,7 @@ Plane::Plane()
 {
 }
 
-Plane::Plane(const Vector3& normal, float distance)
+Plane::Plane(const glm::vec3& normal, float distance)
 	: mNormal(normal), mDistance(distance)
 {
 }
@@ -43,16 +43,16 @@ int Plane::getIndexOf(int vertexIndex)
 
 void Plane::updateFromVertices(Brush* brush)
 {
-	Vector3 v1(brush->mVertices[this->mIndices[0]]);
-	Vector3 v2(brush->mVertices[this->mIndices[1]]);
-	Vector3 v3(brush->mVertices[this->mIndices[2]]);
+    glm::vec3 v1(brush->mVertices[this->mIndices[0]]);
+    glm::vec3 v2(brush->mVertices[this->mIndices[1]]);
+    glm::vec3 v3(brush->mVertices[this->mIndices[2]]);
 	
-	this->mNormal = (v3-v2).crossProduct(v1-v2).unit();
-	this->mDistance = this->mNormal.dotProduct(v2);
+    this->mNormal = glm::normalize(glm::cross((v3-v2), (v1-v2)));
+    this->mDistance = glm::dot(this->mNormal, v2);
 }
 
 // This is magic from Nemesis MapViewer. ToDo: create my own code for this
-bool Plane::getIntersection(const Plane& p1, const Plane& p2, const Plane& p3, Vector3& out)
+bool Plane::getIntersection(const Plane& p1, const Plane& p2, const Plane& p3, glm::vec3& out)
 {
 	//float fDenom = p1.mNormal->Dot(p2.mNormal->Cross(p3.mNormal));
 
@@ -60,7 +60,7 @@ bool Plane::getIntersection(const Plane& p1, const Plane& p2, const Plane& p3, V
 		//return false;
 
 	float fDet;
-	float MN[9] = { p1.mNormal.x(), p1.mNormal.y(), p1.mNormal.z(), p2.mNormal.x(), p2.mNormal.y(), p2.mNormal.z(), p3.mNormal.x(), p3.mNormal.y(), p3.mNormal.z() };
+    float MN[9] = { p1.mNormal.x, p1.mNormal.y, p1.mNormal.z, p2.mNormal.x, p2.mNormal.y, p2.mNormal.z, p3.mNormal.x, p3.mNormal.y, p3.mNormal.z };
 	float IMN[9] = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
 	float MD[3] = { p1.mDistance, p2.mDistance , p3.mDistance };
 
@@ -103,17 +103,17 @@ bool Plane::getIntersection(const Plane& p1, const Plane& p2, const Plane& p3, V
 	IMN[7] *= fDet;
 	IMN[8] *= fDet;
 
-	out.x(IMN[0] * MD[0] + IMN[1] * MD[1] + IMN[2] * MD[2]);
-	out.y(IMN[3] * MD[0] + IMN[4] * MD[1] + IMN[5] * MD[2]);
-	out.z(IMN[6] * MD[0] + IMN[7] * MD[1] + IMN[8] * MD[2]);
+    out.x = IMN[0] * MD[0] + IMN[1] * MD[1] + IMN[2] * MD[2];
+    out.y = IMN[3] * MD[0] + IMN[4] * MD[1] + IMN[5] * MD[2];
+    out.z = IMN[6] * MD[0] + IMN[7] * MD[1] + IMN[8] * MD[2];
 
 	return true;
 }
 
-Plane Plane::fromVertices(const Vector3& v1, const Vector3& v2, const Vector3& v3)
+Plane Plane::fromVertices(const glm::vec3& v1, const glm::vec3& v2, const glm::vec3& v3)
 {
-	Vector3 normal = (v3-v2).crossProduct(v1-v2).unit();
-	float distance = normal.dotProduct(v2);
+    glm::vec3 normal = glm::normalize(glm::cross(v3-v2, v1-v2));
+    float distance = glm::dot(normal, v2);
 
 	return Plane(normal, distance);
 }
@@ -149,7 +149,7 @@ void Brush::addPlane(const Plane& plane)
 	this->mPlanes.push_back(plane);
 }
 
-int Brush::getIndexOf(const Vector3& vertex)
+int Brush::getIndexOf(const glm::vec3& vertex)
 {
 	for (int i = 0; i < this->mVertices.size(); i++)
 		if (this->mVertices[i] == vertex)
@@ -157,11 +157,11 @@ int Brush::getIndexOf(const Vector3& vertex)
 	return -1;
 }
 
-float calculateSignedAngle(const Vector3& v1, const Vector3& v2, const Vector3& normal)
+float calculateSignedAngle(const glm::vec3& v1, const glm::vec3& v2, const glm::vec3& normal)
 {
-	Vector3 c = v2.crossProduct(v1);
-	float angle = std::atan2(double((v2-v1).length()), double(v2.dotProduct(v1)));
-	return c.dotProduct(normal) < float(0) ? -angle : angle;
+    glm::vec3 c = glm::cross(v2, v1);
+    float angle = std::atan2(double(glm::length(v2-v1)), double(glm::dot(v2, v1)));
+    return glm::dot(c, normal) < float(0) ? -angle : angle;
 }
 
 void Brush::updateVertices()
@@ -185,7 +185,7 @@ void Brush::updateVertices()
 				// Only different planes!
 				if(i != j && i != k && j != k)
 				{
-					Vector3 intersection;
+                    glm::vec3 intersection;
 					// Determine the intersection point of these three Planes
 					if (Plane::getIntersection(this->mPlanes[i], this->mPlanes[j], this->mPlanes[k], intersection))
 					{
@@ -200,7 +200,7 @@ void Brush::updateVertices()
 								if(l != i && l != j && l != k)
 								{
 									// Only when the intersection is on the correct side of all other planes
-									float dist = this->mPlanes[l].mNormal.dotProduct(intersection) - this->mPlanes[l].mDistance;
+                                    float dist = glm::dot(this->mPlanes[l].mNormal, intersection) - this->mPlanes[l].mDistance;
 									if(dist < EPSILON)
 									{
 										bLegal = false;
@@ -219,13 +219,13 @@ void Brush::updateVertices()
 									this->mVertices.push_back(intersection);
 
 									// Update the bounding box
-									if (this->mMins[0] > intersection.x()) this->mMins[0] = intersection.x();
-									if (this->mMins[1] > intersection.y()) this->mMins[1] = intersection.y();
-									if (this->mMins[2] > intersection.z()) this->mMins[2] = intersection.z();
+                                    if (this->mMins[0] > intersection.x) this->mMins[0] = intersection.x;
+                                    if (this->mMins[1] > intersection.y) this->mMins[1] = intersection.y;
+                                    if (this->mMins[2] > intersection.z) this->mMins[2] = intersection.z;
 
-									if (this->mMaxs[0] < intersection.x()) this->mMaxs[0] = intersection.x();
-									if (this->mMaxs[1] < intersection.y()) this->mMaxs[1] = intersection.y();
-									if (this->mMaxs[2] < intersection.z()) this->mMaxs[2] = intersection.z();
+                                    if (this->mMaxs[0] < intersection.x) this->mMaxs[0] = intersection.x;
+                                    if (this->mMaxs[1] < intersection.y) this->mMaxs[1] = intersection.y;
+                                    if (this->mMaxs[2] < intersection.z) this->mMaxs[2] = intersection.z;
 								}
 
 								// Only add the point when it is not yet in the index list
@@ -253,7 +253,7 @@ void Brush::updateVertices()
 		// Do we have at least one point?
 		if (this->mPlanes[i].mIndices.size() > 0)
 		{
-			Vector3 start = this->mVertices[this->mPlanes[i].mIndices[0]];
+            glm::vec3 start = this->mVertices[this->mPlanes[i].mIndices[0]];
 			indices.insert(std::make_pair(0, this->mPlanes[i].mIndices[0]));
 			for (int j = 1; j < this->mPlanes[i].mIndices.size(); j++)
 			{
@@ -278,20 +278,20 @@ void Brush::updateBounds()
 	this->mMins[0] = this->mMins[1] = this->mMins[2] =  99999.9f;
 	this->mMaxs[0] = this->mMaxs[1] = this->mMaxs[2] = -99999.9f;
 	
-	for (std::vector<Vector3>::iterator itr = this->mVertices.begin(); itr != this->mVertices.end(); ++itr)
+    for (std::vector<glm::vec3>::iterator itr = this->mVertices.begin(); itr != this->mVertices.end(); ++itr)
 	{
-		if ((*itr).x() > this->mMaxs[0]) this->mMaxs[0] = (*itr).x();
-		if ((*itr).y() > this->mMaxs[1]) this->mMaxs[1] = (*itr).y();
-		if ((*itr).z() > this->mMaxs[2]) this->mMaxs[2] = (*itr).z();
+        if ((*itr).x > this->mMaxs[0]) this->mMaxs[0] = (*itr).x;
+        if ((*itr).y > this->mMaxs[1]) this->mMaxs[1] = (*itr).y;
+        if ((*itr).z > this->mMaxs[2]) this->mMaxs[2] = (*itr).z;
 		
-		if ((*itr).x() < this->mMins[0]) this->mMins[0] = (*itr).x();
-		if ((*itr).y() < this->mMins[1]) this->mMins[1] = (*itr).y();
-		if ((*itr).z() < this->mMins[2]) this->mMins[2] = (*itr).z();
+        if ((*itr).x < this->mMins[0]) this->mMins[0] = (*itr).x;
+        if ((*itr).y < this->mMins[1]) this->mMins[1] = (*itr).y;
+        if ((*itr).z < this->mMins[2]) this->mMins[2] = (*itr).z;
 	}
 	// Now we need to make sure all vertices of the planes are ordered CCW
 	for(int i = 0; i < this->mPlanes.size(); i++)
 	{
-		this->mPlanes[i].average = Vector3();
+        this->mPlanes[i].average = glm::vec3();
 		// Determine an avarage over all points in this face
 		for(int j = 0; j < this->mPlanes[i].mIndices.size(); j++)
 			this->mPlanes[i].average += this->mVertices[this->mPlanes[i].mIndices[j]];
@@ -301,11 +301,11 @@ void Brush::updateBounds()
 
 void Brush::move(float x, float y, float z)
 {
-	for (std::vector<Vector3>::iterator itr = this->mVertices.begin(); itr != this->mVertices.end(); ++itr)
+    for (std::vector<glm::vec3>::iterator itr = this->mVertices.begin(); itr != this->mVertices.end(); ++itr)
 	{
-		(*itr).x((*itr).x()+x);
-		(*itr).y((*itr).y()+y);
-		(*itr).z((*itr).z()+z);
+        (*itr).x = (*itr).x+x;
+        (*itr).y = (*itr).y+y;
+        (*itr).z = (*itr).z+z;
 	}
 	for (std::vector<Plane>::iterator itr = this->mPlanes.begin(); itr != this->mPlanes.end(); ++itr)
 	{
@@ -314,16 +314,16 @@ void Brush::move(float x, float y, float z)
 	this->updateBounds();
 }
 
-void Brush::scale(float x, float y, float z, const Vector3& origin)
+void Brush::scale(float x, float y, float z, const glm::vec3& origin)
 {
-	for (std::vector<Vector3>::iterator itr = this->mVertices.begin(); itr != this->mVertices.end(); ++itr)
+    for (std::vector<glm::vec3>::iterator itr = this->mVertices.begin(); itr != this->mVertices.end(); ++itr)
 	{
-		float newx = (((*itr).x() - origin.x()) * x) + origin.x();
-		float newy = (((*itr).y() - origin.y()) * y) + origin.y();
-		float newz = (((*itr).z() - origin.z()) * z) + origin.z();
-		(*itr).x(newx);
-		(*itr).y(newy);
-		(*itr).z(newz);
+        float newx = (((*itr).x - origin.x) * x) + origin.x;
+        float newy = (((*itr).y - origin.y) * y) + origin.y;
+        float newz = (((*itr).z - origin.z) * z) + origin.z;
+        (*itr).x = newx;
+        (*itr).y = newy;
+        (*itr).z = newz;
 	}
 	for (std::vector<Plane>::iterator itr = this->mPlanes.begin(); itr != this->mPlanes.end(); ++itr)
 	{
@@ -332,19 +332,19 @@ void Brush::scale(float x, float y, float z, const Vector3& origin)
 	this->updateBounds();
 }
 
-void Brush::rotate(float x, float y, float z, const Vector3& origin)
+void Brush::rotate(float x, float y, float z, const glm::vec3& origin)
 {
-	for (std::vector<Vector3>::iterator itr = this->mVertices.begin(); itr != this->mVertices.end(); ++itr)
+    for (std::vector<glm::vec3>::iterator itr = this->mVertices.begin(); itr != this->mVertices.end(); ++itr)
 	{
-		Vector3 v((*itr).x()-origin.x(), (*itr).y()-origin.y(), (*itr).z()-origin.z());
+        glm::vec3 v((*itr).x-origin.x, (*itr).y-origin.y, (*itr).z-origin.z);
 		
 		// ToDo rotate here
 //		Quaternion q(x, y, z);
 //		v = q.rotatePoint(v);
 		
-		(*itr).x(v.x()+origin.x());
-		(*itr).y(v.y()+origin.y());
-		(*itr).z(v.z()+origin.z());
+        (*itr).x = v.x+origin.x;
+        (*itr).y = v.y+origin.y;
+        (*itr).z = v.z+origin.z;
 	}
 	for (std::vector<Plane>::iterator itr = this->mPlanes.begin(); itr != this->mPlanes.end(); ++itr)
 	{
@@ -353,9 +353,9 @@ void Brush::rotate(float x, float y, float z, const Vector3& origin)
 	this->updateBounds();
 }
 
-Vector3 Brush::origin()
+glm::vec3 Brush::origin()
 {
-	return Vector3(
+    return glm::vec3(
 			this->mMins[0] + ((this->mMaxs[0]-this->mMins[0]) / 2),
 			this->mMins[1] + ((this->mMaxs[1]-this->mMins[1]) / 2),
 			this->mMins[2] + ((this->mMaxs[2]-this->mMins[2]) / 2)

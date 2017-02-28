@@ -1,8 +1,7 @@
 #ifndef _CAMERA_H
 #define	_CAMERA_H
 
-#include "Matrix4x4.h"
-#include "Vector3.h"
+#include <glm/glm.hpp>
 
 class Camera
 {
@@ -12,7 +11,7 @@ public:
 
     void update() const;
 
-	Vector3& rotation();
+    glm::vec3& rotation();
     void setRotation(float rotation[3]);
     virtual void setRotation(float x, float y, float z);
 	void rotate(float x, float y, float z);
@@ -24,7 +23,7 @@ public:
 	void rotateYDegree(float amount);
 	void rotateZDegree(float amount);
 
-	Vector3& position();
+    glm::vec3& position();
     void setPosition(const float position[3]);
     virtual void setPosition(float x, float y, float z);
     virtual void move(float forward, float left, float up);
@@ -32,18 +31,18 @@ public:
 	void moveUp(float amount);
 	void moveLeft(float amount);
 	
-	Matrix4x4& matrix();
+    glm::mat4& matrix();
 
-	Vector3 forward();
-	Vector3 up();
-	Vector3 left();
+    glm::vec3 forward();
+    glm::vec3 up();
+    glm::vec3 left();
 
 	bool isChanged();
 
 private:
-    Matrix4x4 mMatrix;
-	Vector3 mRotation;
-    Vector3 mPosition;
+    glm::mat4 mMatrix;
+    glm::vec3 mRotation;
+    glm::vec3 mPosition;
 	bool mIsChanged;
 
 };
