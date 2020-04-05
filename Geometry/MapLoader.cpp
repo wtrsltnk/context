@@ -28,7 +28,7 @@ bool MapLoader::load(const char* filename, Scene* scene)
 {
 	MemoryGuard<char> data;
 	FILE* file = fopen(filename, "rb");
-	if (file != false)
+	if (file != nullptr)
 	{
 		fseek(file, 0, SEEK_END);
 		data.size = ftell(file);

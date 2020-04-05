@@ -1,6 +1,6 @@
 #include "Camera.h"
 #include <glm/gtc/matrix_transform.hpp>
-#include <GL/glextl.h>
+#include <glad/glad.h>
 
 #define PI 3.14159265
 #define Deg2Rad(Ang) ((float)( Ang * PI / 180.0 ))

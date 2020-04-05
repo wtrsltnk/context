@@ -8,7 +8,8 @@
 #include "Texture.h"
 #include <stdlib.h>
 #include <memory.h>
-#include <GL/glextl.h>
+#include <string.h>
+#include <glad/glad.h>
 
 Texture::Texture()
 	: mData(NULL), mWidth(0), mHeight(0), mBpp(0), mGlIndex(0)

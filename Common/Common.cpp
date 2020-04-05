@@ -7,8 +7,7 @@
 
 #include "Common.h"
 #include "Camera.h"
-#include <GL/glextl.h>
-#include <GL/glu.h>
+#include <glad/glad.h>
 #include <iostream>
 #include <sstream>
 
@@ -34,6 +33,20 @@ void Common::push2DProjection()
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glLoadIdentity();
+}
+
+void gluPerspective(float fov, float aspect,
+                       float znear, float zfar)
+{
+    // The following code is a fancy bit of math that is eqivilant to calling:
+    // gluPerspective( fieldOfView/2.0f, width/height , 0.1f, 255.0f )
+    // We do it this way simply to avoid requiring glu.h
+    GLfloat zNear = 0.1f;
+    GLfloat zFar = 255.0f;
+    GLfloat fH = tan( float(fov/ 360.0f * 3.14159f) ) * zNear;
+    GLfloat fW = fH * aspect;
+    glFrustum( -fW, fW, -fH, fH, zNear, zFar );
+
 }
 
 void Common::push3DProjection()

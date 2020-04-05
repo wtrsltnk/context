@@ -557,7 +557,7 @@ Key::Code sKeymap[] =
 #ifdef PLATFORM_IS_WIN32
 #include <windows.h>
 #define GLEXTL_IMPLEMENTATION
-#include <GL/glextl.h>
+#include <glad/glad.h>
 #include <GL/wglext.h>
 
 class GlContext::Impl
@@ -622,7 +622,7 @@ public:
 									NULL, NULL,
 									GetModuleHandle(NULL), (VOID*)this);
 		
-		if (this->hWnd == false)
+        if (this->hWnd == NULL)
 		{
 			this->destroy();
 			MessageBox(NULL,"Window Creation Error.","ERROR",MB_OK|MB_ICONEXCLAMATION);
@@ -641,17 +641,12 @@ public:
 			this->destroy();
 			MessageBox(NULL,"Can't Choose A Good Pixel Format.","ERROR",MB_OK|MB_ICONEXCLAMATION);
 			return false;
-		}
+        }
 
-        if (glExtIsLoaded("WGL_ARB_create_context"))
-		{
-			this->createOpenGL3xContext();
-		}
-		else
-		{
-			if (this->createOpenGL2xContext() == false)
-				return false;
-		}
+        if (this->createOpenGL2xContext() == false)
+            return false;        
+
+        gladLoadGL();
 
 		ShowWindow(this->hWnd, SW_SHOW);
 		SetForegroundWindow(this->hWnd);
@@ -794,8 +789,8 @@ public:
 			PFD_DRAW_TO_WINDOW |						// Format Must Support Window
 			PFD_SUPPORT_OPENGL |						// Format Must Support OpenGL
 			PFD_DOUBLEBUFFER,							// Must Support Double Buffering
-			PFD_TYPE_RGBA,								// Request An RGBA Format
-			this->mBits,								// Select Our Color Depth
+            PFD_TYPE_RGBA,								// Request An RGBA Format
+            (BYTE)this->mBits,								// Select Our Color Depth
 			0, 0, 0, 0, 0, 0,							// Color Bits Ignored
 			0,											// No Alpha Buffer
 			0,											// Shift Bit Ignored
@@ -1063,14 +1058,14 @@ public:
 			{
 				gl->hWnd = hWnd;
 
-				::SetWindowLong(hWnd, GWL_USERDATA, reinterpret_cast <long> (gl));
+                ::SetWindowLong(hWnd, GWLP_USERDATA, reinterpret_cast <LONG_PTR> (gl));
 
 				return gl->objectProc(gl, uMsg, wParam, lParam);
 			}
 		}
 		else
 		{
-			gl = reinterpret_cast <Impl*>(::GetWindowLong(hWnd, GWL_USERDATA));
+            gl = reinterpret_cast <Impl*>(::GetWindowLong(hWnd, GWLP_USERDATA));
 
 			if (gl != NULL)
 			{
