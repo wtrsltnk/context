@@ -9,7 +9,11 @@
 #include "FileFromDirectory.h"
 #include "FileSystem.h"
 #include <sys/stat.h>
+#ifdef _WIN32
+#include <dirent.h>
+#else
 #include <sys/dir.h>
+#endif // _WIN32
 #include <string.h>
 #include <string>
 

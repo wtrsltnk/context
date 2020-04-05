@@ -6,7 +6,7 @@
  */
 
 #include "Camera2d.h"
-#include "GLee.h"
+#include "glad.h"
 
 Camera2d::Camera2d()
 {

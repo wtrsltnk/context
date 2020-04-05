@@ -1,7 +1,7 @@
 #include "DefaultStaticManager.h"
 #include <Camera.h>
 #include <Texture.h>
-#include <GLee.h>
+#include <glad.h>
 
 #include <string.h>
 #include <stdio.h>
@@ -85,9 +85,9 @@ int DefaultStaticManager::updateRenderSet(Camera* camera)
 	this->mRenderFaces.clear();
 	
 	// We need to recalc the camera position, since bsp's have a different orientation
-	Vector3 cameraPosition(-camera->position().x(),
-			camera->position().z(),
-			-camera->position().y());
+    Vector3 cameraPosition(-camera->position().x,
+            camera->position().z,
+            -camera->position().y);
 
 	for (int f = 0; f < this->mFaceCount; f++)
 	{

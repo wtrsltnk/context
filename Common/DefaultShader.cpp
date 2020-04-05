@@ -6,10 +6,11 @@
  */
 
 #include "DefaultShader.h"
-#include "GLee.h"
+#include "glad.h"
 #include <iostream>
 
 const char vertexShaderSimple[] = 
+"#version 140\n\n"\
 "uniform mat4 projection_matrix;" \
 "uniform mat4 modelview_matrix;" \
 "void main()" \
@@ -18,6 +19,7 @@ const char vertexShaderSimple[] =
 "}";
 
 const char fragmentShaderSimple[] = 
+"#version 140\n\n"\
 "void main()" \
 "{" \
 "	gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);" \
@@ -25,25 +27,19 @@ const char fragmentShaderSimple[] =
 
 DefaultShader::DefaultShader()
 {
-	if (GLEE_VERSION_2_0)
-	{
-		this->mShaderCount = 2;
-		this->mShaders = new unsigned  int[2];
-		this->mShaders[0] = Shader::compileVertexShader(vertexShaderSimple);
-		this->mShaders[1] = Shader::compileFragmentShader(fragmentShaderSimple);
-	}
+    this->mShaderCount = 2;
+    this->mShaders = new unsigned  int[2];
+    this->mShaders[0] = Shader::compileVertexShader(vertexShaderSimple);
+    this->mShaders[1] = Shader::compileFragmentShader(fragmentShaderSimple);
 }
 
 DefaultShader::DefaultShader(const char* vshader, const char* fshader)
 	: mProjectionMatrixLocation(0), mModelviewMatrixLocation(0)
 {
-	if (GLEE_VERSION_2_0)
-	{
-		this->mShaderCount = 2;
-		this->mShaders = new unsigned  int[2];
-		this->mShaders[0] = Shader::compileVertexShader(vshader);
-		this->mShaders[1] = Shader::compileFragmentShader(fshader);
-	}
+    this->mShaderCount = 2;
+    this->mShaders = new unsigned  int[2];
+    this->mShaders[0] = Shader::compileVertexShader(vshader);
+    this->mShaders[1] = Shader::compileFragmentShader(fshader);
 }
 
 DefaultShader::~DefaultShader()

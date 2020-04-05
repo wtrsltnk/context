@@ -6,7 +6,6 @@
  */
 
 #include "Package.h"
-#include <boost/algorithm/string.hpp>
 
 namespace fs
 {
@@ -24,7 +23,7 @@ fs::FilePath Package::findFile(const std::string& filename)
 {
 	for (std::vector<fs::FilePath>::iterator f = this->mFiles.begin(); f != this->mFiles.end(); ++f)
 	{
-		if (boost::iequals((*f).pathToFile(), filename))
+        if ((*f).pathToFile() == filename)
 			return (*f);
 	}
 	for (std::vector<fs::Item*>::iterator i = this->mOpenItems.begin(); i != this->mOpenItems.end(); ++i)

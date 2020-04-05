@@ -7,11 +7,17 @@
 
 #include "ContextTest.h"
 
-int main(int argc, char** argv)
+int main(
+    int argc,
+    char **argv)
 {
-	ContextTest test;
-	if (test.create(3, 1))
-		return test.startGameloop();
-	return 0;
-}
+    (void)argc;
+    (void)argv;
 
+    ContextTest test;
+    if (test.create(3, 1))
+    {
+        return test.startGameloop();
+    }
+    return 0;
+}

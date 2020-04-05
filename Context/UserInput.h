@@ -6,7 +6,7 @@
  */
 
 #ifndef _USERINPUT_H
-#define	_USERINPUT_H
+#define _USERINPUT_H
 
 /// Definitions for the keys on a keyboard
 namespace Key
@@ -75,34 +75,34 @@ namespace Key
         Num7 = '7',
         Num8 = '8',
         Num9 = '9',
-        LBracket,     ///< [
-        RBracket,     ///< ]
-        SemiColon,    ///< ;
-        Comma,        ///< ,
-        Period,       ///< .
-        Quote,        ///< '
-        Slash,        ///< /
+        LBracket,  ///< [
+        RBracket,  ///< ]
+        SemiColon, ///< ;
+        Comma,     ///< ,
+        Period,    ///< .
+        Quote,     ///< '
+        Slash,     ///< /
         BackSlash,
-        Tilde,        ///< ~
-        Equal,        ///< =
-        Dash,         ///< -
-        Add,          ///< +
-        Subtract,     ///< -
-        Multiply,     ///< *
-        Divide,       ///< /
+        Tilde,    ///< ~
+        Equal,    ///< =
+        Dash,     ///< -
+        Add,      ///< +
+        Subtract, ///< -
+        Multiply, ///< *
+        Divide,   ///< /
         Escape = 256,
         LControl,
         LShift,
         LAlt,
-        LSystem,      ///< OS specific key (left side) : windows (Win and Linux), apple (MacOS), ...
+        LSystem, ///< OS specific key (left side) : windows (Win and Linux), apple (MacOS), ...
         RControl,
         RShift,
         RAlt,
-        RSystem,      ///< OS specific key (right side) : windows (Win and Linux), apple (MacOS), ...
+        RSystem, ///< OS specific key (right side) : windows (Win and Linux), apple (MacOS), ...
         Menu,
-		Capslock,
-		Scrollock,
-		Numlock,
+        Capslock,
+        Scrollock,
+        Numlock,
         Space,
         Return,
         Back,
@@ -113,10 +113,10 @@ namespace Key
         Home,
         Insert,
         Delete,
-        Left,         ///< Left arrow
-        Right,        ///< Right arrow
-        Up,           ///< Up arrow
-        Down,         ///< Down arrow
+        Left,  ///< Left arrow
+        Right, ///< Right arrow
+        Up,    ///< Up arrow
+        Down,  ///< Down arrow
         Numpad0,
         Numpad1,
         Numpad2,
@@ -144,27 +144,28 @@ namespace Key
         F15,
         Pause,
 
-		Unknown,
+        Unknown,
         Count // For internal use
     };
 }
 
 class KeyboardState
 {
-	KeyboardState();
-	static KeyboardState sCurrentState;
-public:
-	static KeyboardState& currentState();
-	KeyboardState(const KeyboardState& state);
-	virtual ~KeyboardState();
+    KeyboardState();
+    static KeyboardState sCurrentState;
 
-	bool isKeyPressed(Key::Code key) const;
-	void setPressed(Key::Code key, bool pressed);
+public:
+    static KeyboardState &currentState();
+    KeyboardState(const KeyboardState &state);
+    virtual ~KeyboardState();
+
+    bool isKeyPressed(Key::Code key) const;
+    void setPressed(Key::Code key, bool pressed);
 
 private:
-	bool mKeys[Key::Count];
+    bool mKeys[Key::Count];
 
-	friend class Impl;
+    friend class Impl;
 };
 
 /// Definitions for the Mouse buttons
@@ -180,33 +181,33 @@ namespace Mouse
         XButton1,
         XButton2,
 
-		Unknown,
+        Unknown,
         Count // For internal use
     };
 }
 
 class MouseState
 {
-	MouseState();
-	static MouseState sCurrentState;
-public:
-	static MouseState& currentState();
-	MouseState(const MouseState& state);
-	virtual ~MouseState();
+    MouseState();
+    static MouseState sCurrentState;
 
-	bool isButtonPressed(Mouse::Button button) const;
-	void setButtonPressed(Mouse::Button button, bool pressed);
-	int x() const;
-	void x(int x);
-	int y() const;
-	void y(int y);
+public:
+    static MouseState &currentState();
+    MouseState(const MouseState &state);
+    virtual ~MouseState();
+
+    bool isButtonPressed(Mouse::Button button) const;
+    void setButtonPressed(Mouse::Button button, bool pressed);
+    int x() const;
+    void x(int x);
+    int y() const;
+    void y(int y);
 
 private:
-	bool mMouseButton[Mouse::Count];
-	int mMouseX, mMouseY;
+    bool mMouseButton[Mouse::Count];
+    int mMouseX, mMouseY;
 
-	friend void handleEvents();
+    friend void handleEvents();
 };
 
-
-#endif	/* _USERINPUT_H */
+#endif /* _USERINPUT_H */

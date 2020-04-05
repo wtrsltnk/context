@@ -6,7 +6,7 @@
  */
 
 #include "Shader.h"
-#include "GLee.h"
+#include "glad.h"
 #include <iostream>
 
 Shader::Shader()
@@ -16,48 +16,39 @@ Shader::Shader()
 
 Shader::~Shader()
 {
-	if (GLEE_VERSION_2_0)
-	{
-		if (this->mShaderCount > 0)
-		{
-			for (int i = 0; i < this->mShaderCount; i++)
-			{
-				glDetachShader(this->mProgram, this->mShaders[i]);
-				glDeleteShader(this->mShaders[i]);
-			}
-			delete []this->mShaders;
-		}
-		if (this->mProgram != 0)
-			glDeleteProgram(this->mProgram);
-	}
+    if (this->mShaderCount > 0)
+    {
+        for (int i = 0; i < this->mShaderCount; i++)
+        {
+            glDetachShader(this->mProgram, this->mShaders[i]);
+            glDeleteShader(this->mShaders[i]);
+        }
+        delete []this->mShaders;
+    }
+    if (this->mProgram != 0)
+        glDeleteProgram(this->mProgram);
 }
 
 void Shader::link()
 {
-	if (GLEE_VERSION_2_0)
-	{
-		this->mProgram = glCreateProgram();
-		
-		for (int i = 0; i < this->mShaderCount; i++)
-			glAttachShader(this->mProgram, this->mShaders[i]);
+    this->mProgram = glCreateProgram();
+    
+    for (int i = 0; i < this->mShaderCount; i++)
+        glAttachShader(this->mProgram, this->mShaders[i]);
 
-		glLinkProgram(this->mProgram);
-		Shader::printProgramInfoLog(this->mProgram);
-		
-		glUseProgram(this->mProgram);
-		this->onLinked();
-	}
+    glLinkProgram(this->mProgram);
+    Shader::printProgramInfoLog(this->mProgram);
+    
+    glUseProgram(this->mProgram);
+    this->onLinked();
 }
 
 void Shader::use()
 {
-	if (this->mProgram == 0)
-		this->link();
-	
-	if (GLEE_VERSION_2_0)
-	{
-		glUseProgram(this->mProgram);
-	}
+    if (this->mProgram == 0)
+        this->link();
+    
+    glUseProgram(this->mProgram);
 }
 
 unsigned int Shader::compileVertexShader(const char* shader)
