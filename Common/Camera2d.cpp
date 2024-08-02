@@ -6,7 +6,8 @@
  */
 
 #include "Camera2d.h"
-#include "glad.h"
+
+#include <glad/glad.h>
 
 Camera2d::Camera2d()
 {

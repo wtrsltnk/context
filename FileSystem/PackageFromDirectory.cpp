@@ -7,14 +7,8 @@
 
 #include "PackageFromDirectory.h"
 #include "FileFromDirectory.h"
-#include "FileSystem.h"
 #include <sys/stat.h>
-#ifdef _WIN32
-#include <dirent.h>
-#else
-#include <sys/dir.h>
-#endif // _WIN32
-#include <string.h>
+#include <filesystem>
 #include <string>
 
 namespace fs
@@ -99,24 +93,14 @@ void PackageFromDirectory::addFilesFromFolder(const std::string& root, int flags
 
 bool PackageFromDirectory::isFile(const std::string& root, const std::string& file)
 {
-	std::string tmp(root + std::string("/") + file);
-	
-	struct stat buf = { 0 };
-	if (stat(tmp.c_str(), &buf) == 0)
-		return S_ISREG(buf.st_mode);
+    auto tmp = std::filesystem::path(root) / "/" / file;
 
-	return false;
+    return std::filesystem::is_regular_file(tmp);
 }
 
 bool PackageFromDirectory::isFolder(const std::string& root, const std::string& folder)
 {
-	std::string tmp(root + std::string("/") + folder);
-	
-	struct stat buf = { 0 };
-	if (stat(tmp.c_str(), &buf) == 0)
-		return S_ISDIR(buf.st_mode);
-
-	return false;
+    return !isFile(root, folder);
 }
 
 }

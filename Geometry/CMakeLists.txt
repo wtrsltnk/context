@@ -12,4 +12,4 @@ target_compile_features(Context.Geometry
 
 target_link_libraries(Context.Geometry
     Context.Common
-    CONAN_PKG::glm)
+    glm)

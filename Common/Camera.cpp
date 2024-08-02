@@ -1,5 +1,6 @@
 #include "Camera.h"
-#include "glad.h"
+
+#include <glad/glad.h>
 #include <glm/gtc/matrix_transform.hpp>
 
 #define PI 3.14159265

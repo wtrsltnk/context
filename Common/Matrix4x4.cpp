@@ -1,7 +1,7 @@
 #include "Matrix4x4.h"
 #include <math.h>
 #include <iostream>
-#include <GL/gl.h>
+#include <glad/glad.h>
 
 Matrix4x4::Matrix4x4()
 {

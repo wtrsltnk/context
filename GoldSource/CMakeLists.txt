@@ -17,4 +17,4 @@ target_include_directories(Context.GoldSource
 target_link_libraries(Context.GoldSource
     Context.Common
     Context.FileSystem
-    CONAN_PKG::glm)
+    glm)

@@ -9,7 +9,6 @@
 #define	FILESYSTEM_H
 
 #include "FilePath.h"
-#include <vector>
 #include <string>
 
 namespace fs

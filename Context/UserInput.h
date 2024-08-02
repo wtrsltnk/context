@@ -151,9 +151,6 @@ namespace Key
 
 class KeyboardState
 {
-    KeyboardState();
-    static KeyboardState sCurrentState;
-
 public:
     static KeyboardState &currentState();
     KeyboardState(const KeyboardState &state);
@@ -163,6 +160,9 @@ public:
     void setPressed(Key::Code key, bool pressed);
 
 private:
+    KeyboardState();
+    static KeyboardState sCurrentState;
+
     bool mKeys[Key::Count];
 
     friend class Impl;
@@ -188,9 +188,6 @@ namespace Mouse
 
 class MouseState
 {
-    MouseState();
-    static MouseState sCurrentState;
-
 public:
     static MouseState &currentState();
     MouseState(const MouseState &state);
@@ -204,6 +201,9 @@ public:
     void y(int y);
 
 private:
+    MouseState();
+    static MouseState sCurrentState;
+
     bool mMouseButton[Mouse::Count];
     int mMouseX, mMouseY;
 

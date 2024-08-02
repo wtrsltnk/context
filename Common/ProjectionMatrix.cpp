@@ -1,5 +1,6 @@
 #include "ProjectionMatrix.h"
 #include <math.h>
+#include <glm/gtc/constants.hpp>
 
 /*
  * This code is 'borrowed' from http://nopper.tv/opengl.html
@@ -17,7 +18,7 @@ void ProjectionMatrix::setPerspective(float fov, float aspect, float near, float
 {
 	float xmin, xmax, ymin, ymax;
 
-	ymax = near * tanf(fov * M_PI / 360.0f);
+    ymax = near * tanf(fov * glm::pi<float>() / 360.0f);
 	ymin = -ymax;
 	xmin = ymin * aspect;
 	xmax = ymax * aspect;

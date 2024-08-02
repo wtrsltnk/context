@@ -17,16 +17,19 @@ add_library(Context.Common
     Tokenizer.cpp
     uiFont.cpp
     Vector3.cpp
-    glad.c)
+    glad.c
+)
 
 target_compile_features(Context.Common
     PRIVATE cxx_auto_type
     PRIVATE cxx_nullptr
     PRIVATE cxx_lambdas
-    )
+)
 
 target_include_directories(Context.Common
-    PUBLIC .)
+    PUBLIC .
+)
 
 target_link_libraries(Context.Common
-    CONAN_PKG::glm)
+    PRIVATE glm
+)

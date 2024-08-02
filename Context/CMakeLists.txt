@@ -1,6 +1,7 @@
 add_library(Context.Context
     GlContext.cpp
-    UserInput.cpp)
+    UserInput.cpp
+)
 
 target_compile_features(Context.Context
     PRIVATE cxx_auto_type
@@ -17,4 +18,4 @@ target_include_directories(Context.Context
     PRIVATE ../Common)
 
 target_link_libraries(Context.Context
-    CONAN_PKG::glm)
+    PRIVATE glm)

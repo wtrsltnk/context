@@ -14,10 +14,6 @@ class GameTime;
 
 class GlContext
 {
-private:
-	class Impl;
-	Impl* pimpl;
-	
 public:
 	GlContext();
 	GlContext(int width, int height);
@@ -38,13 +34,17 @@ public:
 protected:
 	virtual bool onInitializeGl() { return true; }
 	virtual void onDestroyGl() { }
-	virtual void onIdle(const GameTime* gameTime) { }
-	virtual void onResize(int w, int h) { }
-	virtual void onKeyDown(Key::Code key) { }
-	virtual void onKeyUp(Key::Code key) { }
-	virtual void onMouseButtonDown(Mouse::Button button) { }
-	virtual void onMouseButtonUp(Mouse::Button button) { }
-	virtual void onMouseMove(int x, int y) { }
+    virtual void onIdle(const GameTime* gameTime) { (void)gameTime; }
+    virtual void onResize(int w, int h) { (void)w; (void)h; }
+    virtual void onKeyDown(Key::Code key) { (void)key; }
+    virtual void onKeyUp(Key::Code key) { (void)key; }
+    virtual void onMouseButtonDown(Mouse::Button button) { (void)button; }
+    virtual void onMouseButtonUp(Mouse::Button button) { (void)button; }
+    virtual void onMouseMove(int x, int y) { (void)x; (void)y; }
+
+private:
+    class Impl;
+    Impl* pimpl;
 
 };
 

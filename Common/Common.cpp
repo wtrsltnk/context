@@ -6,8 +6,9 @@
  */
 
 #include "Common.h"
+
 #include "Camera.h"
-#include "glad.h"
+#include <glad/glad.h>
 #include <iostream>
 #include <sstream>
 

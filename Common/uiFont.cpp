@@ -6,7 +6,8 @@
  */
 
 #include "uiFont.h"
-#include <GL/gl.h>
+
+#include <glad/glad.h>
 #include <stdio.h>
 
 namespace ui

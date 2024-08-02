@@ -14,5 +14,6 @@ target_include_directories(Context.ContextTest
 target_link_libraries(Context.ContextTest
     Context.Context
     Context.Common
-    CONAN_PKG::glm
-    ${OPENGL_LIBRARIES})
+    glm
+    ${OPENGL_LIBRARIES}
+)

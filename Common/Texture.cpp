@@ -6,7 +6,8 @@
  */
 
 #include "Texture.h"
-#include "glad.h"
+
+#include <glad/glad.h>
 #include <memory.h>
 #include <stdlib.h>
 #include <string.h>

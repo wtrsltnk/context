@@ -6,10 +6,7 @@
 #include <FileSystem.h>
 #include <Texture.h>
 #include <Vector3.h>
-#include <glad.h>
-#include <iostream>
-#include <map>
-#include <stdio.h>
+#include <glad/glad.h>
 #include <string.h>
 #include <string>
 

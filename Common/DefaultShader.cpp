@@ -6,7 +6,9 @@
  */
 
 #include "DefaultShader.h"
-#include "glad.h"
+
+#include <glad/glad.h>
+
 #include <iostream>
 
 const char vertexShaderSimple[] = 

@@ -8,15 +8,25 @@ add_library(Context.FileSystem
     Package.cpp
     PackageFromDirectory.cpp
     PackageFromPak.cpp
-    PackageFromWad.cpp)
+    PackageFromWad.cpp
+)
 
 target_compile_features(Context.FileSystem
     PRIVATE cxx_auto_type
     PRIVATE cxx_nullptr
-    PRIVATE cxx_lambdas)
+    PRIVATE cxx_lambdas
+)
 
 target_include_directories(Context.FileSystem
-    PUBLIC .)
+    PUBLIC .
+)
 
 target_link_libraries(Context.FileSystem
-    CONAN_PKG::glm)
+    glm
+)
+
+target_compile_features(Context.FileSystem
+    PRIVATE
+        cxx_nullptr
+        cxx_std_17  # for filesystem
+)

@@ -1,11 +1,10 @@
 #include "DefaultStaticManager.h"
+
 #include <Camera.h>
 #include <Texture.h>
-#include <glad.h>
+#include <glad/glad.h>
 
 #include <string.h>
-#include <stdio.h>
-#include <vector>
 
 DefaultStaticManager::DefaultStaticManager()
 	: mVertexCount(0), mVertices(0), mFaceCount(0), mFaces(0), mModelCount(0), mModels(0), mTextureCount(0), mTextures(0)
@@ -105,11 +104,11 @@ void DefaultStaticManager::renderFaces()
 	glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(3, GL_FLOAT, sizeof(tVertex), &this->mVertices[0].position[0]);
 
-	glClientActiveTextureARB(GL_TEXTURE0);
+    glClientActiveTexture(GL_TEXTURE0);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glTexCoordPointer(2, GL_FLOAT, sizeof(tVertex), &this->mVertices[0].texcoord[0][0]);
 
-	glClientActiveTextureARB(GL_TEXTURE1);
+    glClientActiveTexture(GL_TEXTURE1);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glTexCoordPointer(2, GL_FLOAT, sizeof(tVertex), &this->mVertices[0].texcoord[1][0]);
 
@@ -125,14 +124,14 @@ void DefaultStaticManager::renderFace(int index)
 
 	if (face.texture != 0)
 	{
-		glActiveTextureARB(GL_TEXTURE0);
+        glActiveTexture(GL_TEXTURE0);
 		glEnable(GL_TEXTURE_2D);
 		face.texture->use();
 	}
 
 	if (face.lightmap != 0)
 	{
-		glActiveTextureARB(GL_TEXTURE1);
+        glActiveTexture(GL_TEXTURE1);
 		glEnable(GL_TEXTURE_2D);
 		face.lightmap->use();
 	}

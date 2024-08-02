@@ -7,7 +7,6 @@
 
 #include "GlContext.h"
 #include "GameTime.h"
-#include <iostream>
 
 extern Mouse::Button sButtonmap[];
 extern Key::Code sKeymap[];
@@ -552,9 +551,17 @@ Key::Code sKeymap[] =
 #ifdef PLATFORM_IS_WIN32
 #include <windows.h>
 
-#include <glad.h>
+#include <glad/glad.h>
 
-#include <GL/wglext.h>
+#define WGL_CONTEXT_MAJOR_VERSION_ARB           0x2091
+#define WGL_CONTEXT_MINOR_VERSION_ARB           0x2092
+#define WGL_CONTEXT_FLAGS_ARB                   0x2094
+#define WGL_CONTEXT_CORE_PROFILE_BIT_ARB        0x00000001
+#define WGL_CONTEXT_PROFILE_MASK_ARB            0x9126
+#define WGL_CONTEXT_DEBUG_BIT_ARB               0x0001
+#define WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB  0x0002
+
+typedef HGLRC(WINAPI* PFNWGLCREATECONTEXTATTRIBSARBPROC) (HDC, HGLRC, const int*);
 
 class GlContext::Impl
 {
@@ -628,11 +635,14 @@ public:
             adjustWindowRect(WindowRect);
         }
 
-        this->hWnd = CreateWindowEx(this->dwExStyle, "OpenGL", "OpenGL", this->dwStyle | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
-                                    CW_USEDEFAULT, CW_USEDEFAULT,
-                                    WindowRect.right - WindowRect.left, WindowRect.bottom - WindowRect.top,
-                                    NULL, NULL,
-                                    GetModuleHandle(NULL), (VOID *)this);
+        this->hWnd = CreateWindowEx(
+            this->dwExStyle,
+            "OpenGL", "OpenGL",
+            this->dwStyle | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
+            CW_USEDEFAULT, CW_USEDEFAULT,
+            WindowRect.right - WindowRect.left, WindowRect.bottom - WindowRect.top,
+            NULL, NULL,
+            GetModuleHandle(NULL), (VOID *)this);
 
         if (this->hWnd == NULL)
         {
@@ -641,22 +651,26 @@ public:
             return false;
         }
 
-        if (!(this->hDC = GetDC(this->hWnd)))
+        this->hDC = GetDC(this->hWnd);
+
+        if (this->hDC == NULL)
         {
             this->destroy();
             MessageBox(NULL, "Can't Create A GL Device Context.", "ERROR", MB_OK | MB_ICONEXCLAMATION);
             return false;
         }
 
-        if (this->choosePixelFormat() == false)
+        if (!this->choosePixelFormat())
         {
             this->destroy();
             MessageBox(NULL, "Can't Choose A Good Pixel Format.", "ERROR", MB_OK | MB_ICONEXCLAMATION);
             return false;
         }
 
-        if (this->createOpenGL2xContext() == false)
+        if (!this->createOpenGL2xContext())
+        {
             return false;
+        }
 
         gladLoadGL();
 
@@ -669,6 +683,7 @@ public:
             this->destroy();
             return false;
         }
+
         return true;
     }
 
@@ -771,23 +786,28 @@ public:
     {
         WNDCLASS wc;
 
-        if (GetClassInfo(::GetModuleHandle(NULL), "OpenGL", &wc) == 0)
+        if (GetClassInfo(::GetModuleHandle(NULL), "OpenGL", &wc) != 0)
         {
-            wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-            wc.lpfnWndProc = (WNDPROC)GlContext::Impl::staticProc;
-            wc.cbClsExtra = 0;
-            wc.cbWndExtra = 0;
-            wc.hInstance = ::GetModuleHandle(NULL);
-            wc.hIcon = LoadIcon(NULL, IDI_WINLOGO);
-            wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-            wc.hbrBackground = NULL;
-            wc.lpszMenuName = NULL;
-            wc.lpszClassName = "OpenGL";
-
-            if (!::RegisterClass(&wc))
-                return false;
+            return true;
         }
-        return true;
+
+        wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+        wc.lpfnWndProc = (WNDPROC)GlContext::Impl::staticProc;
+        wc.cbClsExtra = 0;
+        wc.cbWndExtra = 0;
+        wc.hInstance = ::GetModuleHandle(NULL);
+        wc.hIcon = LoadIcon(NULL, IDI_WINLOGO);
+        wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+        wc.hbrBackground = NULL;
+        wc.lpszMenuName = NULL;
+        wc.lpszClassName = "OpenGL";
+
+        if (RegisterClass(&wc))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     bool choosePixelFormat()
@@ -828,14 +848,16 @@ public:
         return true;
     }
 
-    bool createOpenGL3xContext()
+    bool createOpenGL3xContext(
+        int major,
+        int minor)
     {
         int attribList[] =
             {
                 WGL_CONTEXT_MAJOR_VERSION_ARB,
-                3,
+                major,
                 WGL_CONTEXT_MINOR_VERSION_ARB,
-                0,
+                minor,
                 WGL_CONTEXT_FLAGS_ARB,
                 WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB,
                 0,
@@ -856,9 +878,15 @@ public:
                 return false;
             }
 
-            PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB");
+            auto wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB");
 
             hContext = wglCreateContextAttribsARB(hDC, 0, attribList);
+
+            if (hContext == NULL)
+            {
+                wglDeleteContext(hCurrentContext);
+                return false;
+            }
 
             wglMakeCurrent(hDC, 0);
             wglDeleteContext(hCurrentContext);
@@ -866,12 +894,21 @@ public:
         else
         {
             if (!wglMakeCurrent(hDC, hCurrentContext))
+            {
                 return false;
+            }
 
-            PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB");
+            auto wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB");
 
             hContext = wglCreateContextAttribsARB(hDC, 0, attribList);
+
+            if (hContext == NULL)
+            {
+                wglDeleteContext(hCurrentContext);
+                return false;
+            }
         }
+
         return true;
     }
 
@@ -1090,14 +1127,14 @@ public:
             {
                 gl->hWnd = hWnd;
 
-                ::SetWindowLong(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(gl));
+                ::SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<long long>(gl));
 
                 return gl->objectProc(gl, uMsg, wParam, lParam);
             }
         }
         else
         {
-            gl = reinterpret_cast<Impl *>(::GetWindowLong(hWnd, GWLP_USERDATA));
+            gl = reinterpret_cast<Impl *>(::GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
             if (gl != nullptr)
             {

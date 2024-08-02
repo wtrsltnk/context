@@ -6,7 +6,7 @@
  */
 
 #include "ContextTest.h"
-#include <glad.h>
+#include <glad/glad.h>
 
 ContextTest::ContextTest()
     : mShader(0)
@@ -42,13 +42,13 @@ bool ContextTest::onInitializeGl()
     };
     this->mShader = new DefaultShader();
 
-    glGenBuffersARB(2, vboid);
+    glGenBuffers(2, vboid);
 
-    glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboid[0]);
-    glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof(vertices), vertices, GL_STATIC_DRAW_ARB);
+    glBindBuffer(GL_ARRAY_BUFFER, vboid[0]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, vboid[1]);
-    glBufferDataARB(GL_ELEMENT_ARRAY_BUFFER_ARB, sizeof(indices), indices, GL_STATIC_DRAW_ARB);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboid[1]);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     return true;
 }
@@ -62,8 +62,8 @@ void ContextTest::onIdle(
     this->mShader->setProjectionMatrix(this->mProjection);
     this->mShader->setModelviewMatrix(this->mModelview);
 
-    glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboid[0]);
-    glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, vboid[1]);
+    glBindBuffer(GL_ARRAY_BUFFER, vboid[0]);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboid[1]);
 
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(3, GL_FLOAT, 0, 0);
@@ -72,8 +72,8 @@ void ContextTest::onIdle(
 
     glDisableClientState(GL_VERTEX_ARRAY);
 
-    glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
-    glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 void ContextTest::onResize(int w, int h)
