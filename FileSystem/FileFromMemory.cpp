@@ -9,8 +9,15 @@
 
 using namespace fs;
 
-FileFromMemory::FileFromMemory(const fs::FilePath& filePath, fs::File* from, int offset, int size)
-	: File(filePath), mDataSize(size), mData(0), mCursor(0)
+FileFromMemory::FileFromMemory(
+    const fs::FilePath& filePath,
+    fs::File* from,
+    int offset,
+    int size)
+    : File(filePath),
+      mDataSize(size),
+      mData(0),
+      mCursor(0)
 {
 	if (this->mDataSize > 0)
 	{
@@ -23,52 +30,73 @@ FileFromMemory::FileFromMemory(const fs::FilePath& filePath, fs::File* from, int
 FileFromMemory::~FileFromMemory()
 {
 	if (this->mData != 0)
-		delete []this->mData;
+    {
+        delete[] this->mData;
+    }
+
 	this->mData = 0;
 	this->mDataSize = 0;
 }
 
-bool FileFromMemory::open(int flags)
+bool FileFromMemory::open(
+    int flags)
 {
+    (void)flags;
+
 	this->mOpen = true;
-	return true;
+
+    return true;
 }
 
 bool FileFromMemory::close()
 {
 	this->mOpen = false;
 	if (this->mData != 0)
-		delete []this->mData;
+    {
+        delete[] this->mData;
+    }
+
 	this->mData = 0;
 	this->mDataSize = 0;
+
 	return true;
 }
 
-void FileFromMemory::setCursorFromBegin(int offset)
+void FileFromMemory::setCursorFromBegin(
+    int offset)
 {
 	this->mCursor = offset;
 }
 
-void FileFromMemory::setCursorFromCurrent(int offset)
+void FileFromMemory::setCursorFromCurrent(
+    int offset)
 {
 	this->mCursor += offset;
 }
 
-void FileFromMemory::setCursorFromEnd(int offset)
+void FileFromMemory::setCursorFromEnd(
+    int offset)
 {
 	this->mCursor = this->mDataSize - offset;
 }
 
-int FileFromMemory::read(byte* buffer, int size, int offset)
+int FileFromMemory::read(
+    byte* buffer,
+    int size,
+    int offset)
 {
 	this->mCursor = offset;
 	
 	if (this->mCursor + size > this->mDataSize)
-		size = this->mDataSize - this->mCursor;
-	
+    {
+        size = this->mDataSize - this->mCursor;
+    }
+
 	for (int i = 0; i < size; i++)
-		buffer[i] = this->mData[this->mCursor+i];
-	
+    {
+        buffer[i] = this->mData[this->mCursor + i];
+    }
+
 	return size;
 }
 

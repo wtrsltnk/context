@@ -6,14 +6,15 @@
  */
 
 #include "FileFromDirectory.h"
-#include "Package.h"
 #include <stdio.h>
 
 namespace fs
 {
 
-FileFromDirectory::FileFromDirectory(const fs::FilePath& filePath)
-	: File(filePath), mSize(0)
+FileFromDirectory::FileFromDirectory(
+    const fs::FilePath& filePath)
+    : File(filePath),
+      mSize(0)
 {
 }
 
@@ -21,13 +22,20 @@ FileFromDirectory::~FileFromDirectory()
 {
 }
 
-bool FileFromDirectory::open(int flags)
+bool FileFromDirectory::open(
+    int flags)
 {
+    (void)flags;
+
 //	if (this->mFilePath.type() == fs::FilePathType::File)
 	{
-		this->mHandle = fopen(this->mFilePath.fullPath().c_str(), "r");
-		if (this->mHandle != 0)
+        FILE *fileHandle;
+        auto err = fopen_s(&fileHandle, this->mFilePath.fullPath().c_str(), "r");
+
+        if (err == 0)
 		{
+            this->mHandle = fileHandle;
+
 			fseek((FILE*)this->mHandle, 0, SEEK_END);
 			this->mSize = ftell((FILE*)this->mHandle);
 			fseek((FILE*)this->mHandle, 0, SEEK_SET);
@@ -35,6 +43,7 @@ bool FileFromDirectory::open(int flags)
 			return true;
 		}
 	}
+
 	return false;
 }
 
@@ -44,28 +53,38 @@ bool FileFromDirectory::close()
 	{
 		fclose((FILE*)this->mHandle);
 	}
+
 	return true;
 }
 
-void FileFromDirectory::setCursorFromBegin(int offset)
+void FileFromDirectory::setCursorFromBegin(
+    int offset)
 {
 	fseek((FILE*)this->mHandle, offset, SEEK_SET);
 }
 
-void FileFromDirectory::setCursorFromCurrent(int offset)
+void FileFromDirectory::setCursorFromCurrent(
+    int offset)
 {
 	fseek((FILE*)this->mHandle, offset, SEEK_CUR);
 }
 
-void FileFromDirectory::setCursorFromEnd(int offset)
+void FileFromDirectory::setCursorFromEnd(
+    int offset)
 {
 	fseek((FILE*)this->mHandle, offset, SEEK_END);
 }
 
-int FileFromDirectory::read(byte* buffer, int size, int offset)
+int FileFromDirectory::read(
+    byte* buffer,
+    int size,
+    int offset)
 {
 	if (offset > 0)
-		fseek((FILE*)this->mHandle, offset, SEEK_CUR);
+    {
+        fseek((FILE *)this->mHandle, offset, SEEK_CUR);
+    }
+
 	return int(fread(buffer, 1, size, (FILE*)this->mHandle));
 }
 

@@ -1,6 +1,10 @@
 add_library(Context.Context
     GlContext.cpp
-    UserInput.cpp
+    UserInput.h
+    KeyboardState.hpp
+    KeyboardState.cpp
+    MouseState.hpp
+    MouseState.cpp
 )
 
 target_compile_features(Context.Context

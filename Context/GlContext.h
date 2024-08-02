@@ -8,7 +8,8 @@
 #ifndef GLCONTEXT_H
 #define	GLCONTEXT_H
 
-#include "UserInput.h"
+#include "KeyboardState.hpp"
+#include "MouseState.hpp"
 
 class GameTime;
 

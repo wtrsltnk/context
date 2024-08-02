@@ -11,7 +11,6 @@
 
 Hl1SprData::Hl1SprData(
     fs::File *file)
-    : mHeader(0)
 {
     this->dataSize = file->size();
     this->data = new unsigned char[this->dataSize];

@@ -2,7 +2,6 @@
 #define	_BSPDATA_H
 
 #include "hl1types.h"
-#include <stdlib.h>
 
 namespace fs
 {
@@ -18,55 +17,55 @@ public:
 	bool isLoaded();
 	HL1::tBSPMipTexHeader* getMiptex(int index);
 
-	int dataSize;
-	unsigned char* data;
+    int dataSize = 0;
+    unsigned char* data = nullptr;
 
-    HL1::tBSPHeader* header;
+    HL1::tBSPHeader* header = nullptr;
 
-    int entitySize;
-    unsigned char* entityData;
+    int entitySize = 0;
+    unsigned char* entityData = nullptr;
 
-    int planeCount;
-    HL1::tBSPPlane* planes;
+    int planeCount = 0;
+    HL1::tBSPPlane* planes = nullptr;
 
-    int textureSize;
-    unsigned char* textureData;
+    int textureSize = 0;
+    unsigned char* textureData = nullptr;
 
-    int vertexCount;
-    HL1::tBSPVertex* vertices;
+    int vertexCount = 0;
+    HL1::tBSPVertex* vertices = nullptr;
 
-    int visibilitySize;
-    unsigned char* visibilityData;
+    int visibilitySize = 0;
+    unsigned char* visibilityData = nullptr;
 
-    int nodeCount;
-    HL1::tBSPNode* nodes;
+    int nodeCount = 0;
+    HL1::tBSPNode* nodes = nullptr;
 
-    int texinfoCount;
-    HL1::tBSPTexInfo* texinfos;
+    int texinfoCount = 0;
+    HL1::tBSPTexInfo* texinfos = nullptr;
 
-    int faceCount;
-    HL1::tBSPFace* faces;
+    int faceCount = 0;
+    HL1::tBSPFace* faces = nullptr;
 
-    int lightingSize;
-    unsigned char* lightingData;
+    int lightingSize = 0;
+    unsigned char* lightingData = nullptr;
 
-    int clipnodeCount;
-    HL1::tBSPClipNode* clipnodes;
+    int clipnodeCount = 0;
+    HL1::tBSPClipNode* clipnodes = nullptr;
 
-    int leafCount;
-    HL1::tBSPLeaf* leafs;
+    int leafCount = 0;
+    HL1::tBSPLeaf* leafs = nullptr;
 
-    int marksurfaceCount;
-    unsigned short* marksurfaces;
+    int marksurfaceCount = 0;
+    unsigned short* marksurfaces = nullptr;
 
-    int edgeCount;
-    HL1::tBSPEdge* edges;
+    int edgeCount = 0;
+    HL1::tBSPEdge* edges = nullptr;
 
-    int surfedgeCount;
-    int* surfedges;
+    int surfedgeCount = 0;
+    int* surfedges = 0;
 
-    int modelCount;
-    HL1::tBSPModel* models;
+    int modelCount = 0;
+    HL1::tBSPModel* models = nullptr;
 
 private:
     template <typename T>

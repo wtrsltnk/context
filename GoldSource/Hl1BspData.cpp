@@ -1,40 +1,9 @@
 #include "Hl1BspData.h"
+
 #include <File.h>
-#include <iostream>
-#include <stdio.h>
 
 Hl1BspData::Hl1BspData(
     fs::File *file)
-    : entitySize(0),
-      entityData(nullptr),
-      planeCount(0),
-      planes(nullptr),
-      textureSize(0),
-      textureData(nullptr),
-      vertexCount(0),
-      vertices(nullptr),
-      visibilitySize(0),
-      visibilityData(nullptr),
-      nodeCount(0),
-      nodes(nullptr),
-      texinfoCount(0),
-      texinfos(nullptr),
-      faceCount(0),
-      faces(nullptr),
-      lightingSize(0),
-      lightingData(nullptr),
-      clipnodeCount(0),
-      clipnodes(nullptr),
-      leafCount(0),
-      leafs(nullptr),
-      marksurfaceCount(0),
-      marksurfaces(nullptr),
-      edgeCount(0),
-      edges(nullptr),
-      surfedgeCount(0),
-      surfedges(nullptr),
-      modelCount(0),
-      models(nullptr)
 {
     this->dataSize = file->size();
     this->data = new unsigned char[this->dataSize];
@@ -70,7 +39,7 @@ Hl1BspData::Hl1BspData(
 
 Hl1BspData::~Hl1BspData()
 {
-    if (this->data != nullptr)
+    if (isLoaded())
     {
         delete[] this->data;
     }
@@ -142,11 +111,11 @@ bool Hl1BspData::isLoaded()
 HL1::tBSPMipTexHeader *Hl1BspData::getMiptex(
     int index)
 {
-    HL1::tBSPMipTexOffsetTable *bspMiptexTable = (HL1::tBSPMipTexOffsetTable *)this->textureData;
+    auto bspMiptexTable = reinterpret_cast<HL1::tBSPMipTexOffsetTable *>(this->textureData);
 
     if (index >= 0 && bspMiptexTable->miptexCount > index)
     {
-        return (HL1::tBSPMipTexHeader *)(this->textureData + bspMiptexTable->offsets[index]);
+        return reinterpret_cast<HL1::tBSPMipTexHeader *>(this->textureData + bspMiptexTable->offsets[index]);
     }
 
     return nullptr;

@@ -11,20 +11,21 @@
 namespace fs
 {
 
-File::File(const fs::FilePath& filePath)
+File::File(
+    const fs::FilePath& filePath)
 	: Item(filePath)
 {
 }
 
-File::~File()
-{
-}
+File::~File() = default;
 
 bool File::close()
 {
-	if (this->mFilePath.package() != 0)
-		return this->mFilePath.package()->closeFile(this);
-	
+    if (this->mFilePath.package() != nullptr)
+    {
+        return this->mFilePath.package()->closeFile(this);
+    }
+
 	return false;
 }
 

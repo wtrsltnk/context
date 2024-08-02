@@ -29,17 +29,17 @@ public:	// Rendering
 	bool testFace(const tFace& face, const Vector3& cameraPosition);
 
 //private:
-	int mVertexCount;
-	tVertex* mVertices;
+    int mVertexCount = 0;
+    tVertex* mVertices = nullptr;
 
-	int mFaceCount;
-	tFace* mFaces;
+    int mFaceCount = 0;
+    tFace* mFaces = nullptr;
 
-	int mModelCount;
-	tModel* mModels;
+    int mModelCount = 0;
+    tModel* mModels = nullptr;
 
-	int mTextureCount;
-	Texture* mTextures;
+    int mTextureCount = 0;
+    Texture* mTextures = nullptr;
 
 private:	// Render set data
 	RenderSet mRenderFaces;

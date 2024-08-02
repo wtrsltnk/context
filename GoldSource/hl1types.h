@@ -179,6 +179,9 @@ namespace HL1
 		int height;
 		
 	} tSPRFrame;
+
+
+#pragma pack(pop)
 }
 
 #endif	/* _BSPTYPES_H */

@@ -9,18 +9,20 @@
 #include <stdio.h>
 #include <string.h>
 
-FileLoader::FileLoader()
-{
-}
+FileLoader::FileLoader() = default;
 
-FileLoader::~FileLoader()
-{
-}
+FileLoader::~FileLoader() = default;
 
-bool FileLoader::loadBinaryFile(const char* filename, byte*& out, int& len)
+bool FileLoader::loadBinaryFile(
+    const char* filename,
+    byte*& out,
+    int& len)
 {
-    FILE* file = fopen(filename, "r");
-    if (file)
+    FILE *file;
+
+    auto err = fopen_s(&file, filename, "r");
+
+    if (err == 0)
     {
         fseek(file, 0, SEEK_END);
         len = ftell(file);
@@ -28,12 +30,15 @@ bool FileLoader::loadBinaryFile(const char* filename, byte*& out, int& len)
         out = new byte[len];
         fread(out, 1, len, file);
         fclose(file);
+
         return true;
     }
+
     return false;
 }
 
-const char* FileLoader::getExtension(const char* filename)
+const char* FileLoader::getExtension(
+    const char* filename)
 {
     return strrchr(filename, '.');
 }

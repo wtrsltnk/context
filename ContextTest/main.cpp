@@ -15,9 +15,11 @@ int main(
     (void)argv;
 
     ContextTest test;
+
     if (test.create(3, 1))
     {
         return test.startGameloop();
     }
+
     return 0;
 }

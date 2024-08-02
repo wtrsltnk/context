@@ -6,10 +6,7 @@
 
 #include <string.h>
 
-DefaultStaticManager::DefaultStaticManager()
-	: mVertexCount(0), mVertices(0), mFaceCount(0), mFaces(0), mModelCount(0), mModels(0), mTextureCount(0), mTextures(0)
-{
-}
+DefaultStaticManager::DefaultStaticManager() = default;
 
 DefaultStaticManager::~DefaultStaticManager()
 {

@@ -27,7 +27,7 @@ MapLoader::~MapLoader()
 bool MapLoader::load(const char* filename, Scene* scene)
 {
 	MemoryGuard<char> data;
-	FILE* file = fopen(filename, "rb");
+    FILE* file = fopen(filename, "rb");
 	if (file != nullptr)
 	{
 		fseek(file, 0, SEEK_END);

@@ -10,7 +10,6 @@
 #include <Quaternion.h>
 #include <cmath>
 #include <map>
-#include <stdio.h>
 #include <stdlib.h>
 
 namespace geo
@@ -35,9 +34,14 @@ Plane::~Plane()
 
 int Plane::getIndexOf(int vertexIndex)
 {
-	for (int i = 0; i < this->mIndices.size(); i++)
-		if (this->mIndices[i] == vertexIndex)
-			return i;
+    for (size_t i = 0; i < this->mIndices.size(); i++)
+    {
+        if (this->mIndices[i] == vertexIndex)
+        {
+            return i;
+        }
+    }
+
 	return -1;
 }
 
@@ -151,9 +155,14 @@ void Brush::addPlane(const Plane& plane)
 
 int Brush::getIndexOf(const glm::vec3& vertex)
 {
-	for (int i = 0; i < this->mVertices.size(); i++)
-		if (this->mVertices[i] == vertex)
-			return i;
+    for (size_t i = 0; i < this->mVertices.size(); i++)
+    {
+        if (this->mVertices[i] == vertex)
+        {
+            return i;
+        }
+    }
+
 	return -1;
 }
 
@@ -172,15 +181,15 @@ void Brush::updateVertices()
 	
 	// Reset the vertices
 	this->mVertices.clear();
-	for(int i = 0; i < this->mPlanes.size(); i++)
+    for(size_t i = 0; i < this->mPlanes.size(); i++)
 		this->mPlanes[i].mIndices.clear();
 	
 	// Loop through all the planes, and gather 3 different planes to create a vertex from
-	for(int i = 0; i < this->mPlanes.size() - 2; i++)
+    for(size_t i = 0; i < this->mPlanes.size() - 2; i++)
 	{
-		for(int j = 0; j < this->mPlanes.size() - 1; j++)
+        for(size_t j = 0; j < this->mPlanes.size() - 1; j++)
 		{
-			for(int k = 0; k < this->mPlanes.size(); k++)
+            for(size_t k = 0; k < this->mPlanes.size(); k++)
 			{
 				// Only different planes!
 				if(i != j && i != k && j != k)
@@ -195,7 +204,7 @@ void Brush::updateVertices()
 							bool bLegal = true;
 
 							// Check every other plane if the intersection is legal.
-							for(int l = 0; l < this->mPlanes.size(); l++)
+                            for(size_t l = 0; l < this->mPlanes.size(); l++)
 							{
 								if(l != i && l != j && l != k)
 								{
@@ -241,12 +250,12 @@ void Brush::updateVertices()
 	}
 
 	// Now we need to make sure all vertices of the planes are ordered CCW
-	for(int i = 0; i < this->mPlanes.size(); i++)
+    for(size_t i = 0; i < this->mPlanes.size(); i++)
 	{
 		std::map<float, int> indices;
 
 		// Determine an avarage over all points in this face
-		for(int j = 0; j < this->mPlanes[i].mIndices.size(); j++)
+        for(size_t j = 0; j < this->mPlanes[i].mIndices.size(); j++)
 			this->mPlanes[i].average += this->mVertices[this->mPlanes[i].mIndices[j]];
 		this->mPlanes[i].average *= (1.0f / this->mPlanes[i].mIndices.size());
 
@@ -255,7 +264,7 @@ void Brush::updateVertices()
 		{
             glm::vec3 start = this->mVertices[this->mPlanes[i].mIndices[0]];
 			indices.insert(std::make_pair(0, this->mPlanes[i].mIndices[0]));
-			for (int j = 1; j < this->mPlanes[i].mIndices.size(); j++)
+            for (size_t j = 1; j < this->mPlanes[i].mIndices.size(); j++)
 			{
 				// Calculate the angle around our average and save it in a map. This map will sort these angles
 				float angle = calculateSignedAngle(start-this->mPlanes[i].average, this->mVertices[this->mPlanes[i].mIndices[j]]-this->mPlanes[i].average, this->mPlanes[i].mNormal);
@@ -289,11 +298,11 @@ void Brush::updateBounds()
         if ((*itr).z < this->mMins[2]) this->mMins[2] = (*itr).z;
 	}
 	// Now we need to make sure all vertices of the planes are ordered CCW
-	for(int i = 0; i < this->mPlanes.size(); i++)
+    for(size_t i = 0; i < this->mPlanes.size(); i++)
 	{
         this->mPlanes[i].average = glm::vec3();
 		// Determine an avarage over all points in this face
-		for(int j = 0; j < this->mPlanes[i].mIndices.size(); j++)
+        for(size_t j = 0; j < this->mPlanes[i].mIndices.size(); j++)
 			this->mPlanes[i].average += this->mVertices[this->mPlanes[i].mIndices[j]];
 		this->mPlanes[i].average *= (1.0f / this->mPlanes[i].mIndices.size());
 	}
@@ -334,6 +343,10 @@ void Brush::scale(float x, float y, float z, const glm::vec3& origin)
 
 void Brush::rotate(float x, float y, float z, const glm::vec3& origin)
 {
+    (void)x;
+    (void)y;
+    (void)z;
+
     for (std::vector<glm::vec3>::iterator itr = this->mVertices.begin(); itr != this->mVertices.end(); ++itr)
 	{
         glm::vec3 v((*itr).x-origin.x, (*itr).y-origin.y, (*itr).z-origin.z);

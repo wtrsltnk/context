@@ -8,10 +8,7 @@
 #include "ContextTest.h"
 #include <glad/glad.h>
 
-ContextTest::ContextTest()
-    : mShader(0)
-{
-}
+ContextTest::ContextTest() = default;
 
 ContextTest::~ContextTest()
 {
@@ -22,6 +19,7 @@ ContextTest::~ContextTest()
 }
 
 unsigned int vboid[2];
+
 bool ContextTest::onInitializeGl()
 {
     GLfloat vertices[] = {
@@ -56,6 +54,8 @@ bool ContextTest::onInitializeGl()
 void ContextTest::onIdle(
     const GameTime *gameTime)
 {
+    (void)gameTime;
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     this->mShader->use();

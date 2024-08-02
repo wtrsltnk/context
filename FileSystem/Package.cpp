@@ -10,31 +10,37 @@
 namespace fs
 {
 
-Package::Package(const fs::FilePath& filePath)
+Package::Package(
+    const fs::FilePath& filePath)
 	: Item(filePath)
 {
 }
 
-Package::~Package()
-{
-}
+Package::~Package() = default;
 
-fs::FilePath Package::findFile(const std::string& filename)
+fs::FilePath Package::findFile(
+    const std::string& filename)
 {
 	for (std::vector<fs::FilePath>::iterator f = this->mFiles.begin(); f != this->mFiles.end(); ++f)
 	{
         if ((*f).pathToFile() == filename)
-			return (*f);
-	}
+        {
+            return (*f);
+        }
+    }
+
 	for (std::vector<fs::Item*>::iterator i = this->mOpenItems.begin(); i != this->mOpenItems.end(); ++i)
 	{
 		if ((*i)->filePath().type() == fs::FilePathType::Package)
 		{
 			fs::FilePath path = ((fs::Package*)(*i))->findFile(filename);
 			if (path.isValid())
-				return path;
-		}
+            {
+                return path;
+            }
+        }
 	}
+
 	return fs::FilePath();
 }
 
@@ -55,9 +61,12 @@ bool Package::closeFile(fs::File* file)
 				return true;
 			}
 			else
-				return false;
-		}
+            {
+                return false;
+            }
+        }
 	}
+
 	return true;
 }
 

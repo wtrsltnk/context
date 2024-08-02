@@ -31,8 +31,8 @@ protected:
 	int dataSize;
 	unsigned char* data;
 
-	HL1::tSPRHeader* mHeader;
-	Texture* mFrames;
+    HL1::tSPRHeader* mHeader = nullptr;
+    Texture* mFrames = nullptr;
 
 };
 

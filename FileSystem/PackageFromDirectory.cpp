@@ -14,53 +14,74 @@
 namespace fs
 {
 		
-PackageFromDirectory::PackageFromDirectory(const fs::FilePath& filePath)
-	: Package(filePath), mOpen(false)
+PackageFromDirectory::PackageFromDirectory(
+    const fs::FilePath& filePath)
+    : Package(filePath),
+        mOpen(false)
 {
 }
 
-PackageFromDirectory::~PackageFromDirectory()
-{
-}
+PackageFromDirectory::~PackageFromDirectory() = default;
 
-bool PackageFromDirectory::open(int flags)
+bool PackageFromDirectory::open(
+    int flags)
 {
 	PackageFromDirectory::addFilesFromFolder(this->mFilePath.fullPath(), flags, this);
+
 	this->mOpen = true;
+
 	return true;
 }
 
 bool PackageFromDirectory::close()
 {
-	if (this->mOpen)
-	{
-		this->mOpen = false;
-		while (this->mOpenItems.empty() == false)
-		{
-			fs::Item* item = this->mOpenItems.back();
-			this->mOpenItems.pop_back();
-			item->close();
-			delete item;
-		}
-		return true;
-	}
-	return false;
+    if (!this->mOpen)
+    {
+        return false;
+    }
+
+    this->mOpen = false;
+
+    while (this->mOpenItems.empty() == false)
+    {
+        fs::Item* item = this->mOpenItems.back();
+        this->mOpenItems.pop_back();
+        item->close();
+        delete item;
+    }
+
+    return true;
 }
 
-fs::File* PackageFromDirectory::openFile(const fs::FilePath& filePath, int flags)
+fs::File* PackageFromDirectory::openFile(
+    const fs::FilePath& filePath,
+    int flags)
 {
-	if (this->mOpen)
+    (void)flags;
+
+    if (!this->mOpen)
 	{
-		fs::File* file = new fs::FileFromDirectory(filePath);
-		if (file->open())
-			return file;
-		else
-			delete file;
-	}
-	return 0;
+        return nullptr;
+    }
+
+    fs::File* file = new fs::FileFromDirectory(filePath);
+
+    if (file->open())
+    {
+        return file;
+    }
+    else
+    {
+        delete file;
+    }
+
+    return nullptr;
 }
 
-void PackageFromDirectory::addFilesFromFolder(const std::string& root, int flags, PackageFromDirectory* parent)
+void PackageFromDirectory::addFilesFromFolder(
+    const std::string& root,
+    int flags,
+    PackageFromDirectory* parent)
 {
 #ifdef WIN32
 #else
@@ -91,14 +112,18 @@ void PackageFromDirectory::addFilesFromFolder(const std::string& root, int flags
 #endif
 }
 
-bool PackageFromDirectory::isFile(const std::string& root, const std::string& file)
+bool PackageFromDirectory::isFile(
+    const std::string& root,
+    const std::string& file)
 {
     auto tmp = std::filesystem::path(root) / "/" / file;
 
     return std::filesystem::is_regular_file(tmp);
 }
 
-bool PackageFromDirectory::isFolder(const std::string& root, const std::string& folder)
+bool PackageFromDirectory::isFolder(
+    const std::string& root,
+    const std::string& folder)
 {
     return !isFile(root, folder);
 }

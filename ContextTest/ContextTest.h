@@ -27,7 +27,7 @@ public:
 private:
 	ProjectionMatrix mProjection;
 	ModelviewMatrix mModelview;
-	DefaultShader* mShader;
+    DefaultShader* mShader = nullptr;
 
 };
 
